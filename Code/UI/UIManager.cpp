@@ -34,7 +34,7 @@ namespace Big::UserInterface
 		if (m_Opened)
 		{
 			PAD::DISABLE_CONTROL_ACTION(0, 27, true); // Disable phone
-			m_HeaderTimer.SetDelay(std::chrono::milliseconds(m_HeaderTimerDelay));
+			m_AnimatedHeaderTimer.SetDelay(std::chrono::milliseconds(m_AnimatedHeaderTimerDelay));
 			m_DrawBaseY = m_PosY;
 			DrawHeader();
 			if (!m_SubmenuStack.empty())
@@ -219,15 +219,27 @@ namespace Big::UserInterface
 					m_HeaderGradientFlip ? 180.f : 0.f);
 			}
 			break;
+		case HeaderType::Image:
+			LoadHeader(m_HeaderFilename);
+			DrawSprite(
+				m_HeaderFilename.substr(0, m_HeaderFilename.find(".")).c_str(),
+				"static",
+				m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
+				m_DrawBaseY + (m_HeaderHeight / 2.f),
+				m_Width,
+				m_HeaderHeight,
+				Color{ 255, 255, 255, 255 },
+				0.f);
+			break;
 		case HeaderType::Animated:
 			LoadHeader(m_HeaderFilename);
-			if (m_HeaderTimer.Update()) {
-				m_HeaderCurrentImage++;
-				if (m_HeaderCurrentImage == 40)
-					m_HeaderCurrentImage = 1;
+			if (m_AnimatedHeaderTimer.Update()) {
+				m_AnimatedHeaderCurrentImage++;
+				if (m_AnimatedHeaderCurrentImage > m_AnimatedHeaderFrameCount)
+					m_AnimatedHeaderCurrentImage = 1;
 			}
 
-			std::string imgName = std::to_string(m_HeaderCurrentImage);
+			std::string imgName = std::to_string(m_AnimatedHeaderCurrentImage);
 			DrawSprite(
 				m_HeaderFilename.substr(0, m_HeaderFilename.find(".")).c_str(),
 				imgName.c_str(),
@@ -236,7 +248,7 @@ namespace Big::UserInterface
 				m_Width,
 				m_HeaderHeight,
 				Color{ 255, 255, 255, 255 },
-				m_HeaderGradientFlip ? 180.f : 0.f);
+				0.f);
 			break;
 		}
 
@@ -492,7 +504,7 @@ namespace Big::UserInterface
 		DrawLeftText(
 			description,
 			m_PosX - (m_Width / m_DescriptionPadding) + (spriteSize.x * 1.15f) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_DescriptionHeight / 2.f) - (GetTextHeight(m_DescriptionFont, m_DescriptionTextSize) / 1.5f),
+			m_DrawBaseY + (m_DescriptionHeight / 2.f) - (GetTextHeight(m_DescriptionFont, m_DescriptionTextSize) / 1.35f),
 			m_DescriptionTextSize,
 			m_DescriptionFont,
 			m_DescriptionTextColor,

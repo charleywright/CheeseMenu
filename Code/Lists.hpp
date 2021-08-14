@@ -7,6 +7,7 @@ namespace Big::Lists
 	{
 		"Static",
 		"Gradient",
+		"Image",
 		"Animated"
 	};
 
@@ -14,10 +15,11 @@ namespace Big::Lists
 	{
 		UserInterface::HeaderType::Static,
 		UserInterface::HeaderType::Gradient,
+		UserInterface::HeaderType::Image,
 		UserInterface::HeaderType::Animated
 	};
 
-	inline std::size_t HeaderTypesPosition = 2;
+	inline std::size_t HeaderTypesPosition = 3;
 
 	inline const char* DemoList[10]
 	{

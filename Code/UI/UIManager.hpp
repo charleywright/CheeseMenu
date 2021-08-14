@@ -21,7 +21,8 @@ namespace Big::UserInterface
 	{
 		Static = 0,
 		Gradient = 1,
-		Animated = 2
+		Image = 2,
+		Animated = 3
 	};
 
 	struct Rectangle
@@ -116,9 +117,11 @@ namespace Big::UserInterface
 		Color m_HeaderGradientColorRight{ 252, 0, 255, 255 };
 
 		std::string m_HeaderFilename = "header.ytd";
-		int m_HeaderCurrentImage = 1;
-		int m_HeaderTimerDelay = 10;
-		Timer m_HeaderTimer = Timer(10ms);
+
+		int m_AnimatedHeaderCurrentImage = 1;
+		int m_AnimatedHeaderTimerDelay = 10;
+		int m_AnimatedHeaderFrameCount = 39;
+		Timer m_AnimatedHeaderTimer = Timer(10ms);
 
 		// Scrollbar
 		float m_ScrollBarWidth = 0.01f;

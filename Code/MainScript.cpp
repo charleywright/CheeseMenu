@@ -55,7 +55,7 @@ namespace Big
 			sub->AddOption<SubOption>("Settings", nullptr, SubmenuSettings);
 			sub->AddOption<RegularOption>(std::move(RegularOption("Version").SetRightText(g_GameVariables->m_GameBuild)));
 
-			sub->AddOption<RegularOption>("Unload", "Unload the menu.", []
+			sub->AddOption<RegularOption>("Unload", nullptr, []
 			{
 				g_Running = false;
 			});
@@ -182,7 +182,8 @@ namespace Big
 		});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Header Animated", SubmenuSettingsHeaderAnimatedBackground, [](RegularSubmenu* sub) {
-			sub->AddOption<NumberOption<int>>("Frame Delay", nullptr, &g_UiManager->m_HeaderTimerDelay, '\0', INT_MAX);
+			sub->AddOption<NumberOption<int>>("Frame Delay", "The delay between each frame in ms", &g_UiManager->m_AnimatedHeaderTimerDelay, '\0', INT_MAX);
+			sub->AddOption<NumberOption<int>>("Frame Count", "How many frames to render (inclusive)", &g_UiManager->m_AnimatedHeaderFrameCount, '\0', INT_MAX);
 		});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Header Text", SubmenuSettingsHeaderText, [](RegularSubmenu* sub)
