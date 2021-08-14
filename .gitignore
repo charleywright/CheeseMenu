@@ -1,0 +1,5 @@
+.vs
+*.dll
+*.pdb
+Xenos.log
+Release-Intermediates/
