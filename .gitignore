@@ -3,5 +3,6 @@
 *.dll
 *.pdb
 Xenos.log
+XenosCurrentProfile.xpr
 Release-Intermediates/
 Debug-Intermediates/

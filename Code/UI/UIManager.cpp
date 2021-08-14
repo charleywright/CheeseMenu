@@ -322,13 +322,15 @@ namespace Big::UserInterface
 			m_OptionHeight * num_options,
 			m_ScrollBarBackgroundColor
 		);
-		DrawRect(
-			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY + (m_OptionHeight * 0.5f) + (m_OptionHeight * (sub->GetSelectedOption() >= m_OptionsPerPage ? m_OptionsPerPage - 1 : sub->GetSelectedOption())),
-			m_ScrollBarWidth,
-			m_OptionHeight,
-			m_ScrollBarForegroundColor
-		);
+		if (num_options != 0) {
+			DrawRect(
+				m_PosX + m_ScrollBarWidth * 0.5f,
+				m_DrawBaseY + (m_OptionHeight * 0.5f) + (m_OptionHeight * (sub->GetSelectedOption() >= m_OptionsPerPage ? m_OptionsPerPage - 1 : sub->GetSelectedOption())),
+				m_ScrollBarWidth,
+				m_OptionHeight,
+				m_ScrollBarForegroundColor
+			);
+		}
 		DrawRect(
 			m_PosX + m_ScrollBarWidth * 0.5f,
 			m_DrawBaseY + (m_SubmenuBarHeight * 0.5f) + (m_OptionHeight * num_options),
