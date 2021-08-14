@@ -3,6 +3,7 @@
 #include "../Types.hpp"
 #include "TextBox.hpp"
 #include "AbstractSubmenu.hpp"
+#include "../Timer.hpp"
 
 namespace Big::UserInterface
 {
@@ -47,7 +48,8 @@ namespace Big::UserInterface
 	class UIManager
 	{
 	public:
-		explicit UIManager() = default;
+		//explicit UIManager() = default;
+		UIManager();
 		~UIManager() noexcept = default;
 		UIManager(UIManager const&) = delete;
 		UIManager(UIManager&&) = delete;
@@ -115,6 +117,8 @@ namespace Big::UserInterface
 
 		std::string m_HeaderFilename = "header.ytd";
 		int m_HeaderCurrentImage = 1;
+		int m_HeaderTimerDelay = 10;
+		Timer m_HeaderTimer = Timer(10ms);
 
 		// Scrollbar
 		float m_ScrollBarWidth = 0.01f;

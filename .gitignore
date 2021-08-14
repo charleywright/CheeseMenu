@@ -1,5 +1,7 @@
-.vs
+.vs/
+.vscode/
 *.dll
 *.pdb
 Xenos.log
 Release-Intermediates/
+Debug-Intermediates/

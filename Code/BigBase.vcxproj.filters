@@ -44,7 +44,6 @@
     <ClInclude Include="D3DRenderer.hpp" />
     <ClInclude Include="MainScript.hpp" />
     <ClInclude Include="UI\TextBox.hpp" />
-    <ClInclude Include="Translation.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

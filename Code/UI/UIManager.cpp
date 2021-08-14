@@ -5,6 +5,8 @@
 
 namespace Big::UserInterface
 {
+	UIManager::UIManager() {}
+
 	void UIManager::OnTick()
 	{
 		std::lock_guard lock(m_Mutex);
@@ -32,7 +34,7 @@ namespace Big::UserInterface
 		if (m_Opened)
 		{
 			PAD::DISABLE_CONTROL_ACTION(0, 27, true); // Disable phone
-
+			m_HeaderTimer.SetDelay(std::chrono::milliseconds(m_HeaderTimerDelay));
 			m_DrawBaseY = m_PosY;
 			DrawHeader();
 			if (!m_SubmenuStack.empty())
@@ -219,25 +221,22 @@ namespace Big::UserInterface
 			break;
 		case HeaderType::Animated:
 			LoadHeader(m_HeaderFilename);
-
-			static Timer imgTimer(10ms);
-			if (imgTimer.Update()) {
+			if (m_HeaderTimer.Update()) {
+				m_HeaderCurrentImage++;
 				if (m_HeaderCurrentImage == 40)
 					m_HeaderCurrentImage = 1;
-
-				std::string imgName = std::to_string(m_HeaderCurrentImage);
-				DrawSprite(
-					m_HeaderFilename.substr(0, m_HeaderFilename.find(".")).c_str(),
-					imgName.c_str(),
-					m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-					m_DrawBaseY + (m_HeaderHeight / 2.f),
-					m_Width,
-					m_HeaderHeight,
-					Color{ 255, 255, 255, 255 },
-					m_HeaderGradientFlip ? 180.f : 0.f);
-
-				m_HeaderCurrentImage++;
 			}
+
+			std::string imgName = std::to_string(m_HeaderCurrentImage);
+			DrawSprite(
+				m_HeaderFilename.substr(0, m_HeaderFilename.find(".")).c_str(),
+				imgName.c_str(),
+				m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
+				m_DrawBaseY + (m_HeaderHeight / 2.f),
+				m_Width,
+				m_HeaderHeight,
+				Color{ 255, 255, 255, 255 },
+				m_HeaderGradientFlip ? 180.f : 0.f);
 			break;
 		}
 

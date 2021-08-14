@@ -46,7 +46,7 @@
 #define BIGBASE_STRINGIZE_IMPL(x) #x
 #define BIGBASE_STRINGIZE(x) BIGBASE_STRINGIZE_IMPL(x)
 
-#define BIGBASE_NAME "BigBase"
+#define BIGBASE_NAME "CheeseMenu"
 
 namespace Big
 {

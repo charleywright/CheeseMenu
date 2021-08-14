@@ -3,7 +3,6 @@
 #include "Lists.hpp"
 #include "Natives.hpp"
 #include "Timer.hpp"
-#include "Translation.hpp"
 #include "CustomText.hpp"
 #include "UI/UIManager.hpp"
 #include "UI/BoolOption.hpp"
@@ -23,6 +22,7 @@ namespace Big
 		SubmenuSettingsHeader,
 		SubmenuSettingsHeaderStaticBackground,
 		SubmenuSettingsHeaderGradientBackground,
+		SubmenuSettingsHeaderAnimatedBackground,
 		SubmenuSettingsHeaderText,
 		SubmenuSettingsSubmenuBar,
 		SubmenuSettingsOption,
@@ -31,8 +31,7 @@ namespace Big
 		SubmenuSettingsInput,
 		SubmenuSettingsLanguage,
 		SubmenuSelectedPlayer,
-		SubmenuPlayerList,
-		SubmenuTest
+		SubmenuPlayerList
 	};
 
 	bool MainScript::IsInitialized()
@@ -50,50 +49,16 @@ namespace Big
 		m_Initialized = true;
 		using namespace UserInterface;
 
-		g_CustomText->AddText(CONSTEXPR_JOAAT("HUD_JOINING"), "Isn't " BIGBASE_NAME " the fucking best?");
-		g_CustomText->AddText(CONSTEXPR_JOAAT("HUD_TRANSP"), "Isn't " BIGBASE_NAME " the fucking best?");
-
 		g_UiManager->AddSubmenu<RegularSubmenu>("Home", SubmenuHome, [](RegularSubmenu* sub)
 		{
-			sub->AddOption<SubOption>(BIG_TRANSLATE("Demo_sub"), nullptr, SubmenuTest);
 			sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
 			sub->AddOption<SubOption>("Settings", nullptr, SubmenuSettings);
 			sub->AddOption<RegularOption>(std::move(RegularOption("Version").SetRightText(g_GameVariables->m_GameBuild)));
-
-			sub->AddOption<BoolOption<bool>>("Log Script Events", nullptr, &g_LogScriptEvents, BoolDisplay::OnOff);
 
 			sub->AddOption<RegularOption>("Unload", "Unload the menu.", []
 			{
 				g_Running = false;
 			});
-		});
-
-		g_UiManager->AddSubmenu<RegularSubmenu>(BIG_TRANSLATE("Demo_sub"), SubmenuTest, [](RegularSubmenu* sub)
-		{
-			sub->AddOption<RegularOption>(BIG_TRANSLATE("RegularOption_demo"), "A regular option.", []
-			{
-				g_Logger->Info("You pressed the test option");
-			});
-
-			static bool testBool1{};
-			sub->AddOption<BoolOption<bool>>(BIG_TRANSLATE("BoolOnOff_demo"), nullptr, &testBool1, BoolDisplay::OnOff);
-			static bool testBool2{};
-			sub->AddOption<BoolOption<bool>>(BIG_TRANSLATE("BoolYesNo_demo"), nullptr, &testBool2, BoolDisplay::YesNo);
-
-			static std::int32_t int32Test{ 69 };
-			sub->AddOption<NumberOption<std::int32_t>>("Int32", nullptr, &int32Test, 0, 100);
-
-			static std::int64_t int64Test{ 420 };
-			sub->AddOption<NumberOption<std::int64_t>>("Int64", nullptr, &int64Test, 0, 1000, 10);
-
-			static float floatTest{ 6.9f };
-			sub->AddOption<NumberOption<float>>("Float", nullptr, &floatTest, 0.f, 10.f, 0.1f, 1);
-
-			static std::vector<std::uint64_t> vector{ 1, 2, 3 };
-			static std::size_t vectorPos{};
-
-			sub->AddOption<ChooseOption<const char*, std::size_t>>("Array", nullptr, &Lists::DemoList, &Lists::DemoListPos);
-			sub->AddOption<ChooseOption<std::uint64_t, std::size_t>>("Vector", nullptr, &vector, &vectorPos);
 		});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Settings", SubmenuSettings, [](RegularSubmenu* sub)
@@ -109,28 +74,10 @@ namespace Big
 			sub->AddOption<NumberOption<float>>("Y Position", nullptr, &g_UiManager->m_PosY, 0.f, 1.f, 0.01f, 2);
 			sub->AddOption<NumberOption<float>>("Width", nullptr, &g_UiManager->m_Width, 0.01f, 1.f, 0.01f, 2);
 			sub->AddOption<BoolOption<bool>>("Sounds", nullptr, &g_UiManager->m_Sounds, BoolDisplay::OnOff);
+#if _DEBUG
 			sub->AddOption<BoolOption<std::atomic_bool>>("Log Window", nullptr, &g_Settings.m_LogWindow, BoolDisplay::OnOff);
-		});
-
-		g_UiManager->AddSubmenu<RegularSubmenu>("Language", SubmenuSettingsLanguage, [](RegularSubmenu* sub)
-		{
-			namespace fs = std::filesystem;
-			fs::directory_iterator dirIt{ g_TranslationManager->GetTranslationDirectory() };
-			for (auto&& dirEntry : dirIt)
-			{
-				if (dirEntry.is_regular_file())
-				{
-					auto path = dirEntry.path();
-					if (path.has_filename())
-					{
-						sub->AddOption<RegularOption>(path.stem().u8string().c_str(), nullptr, [=]
-						{
-							g_TranslationManager->LoadTranslations(path.stem().u8string().c_str());
-						});
-					}
-				}
-			}
-
+			sub->AddOption<BoolOption<std::atomic_bool>>("Lock Cursor", nullptr, &g_Settings.m_LockMouse, BoolDisplay::OnOff);
+#endif
 		});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Infobar", SubmenuSettingsSubmenuBar, [](RegularSubmenu* sub)
@@ -202,6 +149,9 @@ namespace Big
 			case HeaderType::Gradient:
 				sub->AddOption<SubOption>("Gradient", nullptr, SubmenuSettingsHeaderGradientBackground);
 				break;
+			case HeaderType::Animated:
+				sub->AddOption<SubOption>("Animated", nullptr, SubmenuSettingsHeaderAnimatedBackground);
+				break;
 			}
 
 			sub->AddOption<SubOption>("Text", nullptr, SubmenuSettingsHeaderText);
@@ -229,6 +179,10 @@ namespace Big
 			sub->AddOption<NumberOption<std::uint8_t>>("G2", nullptr, &g_UiManager->m_HeaderGradientColorRight.g, '\0', static_cast<std::uint8_t>(255));
 			sub->AddOption<NumberOption<std::uint8_t>>("B2", nullptr, &g_UiManager->m_HeaderGradientColorRight.b, '\0', static_cast<std::uint8_t>(255));
 			sub->AddOption<NumberOption<std::uint8_t>>("A2", nullptr, &g_UiManager->m_HeaderGradientColorRight.a, '\0', static_cast<std::uint8_t>(255));
+		});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Header Animated", SubmenuSettingsHeaderAnimatedBackground, [](RegularSubmenu* sub) {
+			sub->AddOption<NumberOption<int>>("Frame Delay", nullptr, &g_UiManager->m_HeaderTimerDelay, '\0', INT_MAX);
 		});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Header Text", SubmenuSettingsHeaderText, [](RegularSubmenu* sub)

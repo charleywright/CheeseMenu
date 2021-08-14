@@ -8,7 +8,6 @@
 #include "CustomText.hpp"
 #include "D3DRenderer.hpp"
 #include "UI/UIManager.hpp"
-#include "Translation.hpp"
 
 /**
  * \brief The entry point of the library
@@ -25,10 +24,7 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 		CreateThread(nullptr, 0, [](LPVOID) -> DWORD
 		{
 			g_Logger = std::make_unique<Logger>();
-			g_Logger->Info("BigBase injected.");
-
-			g_TranslationManager = std::make_unique<TranslationManager>();
-			g_TranslationManager->LoadTranslations("English");
+			g_Logger->Info("CheeseMenu injected.");
 
 			g_GameFunctions = std::make_unique<GameFunctions>();
 			g_GameVariables = std::make_unique<GameVariables>();
@@ -58,7 +54,7 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 			g_Hooking = std::make_unique<Hooking>();
 			g_Hooking->Hook();
 
-			g_Logger->Info("BigBase loaded.");
+			g_Logger->Info("CheeseMenu loaded.");
 			g_UiManager->m_Opened = true;
 			while (g_Running)
 			{
@@ -85,8 +81,6 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 			std::this_thread::sleep_for(500ms);
 
 			g_Hooking.reset();
-
-			g_TranslationManager.reset();
 
 			g_GameVariables.reset();
 			g_GameFunctions.reset();
