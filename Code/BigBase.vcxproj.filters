@@ -44,6 +44,7 @@
     <ClInclude Include="D3DRenderer.hpp" />
     <ClInclude Include="MainScript.hpp" />
     <ClInclude Include="UI\TextBox.hpp" />
+    <ClInclude Include="Features.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -64,5 +65,6 @@
     <ClCompile Include="CustomText.cpp" />
     <ClCompile Include="D3DRenderer.cpp" />
     <ClCompile Include="MainScript.cpp" />
+    <ClCompile Include="Features.cpp" />
   </ItemGroup>
 </Project>

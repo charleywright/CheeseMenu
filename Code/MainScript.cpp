@@ -6,6 +6,7 @@
 #include "Natives.hpp"
 #include "Timer.hpp"
 #include "CustomText.hpp"
+#include "Features.hpp"
 #include "UI/UIManager.hpp"
 #include "UI/BoolOption.hpp"
 #include "UI/ChooseOption.hpp"
@@ -20,6 +21,8 @@ namespace Big
 	enum Submenu : std::uint32_t
 	{
 		SubmenuHome,
+		SubmenuSelf,
+		SubmenuHeists,
 		SubmenuSession,
 		SubmenuSettings,
 		SubmenuSettingsHeader,
@@ -56,7 +59,9 @@ namespace Big
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Home", SubmenuHome, [](RegularSubmenu* sub)
 			{
+				sub->AddOption<SubOption>("Self", nullptr, SubmenuSelf);
 				sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
+				sub->AddOption<SubOption>("Heists", nullptr, SubmenuHeists);
 				sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
 				sub->AddOption<SubOption>("Settings", nullptr, SubmenuSettings);
 				sub->AddOption<RegularOption>(std::move(RegularOption("Server Invite", nullptr, [] {
@@ -70,38 +75,46 @@ namespace Big
 					});
 			});
 
+		g_UiManager->AddSubmenu<RegularSubmenu>("Self", SubmenuSelf, [](RegularSubmenu* sub) {
+
+		});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {
+	
+		});
+
 		g_UiManager->AddSubmenu<RegularSubmenu>("Session", SubmenuSession, [](RegularSubmenu* sub) {
 			sub->AddOption<RegularOption>("Join Public Session", nullptr, [] {
-				//Features::EnterSession(0);
+				Features::EnterSession(0);
 			});
 			sub->AddOption<RegularOption>("New Public Session", nullptr, []{
-				//Features::EnterSession(1);
+				Features::EnterSession(1);
 			});
 			sub->AddOption<RegularOption>("Closed Crew Session", nullptr, [] {
-				//Features::EnterSession(2);
+				Features::EnterSession(2);
 			});
 			sub->AddOption<RegularOption>("Crew Session", nullptr, [] {
-				//Features::EnterSession(3);
+				Features::EnterSession(3);
 			});
 			sub->AddOption<RegularOption>("Closed Friend Session", nullptr, [] {
-				//Features::EnterSession(6);
+				Features::EnterSession(6);
 			});
 			sub->AddOption<RegularOption>("Find Friend Session", nullptr, [] {
-				//Features::EnterSession(9);
+				Features::EnterSession(9);
 			});
 			sub->AddOption<RegularOption>("Solo Session", nullptr, [] {
-				//Features::EnterSession(10);
+				Features::EnterSession(10);
 			});
 			sub->AddOption<RegularOption>("Invite Only Session", nullptr, [] {
-				//Features::EnterSession(11);
+				Features::EnterSession(11);
 			});
 			sub->AddOption<RegularOption>("Join Crew Session", nullptr, [] {
-				//Features::EnterSession(12);
+				Features::EnterSession(12);
 			});
 			sub->AddOption<RegularOption>("Leave GTA Online", nullptr, [] {
-				//Features::LeaveGTAOnline();
+				Features::LeaveGTAOnline();
 			});
-			});
+		});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Settings", SubmenuSettings, [](RegularSubmenu* sub)
 			{
