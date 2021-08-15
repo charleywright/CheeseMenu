@@ -99,11 +99,7 @@ namespace Big::UserInterface
 			if (m_Sounds)
 				AUDIO::PLAY_SOUND_FRONTEND(-1, "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 
-			if (m_SubmenuStack.size() <= 1)
-			{
-				m_Opened = false;
-			}
-			else
+			if (m_SubmenuStack.size() > 1)
 			{
 				m_SubmenuStack.pop();
 			}
@@ -300,7 +296,7 @@ namespace Big::UserInterface
 
 	void UIManager::DrawScrollBar(AbstractSubmenu* sub) {
 		Vector2 sprite_size = GetSpriteScale(m_FooterSpriteSize);
-		int num_options = sub->GetNumOptions() > m_OptionsPerPage ? m_OptionsPerPage : sub->GetNumOptions();
+		size_t num_options = sub->GetNumOptions() > m_OptionsPerPage ? m_OptionsPerPage : sub->GetNumOptions();
 		DrawRect(
 			m_PosX + m_ScrollBarWidth * 0.5f,
 			m_DrawBaseY - (m_SubmenuBarHeight * 0.5f),

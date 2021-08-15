@@ -94,9 +94,9 @@ namespace Big::UserInterface
 		bool m_Sounds = true;
 
 		// Input
-		std::int32_t m_OpenDelay = 200;
-		std::int32_t m_BackDelay = 300;
-		std::int32_t m_EnterDelay = 300;
+		std::int32_t m_OpenDelay = 120;
+		std::int32_t m_BackDelay = 120;
+		std::int32_t m_EnterDelay = 120;
 		std::int32_t m_VerticalDelay = 120;
 		std::int32_t m_HorizontalDelay = 120;
 

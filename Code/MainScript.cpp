@@ -229,7 +229,12 @@ namespace Big
 
 		g_UiManager->AddSubmenu<PlayerSubmenu>(&g_SelectedPlayer, SubmenuSelectedPlayer, [](PlayerSubmenu* sub)
 		{
-			sub;
+				sub->AddOption<RegularOption>("Get player ID", nullptr, [] {
+					Player p = PLAYER::PLAYER_ID();
+					g_Logger->Info(std::to_string(p).c_str());
+					p = PLAYER::PLAYER_PED_ID();
+					g_Logger->Info(std::to_string(p).c_str());
+				});
 		});
 	}
 
