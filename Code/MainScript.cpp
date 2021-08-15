@@ -23,6 +23,10 @@ namespace Big
 		SubmenuHome,
 		SubmenuSelf,
 		SubmenuHeists,
+		SubmenuHeistsCayoPerico,
+		SubmenuHeistsCayoPericoVehicle,
+		SubmenuHeistsCayoPericoSupportTeam,
+		SubmenuHeistsCayoPericoApproach,
 		SubmenuSession,
 		SubmenuSettings,
 		SubmenuSettingsHeader,
@@ -59,10 +63,10 @@ namespace Big
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Home", SubmenuHome, [](RegularSubmenu* sub)
 			{
-				sub->AddOption<SubOption>("Self", nullptr, SubmenuSelf);
-				sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
+				// sub->AddOption<SubOption>("Self", nullptr, SubmenuSelf);
+				// sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
 				sub->AddOption<SubOption>("Heists", nullptr, SubmenuHeists);
-				sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
+				// sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
 				sub->AddOption<SubOption>("Settings", nullptr, SubmenuSettings);
 				sub->AddOption<RegularOption>(std::move(RegularOption("Server Invite", nullptr, [] {
 					ShellExecuteA(0, 0, "https://discord.gg/J8486xStu6", 0, 0, SW_SHOW);
@@ -77,44 +81,121 @@ namespace Big
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Self", SubmenuSelf, [](RegularSubmenu* sub) {
 
-		});
+			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {
-	
-		});
+			sub->AddOption<SubOption>("Cayo Perico", nullptr, SubmenuHeistsCayoPerico);
+			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Cayo Perico", SubmenuHeistsCayoPerico, [](RegularSubmenu* sub) {
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Difficulty", nullptr, &Lists::CayoPericoDifficultyFrontend, &Lists::CayoPericoDifficultyPosition, true, []
+				{
+					g_Features->m_CayoPericoDifficulty = Lists::CayoPericoDifficultyBackend[Lists::CayoPericoDifficultyPosition];
+				});
+			sub->AddOption<SubOption>("Approach Vehicle", nullptr, SubmenuHeistsCayoPericoVehicle);
+			sub->AddOption<BoolOption<bool>>("Demolition Charges", nullptr, &g_Features->m_CayoPericoDemolitionCharges, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Cutting Torch", nullptr, &g_Features->m_CayoPericoCuttingTorch, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Plasma Cutter / Safe Code", nullptr, &g_Features->m_CayoPericoPrimaryTool, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Fingerprint Cloner", nullptr, &g_Features->m_CayoPericoFingerprint, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Disrupt Weapons", nullptr, &g_Features->m_CayoPericoDisruptWeapons, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Disrupt Armour", nullptr, &g_Features->m_CayoPericoDisruptArmour, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Disrupt Air Support", nullptr, &g_Features->m_CayoPericoDisruptAirSupport, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Unlock All POI", "Unlock all Points of Interest", &g_Features->m_CayoPericoUnlockAllPOI, BoolDisplay::YesNo);
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Main Target", nullptr, &Lists::CayoPericoMainTargetFrontend, &Lists::CayoPericoMainTargetPosition, true, []
+				{
+					g_Features->m_CayoPericoMainTarget = Lists::CayoPericoMainTargetBackend[Lists::CayoPericoMainTargetPosition];
+				});
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Weapon Loadout", nullptr, &Lists::CayoPericoWeaponFrontend, &Lists::CayoPericoWeaponPosition, true, []
+				{
+					g_Features->m_CayoPericoWeapon = Lists::CayoPericoWeaponBackend[Lists::CayoPericoWeaponPosition];
+				});
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Supply Truck", nullptr, &Lists::CayoPericoSupplyTruckFrontend, &Lists::CayoPericoSupplyTruckPosition, true, [] {
+				g_Features->m_CayoPericoSupplyTruck = Lists::CayoPericoSupplyTruckBackend[Lists::CayoPericoSupplyTruckPosition];
+				});
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Entry Point", nullptr, &Lists::CayoPericoEntryFrontend, &Lists::CayoPericoEntryPosition, true, []
+				{
+					g_Features->m_CayoPericoEntry = Lists::CayoPericoEntryBackend[Lists::CayoPericoEntryPosition];
+				});
+			sub->AddOption<SubOption>("Support Crew", nullptr, SubmenuHeistsCayoPericoSupportTeam);
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Playthrough Status", nullptr, &Lists::CayoPericoPlaythroughStatusFrontend, &Lists::CayoPericoPlaythroughStatusPosition, true, []
+				{
+					g_Features->m_CayoPericoPlaythroughStatus = Lists::CayoPericoPlaythroughStatusBackend[Lists::CayoPericoPlaythroughStatusPosition];
+				});
+			sub->AddOption<SubOption>("Infiltration & Escape Points", nullptr, SubmenuHeistsCayoPericoApproach);
+			sub->AddOption<BoolOption<bool>>("Max Payout", "Don't get any secondary when using this", &g_Features->m_CayoPericoMaxPayout, BoolDisplay::OnOff);
+			if (g_Features->m_CayoPericoMaxPayout) {
+				sub->AddOption<NumberOption<int>>("Your Cut", nullptr, &g_Features->m_CayoPericoCut, 15, 100, 5, 3, true, "", "%");
+				sub->AddOption<RegularOption>("Apply Max Payout", "Use this during the heist", [] {
+					g_Features->ApplyCayoPericoMaxPayout();
+					});
+			}
+			if (!g_Features->m_CayoPericoMaxPayout) sub->AddOption<NumberOption<int>>("Bag Size Multiplier", nullptr, &g_Features->m_CayoPericoBagsizeMultiplier, 1, 4, 1, 1, true, "", "x");
+			sub->AddOption<RegularOption>("Apply Settings", nullptr, [] {
+				g_Features->ApplyCayoPerico();
+				});
+			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Approach Vehicle", SubmenuHeistsCayoPericoVehicle, [](RegularSubmenu* sub) {
+			sub->AddOption<BoolOption<bool>>("Kosatka", nullptr, &g_Features->m_CayoPericoKosatka, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Velum", nullptr, &g_Features->m_CayoPericoVelum, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Stealth Annihilator", nullptr, &g_Features->m_CayoPericoAnnihilator, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Patrol Boat", nullptr, &g_Features->m_CayoPericoPatrolBoat, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Longfin", nullptr, &g_Features->m_CayoPericoLongfin, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Alkonost & Stealth helicopter", nullptr, &g_Features->m_CayoPericoAlkonostAndStealthHeli, BoolDisplay::YesNo);
+			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Approach Vehicle", SubmenuHeistsCayoPericoSupportTeam, [](RegularSubmenu* sub) {
+			sub->AddOption<BoolOption<bool>>("Airstrike", nullptr, &g_Features->m_CayoPericoSupportAirstrike, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Supply Drop", nullptr, &g_Features->m_CayoPericoSupportSupplyDrop, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Sniper", nullptr, &g_Features->m_CayoPericoSupportSniper, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Helicopter Pickup", nullptr, &g_Features->m_CayoPericoSupportHeliPickup, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Recon Drone", nullptr, &g_Features->m_CayoPericoSupportReconDrone, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Weapon Stash", nullptr, &g_Features->m_CayoPericoSupportWeaponStash, BoolDisplay::YesNo);
+			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Infiltration & Escape Points", SubmenuHeistsCayoPericoApproach, [](RegularSubmenu* sub) {
+			sub->AddOption<BoolOption<bool>>("Airstrip", "Infiltration & Escape", &g_Features->m_CayoPericoApproachAirstrip, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Halo Jump", "Infiltration only", &g_Features->m_CayoPericoApproachHaloJump, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("West Beach", "Infiltration & Kosatka Escape", &g_Features->m_CayoPericoApproachWestBeach, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Main Dock", "Infiltration & Escape", &g_Features->m_CayoPericoApproachMainDock, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("North Dock", "Infiltration & Escape", &g_Features->m_CayoPericoApproachNorthDock, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("North Drop Zone", "Infiltration only", &g_Features->m_CayoPericoApproachNorthDrop, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("South Drop Zone", "Infiltration only", &g_Features->m_CayoPericoApproachSouthDrop, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Drainage Tunnel", "Infiltration only", &g_Features->m_CayoPericoApproachDrainage, BoolDisplay::YesNo);
+			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Session", SubmenuSession, [](RegularSubmenu* sub) {
 			sub->AddOption<RegularOption>("Join Public Session", nullptr, [] {
-				Features::EnterSession(0);
-			});
-			sub->AddOption<RegularOption>("New Public Session", nullptr, []{
-				Features::EnterSession(1);
-			});
+				g_Features->EnterSession(0);
+				});
+			sub->AddOption<RegularOption>("New Public Session", nullptr, [] {
+				g_Features->EnterSession(1);
+				});
 			sub->AddOption<RegularOption>("Closed Crew Session", nullptr, [] {
-				Features::EnterSession(2);
-			});
+				g_Features->EnterSession(2);
+				});
 			sub->AddOption<RegularOption>("Crew Session", nullptr, [] {
-				Features::EnterSession(3);
-			});
+				g_Features->EnterSession(3);
+				});
 			sub->AddOption<RegularOption>("Closed Friend Session", nullptr, [] {
-				Features::EnterSession(6);
-			});
+				g_Features->EnterSession(6);
+				});
 			sub->AddOption<RegularOption>("Find Friend Session", nullptr, [] {
-				Features::EnterSession(9);
-			});
+				g_Features->EnterSession(9);
+				});
 			sub->AddOption<RegularOption>("Solo Session", nullptr, [] {
-				Features::EnterSession(10);
-			});
+				g_Features->EnterSession(10);
+				});
 			sub->AddOption<RegularOption>("Invite Only Session", nullptr, [] {
-				Features::EnterSession(11);
-			});
+				g_Features->EnterSession(11);
+				});
 			sub->AddOption<RegularOption>("Join Crew Session", nullptr, [] {
-				Features::EnterSession(12);
-			});
+				g_Features->EnterSession(12);
+				});
 			sub->AddOption<RegularOption>("Leave GTA Online", nullptr, [] {
-				Features::LeaveGTAOnline();
+				g_Features->LeaveGTAOnline();
+				});
 			});
-		});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Settings", SubmenuSettings, [](RegularSubmenu* sub)
 			{
@@ -153,7 +234,7 @@ namespace Big
 			sub->AddOption<NumberOption<std::uint8_t>>("Right G", nullptr, &g_UiManager->m_SeperatorColorRight.g, '\0', static_cast<std::uint8_t>(255));
 			sub->AddOption<NumberOption<std::uint8_t>>("Right B", nullptr, &g_UiManager->m_SeperatorColorRight.b, '\0', static_cast<std::uint8_t>(255));
 			sub->AddOption<NumberOption<std::uint8_t>>("Right A", nullptr, &g_UiManager->m_SeperatorColorRight.a, '\0', static_cast<std::uint8_t>(255));
-		});
+			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Infobar", SubmenuSettingsSubmenuBar, [](RegularSubmenu* sub)
 			{
@@ -224,7 +305,7 @@ namespace Big
 			sub->AddOption<NumberOption<std::uint8_t>>("End Background G", nullptr, &g_UiManager->m_ScrollBarEndColor.g, '\0', static_cast<std::uint8_t>(255));
 			sub->AddOption<NumberOption<std::uint8_t>>("End Background B", nullptr, &g_UiManager->m_ScrollBarEndColor.b, '\0', static_cast<std::uint8_t>(255));
 			sub->AddOption<NumberOption<std::uint8_t>>("End Background A", nullptr, &g_UiManager->m_ScrollBarEndColor.a, '\0', static_cast<std::uint8_t>(255));
-		});
+			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Header", SubmenuSettingsHeader, [](RegularSubmenu* sub)
 			{

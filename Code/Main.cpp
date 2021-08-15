@@ -8,6 +8,7 @@
 #include "CustomText.hpp"
 #include "D3DRenderer.hpp"
 #include "UI/UIManager.hpp"
+#include "Features.hpp"
 
 /**
  * \brief The entry point of the library
@@ -51,6 +52,7 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 			g_ScriptManager->AddScript(g_LogScript);
 			g_ScriptManager->AddScript(g_CallbackScript);
 
+			g_Features = std::make_unique<Features>();
 
 			g_Hooking = std::make_unique<Hooking>();
 			g_Hooking->Hook();
