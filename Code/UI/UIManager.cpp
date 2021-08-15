@@ -295,7 +295,7 @@ namespace Big::UserInterface
 	}
 
 	void UIManager::DrawScrollBar(AbstractSubmenu* sub) {
-		Vector2 sprite_size = GetSpriteScale(m_FooterSpriteSize);
+		Vector2 sprite_size = GetSpriteScale(m_ScrollBarSpriteSize);
 		size_t num_options = sub->GetNumOptions() > m_OptionsPerPage ? m_OptionsPerPage : sub->GetNumOptions();
 		DrawRect(
 			m_PosX + m_ScrollBarWidth * 0.5f,

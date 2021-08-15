@@ -88,9 +88,9 @@ namespace Big::UserInterface
 		bool m_Opened = false;
 		bool m_MouseLocked = false;
 		float m_PosX = 0.01f;
-		float m_PosY = 0.18f;
+		float m_PosY = 0.15f;
 		float m_Width = 0.18f;
-		std::size_t m_OptionsPerPage = 9;
+		std::size_t m_OptionsPerPage = 10;
 		bool m_Sounds = true;
 
 		// Input
@@ -124,8 +124,9 @@ namespace Big::UserInterface
 		Timer m_AnimatedHeaderTimer = Timer(10ms);
 
 		// Scrollbar
-		float m_ScrollBarWidth = 0.01f;
+		float m_ScrollBarWidth = 0.008f;
 		float m_ScrollBarOffset = 0.005f;
+		float m_ScrollBarSpriteSize = 0.015f;
 		Color m_ScrollBarBackgroundColor{ 0, 0, 0, 160 };
 		Color m_ScrollBarForegroundColor{ 255, 255, 255, 255 };
 		Color m_ScrollBarEndColor{ 0, 0, 0, 220 };
