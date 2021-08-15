@@ -44,6 +44,7 @@ namespace Big::UserInterface
 				sub->Execute();
 
 				DrawSubmenuBar(sub);
+				if (m_SeperatorEnabled) DrawSeperator(true);
 				DrawScrollBar(sub);
 				if (sub->GetNumOptions() != 0)
 				{
@@ -60,6 +61,7 @@ namespace Big::UserInterface
 						DrawOption(sub->GetOption(i), i == sub->GetSelectedOption());
 					}
 				}
+				if (m_SeperatorEnabled) DrawSeperator(false);
 			}
 
 			DrawFooter();
@@ -221,7 +223,7 @@ namespace Big::UserInterface
 				m_HeaderFilename.substr(0, m_HeaderFilename.find(".")).c_str(),
 				"static",
 				m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + (m_HeaderHeight / 2.f),
+				m_DrawBaseY + (m_HeaderHeight / 2.f) + 0.005f, // Doesn't line up without offset
 				m_Width,
 				m_HeaderHeight,
 				Color{ 255, 255, 255, 255 },
@@ -240,7 +242,7 @@ namespace Big::UserInterface
 				m_HeaderFilename.substr(0, m_HeaderFilename.find(".")).c_str(),
 				imgName.c_str(),
 				m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + (m_HeaderHeight / 2.f),
+				m_DrawBaseY + (m_HeaderHeight / 2.f) + 0.005f, // Doesn't line up without offset
 				m_Width,
 				m_HeaderHeight,
 				Color{ 255, 255, 255, 255 },
@@ -299,14 +301,14 @@ namespace Big::UserInterface
 		size_t num_options = sub->GetNumOptions() > m_OptionsPerPage ? m_OptionsPerPage : sub->GetNumOptions();
 		DrawRect(
 			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY - (m_SubmenuBarHeight * 0.5f),
-			m_ScrollBarWidth, m_SubmenuBarHeight,
+			m_DrawBaseY - m_ScrollBarWidth,
+			m_ScrollBarWidth, m_ScrollBarWidth * 2,
 			m_SubmenuBarBackgroundColor);
 		DrawSprite(
 			"commonmenu",
 			"arrowright",
 			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY - (m_SubmenuBarHeight * 0.5f),
+			m_DrawBaseY - m_ScrollBarWidth,
 			sprite_size.x,
 			sprite_size.y,
 			m_FooterSpriteColor,
@@ -322,21 +324,21 @@ namespace Big::UserInterface
 			DrawRect(
 				m_PosX + m_ScrollBarWidth * 0.5f,
 				m_DrawBaseY + (m_OptionHeight * 0.5f) + (m_OptionHeight * (sub->GetSelectedOption() >= m_OptionsPerPage ? m_OptionsPerPage - 1 : sub->GetSelectedOption())),
-				m_ScrollBarWidth,
-				m_OptionHeight,
+				m_ScrollBarWidth - 0.0025f,
+				m_OptionHeight - 0.005f,
 				m_ScrollBarForegroundColor
 			);
 		}
 		DrawRect(
 			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY + (m_SubmenuBarHeight * 0.5f) + (m_OptionHeight * num_options),
-			m_ScrollBarWidth, m_SubmenuBarHeight,
+			m_DrawBaseY + m_ScrollBarWidth + (m_OptionHeight * num_options),
+			m_ScrollBarWidth, m_ScrollBarWidth * 2,
 			m_SubmenuBarBackgroundColor);
 		DrawSprite(
 			"commonmenu",
 			"arrowright",
 			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY + (m_SubmenuBarHeight * 0.5f) + (m_OptionHeight * num_options),
+			m_DrawBaseY + m_ScrollBarWidth + (m_OptionHeight * num_options),
 			sprite_size.x,
 			sprite_size.y,
 			m_FooterSpriteColor,
@@ -352,6 +354,7 @@ namespace Big::UserInterface
 		char rightText[32] = {};
 		std::snprintf(rightText, sizeof(rightText) - 1, "%zu / %zu", sub->GetSelectedOption() + 1, sub->GetNumOptions());
 
+		// 0.0035f
 		DrawRect(
 			m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
 			m_DrawBaseY + (m_SubmenuBarHeight / 2.f),
@@ -373,6 +376,50 @@ namespace Big::UserInterface
 			false, true);
 
 		m_DrawBaseY += m_SubmenuBarHeight;
+	}
+
+	void UIManager::DrawSeperator(bool top) {
+		float h = m_SeperatorHeight;
+		//if (!top) h += 0.001f;
+		for (short i = 0; i < 20; i++) {
+			DrawSprite(
+				"aircraft_dials",
+				"aircraft_dials_g0",
+				m_PosX + (m_Width * 0.25f) + m_ScrollBarWidth + m_ScrollBarOffset,
+				m_DrawBaseY + h * 0.5f,
+				m_Width * 0.5f,
+				h,
+				m_SeperatorColorLeft,
+				0.f);
+			DrawSprite(
+				"aircraft_dials",
+				"aircraft_dials_g0",
+				m_PosX + (m_Width * 0.25f) + m_ScrollBarWidth + m_ScrollBarOffset,
+				m_DrawBaseY + h * 0.5f,
+				m_Width * 0.5f,
+				h,
+				m_SeperatorColorMiddle,
+				180.f);
+			DrawSprite(
+				"aircraft_dials",
+				"aircraft_dials_g0",
+				m_PosX + (m_Width * 0.75f) + m_ScrollBarWidth + m_ScrollBarOffset,
+				m_DrawBaseY + h * 0.5f,
+				m_Width * 0.5f,
+				h,
+				m_SeperatorColorMiddle,
+				0.f);
+			DrawSprite(
+				"aircraft_dials",
+				"aircraft_dials_g0",
+				m_PosX + (m_Width * 0.75f) + m_ScrollBarWidth + m_ScrollBarOffset,
+				m_DrawBaseY + h * 0.5f,
+				m_Width * 0.5f,
+				h,
+				m_SeperatorColorRight,
+				180.f);
+		}
+		m_DrawBaseY += h;
 	}
 
 	void UIManager::DrawOption(AbstractOption* opt, bool selected)

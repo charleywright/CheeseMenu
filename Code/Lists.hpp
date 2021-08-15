@@ -19,5 +19,5 @@ namespace Big::Lists
 		UserInterface::HeaderType::Animated
 	};
 
-	inline std::size_t HeaderTypesPosition = 3;
+	inline std::size_t HeaderTypesPosition = 2;
 }

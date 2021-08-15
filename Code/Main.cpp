@@ -51,6 +51,7 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 			g_ScriptManager->AddScript(g_LogScript);
 			g_ScriptManager->AddScript(g_CallbackScript);
 
+
 			g_Hooking = std::make_unique<Hooking>();
 			g_Hooking->Hook();
 

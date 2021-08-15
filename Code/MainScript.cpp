@@ -1,3 +1,5 @@
+#include <windows.h>
+#include <shellapi.h>
 #include "MainScript.hpp"
 #include "ScriptCallback.hpp"
 #include "Lists.hpp"
@@ -22,6 +24,7 @@ namespace Big
 		SubmenuSettings,
 		SubmenuSettingsHeader,
 		SubmenuSettingsScrollbar,
+		SubmenuSettingsSeperator,
 		SubmenuSettingsHeaderStaticBackground,
 		SubmenuSettingsHeaderGradientBackground,
 		SubmenuSettingsHeaderAnimatedBackground,
@@ -56,7 +59,10 @@ namespace Big
 				sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
 				sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
 				sub->AddOption<SubOption>("Settings", nullptr, SubmenuSettings);
-				sub->AddOption<RegularOption>(std::move(RegularOption("Version").SetRightText(g_GameVariables->m_GameBuild)));
+				sub->AddOption<RegularOption>(std::move(RegularOption("Server Invite", nullptr, [] {
+					ShellExecuteA(0, 0, "https://discord.gg/J8486xStu6", 0, 0, SW_SHOW);
+					}).SetRightText("discord.gg/J8486xStu6")));
+				sub->AddOption<RegularOption>(std::move(RegularOption("Game Version").SetRightText(g_GameVariables->m_GameBuild)));
 
 				sub->AddOption<RegularOption>("Unload", nullptr, []
 					{
@@ -65,22 +71,43 @@ namespace Big
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Session", SubmenuSession, [](RegularSubmenu* sub) {
-			sub->AddOption<RegularOption>("Join Public Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("New Public Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("Closed Crew Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("Crew Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("Closed Friend Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("Find Friend Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("Solo Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("Invite Only Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("Join Crew Session", nullptr, [] {});
-			sub->AddOption<RegularOption>("Leave GTA Online", nullptr, [] {});
+			sub->AddOption<RegularOption>("Join Public Session", nullptr, [] {
+				//Features::EnterSession(0);
+			});
+			sub->AddOption<RegularOption>("New Public Session", nullptr, []{
+				//Features::EnterSession(1);
+			});
+			sub->AddOption<RegularOption>("Closed Crew Session", nullptr, [] {
+				//Features::EnterSession(2);
+			});
+			sub->AddOption<RegularOption>("Crew Session", nullptr, [] {
+				//Features::EnterSession(3);
+			});
+			sub->AddOption<RegularOption>("Closed Friend Session", nullptr, [] {
+				//Features::EnterSession(6);
+			});
+			sub->AddOption<RegularOption>("Find Friend Session", nullptr, [] {
+				//Features::EnterSession(9);
+			});
+			sub->AddOption<RegularOption>("Solo Session", nullptr, [] {
+				//Features::EnterSession(10);
+			});
+			sub->AddOption<RegularOption>("Invite Only Session", nullptr, [] {
+				//Features::EnterSession(11);
+			});
+			sub->AddOption<RegularOption>("Join Crew Session", nullptr, [] {
+				//Features::EnterSession(12);
+			});
+			sub->AddOption<RegularOption>("Leave GTA Online", nullptr, [] {
+				//Features::LeaveGTAOnline();
+			});
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Settings", SubmenuSettings, [](RegularSubmenu* sub)
 			{
 				sub->AddOption<SubOption>("Header", nullptr, SubmenuSettingsHeader);
 				sub->AddOption<SubOption>("Scrollbar", nullptr, SubmenuSettingsScrollbar);
+				sub->AddOption<SubOption>("Seperator", nullptr, SubmenuSettingsSeperator);
 				sub->AddOption<SubOption>("Infobar", nullptr, SubmenuSettingsSubmenuBar);
 				sub->AddOption<SubOption>("Options", nullptr, SubmenuSettingsOption);
 				sub->AddOption<SubOption>("Footer", nullptr, SubmenuSettingsFooter);
@@ -97,6 +124,23 @@ namespace Big
 				sub->AddOption<BoolOption<std::atomic_bool>>("Lock Cursor", nullptr, &g_Settings.m_LockMouse, BoolDisplay::OnOff);
 #endif
 			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Seperator", SubmenuSettingsSeperator, [](RegularSubmenu* sub) {
+			sub->AddOption<BoolOption<bool>>("Enabled", nullptr, &g_UiManager->m_SeperatorEnabled, BoolDisplay::OnOff);
+			sub->AddOption<NumberOption<float>>("Height", nullptr, &g_UiManager->m_SeperatorHeight, 0.001f, 0.01f, 0.001f, 3);
+			sub->AddOption<NumberOption<std::uint8_t>>("Left R", nullptr, &g_UiManager->m_SeperatorColorLeft.r, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Left G", nullptr, &g_UiManager->m_SeperatorColorLeft.g, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Left B", nullptr, &g_UiManager->m_SeperatorColorLeft.b, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Left A", nullptr, &g_UiManager->m_SeperatorColorLeft.a, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Middle R", nullptr, &g_UiManager->m_SeperatorColorMiddle.r, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Middle G", nullptr, &g_UiManager->m_SeperatorColorMiddle.g, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Middle B", nullptr, &g_UiManager->m_SeperatorColorMiddle.b, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Middle A", nullptr, &g_UiManager->m_SeperatorColorMiddle.a, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Right R", nullptr, &g_UiManager->m_SeperatorColorRight.r, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Right G", nullptr, &g_UiManager->m_SeperatorColorRight.g, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Right B", nullptr, &g_UiManager->m_SeperatorColorRight.b, '\0', static_cast<std::uint8_t>(255));
+			sub->AddOption<NumberOption<std::uint8_t>>("Right A", nullptr, &g_UiManager->m_SeperatorColorRight.a, '\0', static_cast<std::uint8_t>(255));
+		});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Infobar", SubmenuSettingsSubmenuBar, [](RegularSubmenu* sub)
 			{
