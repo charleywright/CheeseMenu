@@ -45,6 +45,7 @@
     <ClInclude Include="MainScript.hpp" />
     <ClInclude Include="UI\TextBox.hpp" />
     <ClInclude Include="Features.hpp" />
+    <ClInclude Include="RPLevels.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

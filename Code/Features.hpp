@@ -9,6 +9,9 @@ namespace Big
 		void EnterSession(int type);
 		void LeaveGTAOnline();
 		
+		void RPCorrection();
+		int m_RPCorrectionLevel = 135;
+		
 		// Cayo Perico Heist
 		void ApplyCayoPerico();
 		void ApplyCayoPericoMaxPayout();

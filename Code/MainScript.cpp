@@ -21,7 +21,7 @@ namespace Big
 	enum Submenu : std::uint32_t
 	{
 		SubmenuHome,
-		SubmenuSelf,
+		SubmenuPlayer,
 		SubmenuHeists,
 		SubmenuHeistsCayoPerico,
 		SubmenuHeistsCayoPericoVehicle,
@@ -63,7 +63,7 @@ namespace Big
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Home", SubmenuHome, [](RegularSubmenu* sub)
 			{
-				// sub->AddOption<SubOption>("Self", nullptr, SubmenuSelf);
+				 sub->AddOption<SubOption>("Player", nullptr, SubmenuPlayer);
 				// sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
 				sub->AddOption<SubOption>("Heists", nullptr, SubmenuHeists);
 				// sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
@@ -79,8 +79,11 @@ namespace Big
 					});
 			});
 
-		g_UiManager->AddSubmenu<RegularSubmenu>("Self", SubmenuSelf, [](RegularSubmenu* sub) {
-
+		g_UiManager->AddSubmenu<RegularSubmenu>("Player", SubmenuPlayer, [](RegularSubmenu* sub) {
+			sub->AddOption<NumberOption<int>>("RP Correction Value", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
+			sub->AddOption<RegularOption>("Set RP", "Set, then join new session", [] {
+				g_Features->RPCorrection();
+			});
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {
