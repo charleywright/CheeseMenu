@@ -44,7 +44,7 @@ namespace Big::UserInterface
 				sub->Execute();
 
 				DrawSubmenuBar(sub);
-				if (m_SeperatorEnabled) DrawSeperator(true);
+				if (m_SeperatorEnabled) DrawSeperator();
 				DrawScrollBar(sub);
 				if (sub->GetNumOptions() != 0)
 				{
@@ -61,7 +61,7 @@ namespace Big::UserInterface
 						DrawOption(sub->GetOption(i), i == sub->GetSelectedOption());
 					}
 				}
-				if (m_SeperatorEnabled) DrawSeperator(false);
+				if (m_SeperatorEnabled) DrawSeperator();
 			}
 
 			DrawFooter();
@@ -354,7 +354,6 @@ namespace Big::UserInterface
 		char rightText[32] = {};
 		std::snprintf(rightText, sizeof(rightText) - 1, "%zu / %zu", sub->GetSelectedOption() + 1, sub->GetNumOptions());
 
-		// 0.0035f
 		DrawRect(
 			m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
 			m_DrawBaseY + (m_SubmenuBarHeight / 2.f),
@@ -378,9 +377,8 @@ namespace Big::UserInterface
 		m_DrawBaseY += m_SubmenuBarHeight;
 	}
 
-	void UIManager::DrawSeperator(bool top) {
+	void UIManager::DrawSeperator() {
 		float h = m_SeperatorHeight;
-		//if (!top) h += 0.001f;
 		for (short i = 0; i < 20; i++) {
 			DrawSprite(
 				"aircraft_dials",

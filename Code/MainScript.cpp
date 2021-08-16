@@ -27,6 +27,7 @@ namespace Big
 		SubmenuHeistsCayoPericoVehicle,
 		SubmenuHeistsCayoPericoSupportTeam,
 		SubmenuHeistsCayoPericoApproach,
+		SubmenuHeistsCasino,
 		SubmenuSession,
 		SubmenuSettings,
 		SubmenuSettingsHeader,
@@ -80,14 +81,15 @@ namespace Big
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Player", SubmenuPlayer, [](RegularSubmenu* sub) {
-			sub->AddOption<NumberOption<int>>("RP Correction Value", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
-			sub->AddOption<RegularOption>("Set RP", "Set, then join new session", [] {
+			sub->AddOption<NumberOption<int>>("RP Correction Rank", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
+			sub->AddOption<RegularOption>("Set Rank", nullptr, [] {
 				g_Features->RPCorrection();
 			});
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {
 			sub->AddOption<SubOption>("Cayo Perico", nullptr, SubmenuHeistsCayoPerico);
+			sub->AddOption<SubOption>("Diamond Casino", nullptr, SubmenuHeistsCasino);
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Cayo Perico", SubmenuHeistsCayoPerico, [](RegularSubmenu* sub) {
@@ -166,6 +168,54 @@ namespace Big
 			sub->AddOption<BoolOption<bool>>("South Drop Zone", "Infiltration only", &g_Features->m_CayoPericoApproachSouthDrop, BoolDisplay::YesNo);
 			sub->AddOption<BoolOption<bool>>("Drainage Tunnel", "Infiltration only", &g_Features->m_CayoPericoApproachDrainage, BoolDisplay::YesNo);
 			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Diamond Casino Heist", SubmenuHeistsCasino, [](RegularSubmenu* sub) {
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Approach", nullptr, &Lists::DiamondCasinoApproachFrontend, &Lists::DiamondCasinoApproachPosition, true, []
+				{
+					g_Features->m_DiamondCasinoApproach = Lists::DiamondCasinoApproachBackend[Lists::DiamondCasinoApproachPosition];
+				});
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Main Target", nullptr, &Lists::DiamondCasinoMainTargetFrontend, &Lists::DiamondCasinoMainTargetPosition, true, []
+				{
+					g_Features->m_DiamondCasinoMainTarget = Lists::DiamondCasinoMainTargetBackend[Lists::DiamondCasinoMainTargetPosition];
+				});
+			sub->AddOption<BoolOption<bool>>("Duggan Shipments", nullptr, &g_Features->m_DiamondCasinoDisrupt, BoolDisplay::YesNo);
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Keycards", nullptr, &Lists::DiamondCasinoKeycardFrontend, &Lists::DiamondCasinoKeycardPosition, true, []
+				{
+					g_Features->m_DiamondCasinoKeycard = Lists::DiamondCasinoKeycardBackend[Lists::DiamondCasinoKeycardPosition];
+				});
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Weaponsmith", nullptr, &Lists::DiamondCasinoWeaponsmithFrontend, &Lists::DiamondCasinoWeaponsmithPosition, true, []
+				{
+					g_Features->m_DiamondCasinoWeaponSmith = Lists::DiamondCasinoWeaponsmithBackend[Lists::DiamondCasinoWeaponsmithPosition];
+				});
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Weapons", nullptr, &Lists::DiamondCasinoWeaponFrontend, &Lists::CayoPericoWeaponPosition, true, []
+				{
+					g_Features->m_DiamondCasinoWeapon = Lists::DiamondCasinoWeaponBackend[Lists::CayoPericoWeaponPosition];
+				});
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Driver", nullptr, &Lists::DiamondCasinoDriverFrontend, &Lists::DiamondCasinoDriverPosition, true, []
+				{
+					g_Features->m_DiamondCasinoDriver = Lists::DiamondCasinoDriverBackend[Lists::DiamondCasinoDriverPosition];
+				});
+			if (g_Features->m_DiamondCasinoDriver == Features::DiamondCasinoDriver::KarimDenz || g_Features->m_DiamondCasinoDriver == Features::DiamondCasinoDriver::TalianaMartinez || g_Features->m_DiamondCasinoDriver == Features::DiamondCasinoDriver::EddieToh) {
+				sub->AddOption<ChooseOption<const char*, std::size_t>>("Vehicle", nullptr, &Lists::DiamondCasinoVehicleType5Frontend, &Lists::DiamondCasinoVehicleType5Position, true, []
+					{
+						g_Features->m_DiamondCasinoVehicleType5 = Lists::DiamondCasinoVehicleType5Backend[Lists::DiamondCasinoVehicleType5Position];
+					});
+			}
+			else {
+				sub->AddOption<ChooseOption<const char*, std::size_t>>("Vehicle", nullptr, &Lists::DiamondCasinoVehicleType4Frontend, &Lists::DiamondCasinoVehicleType4Position, true, []
+					{
+						g_Features->m_DiamondCasinoVehicleType4 = Lists::DiamondCasinoVehicleType4Backend[Lists::DiamondCasinoVehicleType4Position];
+					});
+			}
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Hacker", nullptr, &Lists::DiamondCasinoHackerFrontend, &Lists::DiamondCasinoHackerPosition, true, []
+				{
+					g_Features->m_DiamondCasinoHacker = Lists::DiamondCasinoHackerBackend[Lists::DiamondCasinoHackerPosition];
+				});
+			sub->AddOption<RegularOption>("Apply Settings", nullptr, [] {
+				g_Features->ApplyDiamondCasino();
+				});
+;			});
+
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Session", SubmenuSession, [](RegularSubmenu* sub) {
 			sub->AddOption<RegularOption>("Join Public Session", nullptr, [] {

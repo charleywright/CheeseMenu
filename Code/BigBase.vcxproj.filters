@@ -46,6 +46,7 @@
     <ClInclude Include="UI\TextBox.hpp" />
     <ClInclude Include="Features.hpp" />
     <ClInclude Include="RPLevels.hpp" />
+    <ClInclude Include="QueueScript.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -67,5 +68,6 @@
     <ClCompile Include="D3DRenderer.cpp" />
     <ClCompile Include="MainScript.cpp" />
     <ClCompile Include="Features.cpp" />
+    <ClCompile Include="QueueScript.cpp" />
   </ItemGroup>
 </Project>

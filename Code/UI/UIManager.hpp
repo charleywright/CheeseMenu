@@ -49,7 +49,6 @@ namespace Big::UserInterface
 	class UIManager
 	{
 	public:
-		//explicit UIManager() = default;
 		UIManager();
 		~UIManager() noexcept = default;
 		UIManager(UIManager const&) = delete;
@@ -192,7 +191,7 @@ namespace Big::UserInterface
 		void LoadHeader(std::string headerName);
 		void DrawScrollBar(AbstractSubmenu *sub);
 		void DrawSubmenuBar(AbstractSubmenu* sub);
-		void DrawSeperator(bool top);
+		void DrawSeperator();
 		void DrawOption(AbstractOption* opt, bool selected);
 		void DrawFooter();
 		void DrawDescription();

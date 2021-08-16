@@ -122,4 +122,154 @@ namespace Big::Lists
 		Features::CayoPericoPlaythroughStatus::SkipCutscene
 	};
 	inline std::size_t CayoPericoPlaythroughStatusPosition = 2;
+
+	inline const char* DiamondCasinoApproachFrontend[]
+	{
+		"Silent & Sneaky",
+		"The Big Con",
+		"Aggressive"
+	};
+	inline Features::DiamondCasinoApproach DiamondCasinoApproachBackend[]
+	{
+		Features::DiamondCasinoApproach::Stealth,
+		Features::DiamondCasinoApproach::BigCon,
+		Features::DiamondCasinoApproach::Loud
+	};
+	inline std::size_t DiamondCasinoApproachPosition = 1;
+
+	inline const char* DiamondCasinoMainTargetFrontend[]
+	{
+		"Cash",
+		"Gold",
+		"Art",
+		"Diamonds"
+	};
+	inline Features::DiamondCasinoMainTarget DiamondCasinoMainTargetBackend[]
+	{
+		Features::DiamondCasinoMainTarget::Cash,
+		Features::DiamondCasinoMainTarget::Gold,
+		Features::DiamondCasinoMainTarget::Art,
+		Features::DiamondCasinoMainTarget::Diamonds
+	};
+	inline std::size_t DiamondCasinoMainTargetPosition = 2;
+
+	inline const char* DiamondCasinoKeycardFrontend[]
+	{
+		"None",
+		"Level 1",
+		"Level 2"
+	};
+	inline Features::DiamondCasinoKeycard DiamondCasinoKeycardBackend[]
+	{
+		Features::DiamondCasinoKeycard::None,
+		Features::DiamondCasinoKeycard::Level1,
+		Features::DiamondCasinoKeycard::Level2
+	};
+	inline std::size_t DiamondCasinoKeycardPosition = 2;
+
+	inline const char* DiamondCasinoWeaponsmithFrontend[]
+	{
+		"None",
+		"Karl Abolaji",
+		"Gustavo Mota",
+		"Charlie Reed",
+		"Chester McCoy",
+		"Patrick McReary"
+	};
+	inline Features::DiamondCasinoWeaponsmith DiamondCasinoWeaponsmithBackend[]
+	{
+		Features::DiamondCasinoWeaponsmith::None,
+		Features::DiamondCasinoWeaponsmith::KarlAbolaji,
+		Features::DiamondCasinoWeaponsmith::GustavoMota,
+		Features::DiamondCasinoWeaponsmith::CharlieReed,
+		Features::DiamondCasinoWeaponsmith::ChesterMcCoy,
+		Features::DiamondCasinoWeaponsmith::PatrickMcReary
+	};
+	inline std::size_t DiamondCasinoWeaponsmithPosition = 1;
+
+	inline const char* DiamondCasinoDriverFrontend[]
+	{
+		"None",
+		"Karim Denz",
+		"Taliana Martinez",
+		"Eddie Toh",
+		"Zach Nelson",
+		"Chester McCoy"
+	};
+	inline Features::DiamondCasinoDriver DiamondCasinoDriverBackend[]
+	{
+		Features::DiamondCasinoDriver::None,
+		Features::DiamondCasinoDriver::KarimDenz,
+		Features::DiamondCasinoDriver::TalianaMartinez,
+		Features::DiamondCasinoDriver::EddieToh,
+		Features::DiamondCasinoDriver::ZachNelson,
+		Features::DiamondCasinoDriver::ChesterMcCoy
+	};
+	inline std::size_t DiamondCasinoDriverPosition = 1;
+
+	inline const char* DiamondCasinoHackerFrontend[]
+	{
+		"None",
+		"Rickie Lukens",
+		"Christian Feltz",
+		"Yohan Blair",
+		"Avi Schwartzman",
+		"Paige Harris"
+	};
+	inline Features::DiamondCasinoHacker DiamondCasinoHackerBackend[]
+	{
+		Features::DiamondCasinoHacker::None,
+		Features::DiamondCasinoHacker::RickieLukens,
+		Features::DiamondCasinoHacker::ChristianFeltz,
+		Features::DiamondCasinoHacker::YohanBlair,
+		Features::DiamondCasinoHacker::AviSchwartzman,
+		Features::DiamondCasinoHacker::PaigeHarris
+	};
+	inline std::size_t DiamondCasinoHackerPosition = 5;
+
+	inline const char* DiamondCasinoVehicleType4Frontend[]
+	{
+		"Type 1",
+		"Type 2",
+		"Type 3",
+		"Type 4",
+	};
+	inline Features::DiamondCasinoVehicleType4 DiamondCasinoVehicleType4Backend[]
+	{
+		Features::DiamondCasinoVehicleType4::Type1,
+		Features::DiamondCasinoVehicleType4::Type2,
+		Features::DiamondCasinoVehicleType4::Type3,
+		Features::DiamondCasinoVehicleType4::Type4
+	};
+	inline std::size_t DiamondCasinoVehicleType4Position = 0;
+
+	inline const char* DiamondCasinoVehicleType5Frontend[]
+	{
+		"Type 1",
+		"Type 2",
+		"Type 3",
+		"Type 4",
+		"Type 5"
+	};
+	inline Features::DiamondCasinoVehicleType5 DiamondCasinoVehicleType5Backend[]
+	{
+		Features::DiamondCasinoVehicleType5::Type1,
+		Features::DiamondCasinoVehicleType5::Type2,
+		Features::DiamondCasinoVehicleType5::Type3,
+		Features::DiamondCasinoVehicleType5::Type4,
+		Features::DiamondCasinoVehicleType5::Type5
+	};
+	inline std::size_t DiamondCasinoVehicleType5Position = 0;
+
+	inline const char* DiamondCasinoWeaponFrontend[]
+	{
+		"First",
+		"Second"
+	};
+	inline Features::DiamondCasinoWeapon DiamondCasinoWeaponBackend[]
+	{
+		Features::DiamondCasinoWeapon::First,
+		Features::DiamondCasinoWeapon::Second
+	};
+	inline std::size_t DiamondCasinoWeaponPosition = 0;
 }

@@ -6,6 +6,7 @@
 #include "D3DRenderer.hpp"
 #include "UI/UIManager.hpp"
 #include <MinHook/MinHook.h>
+#include "Features.hpp"
 
 #ifdef BIGBASE_DEBUG
 #  pragma comment(lib, "MinHook-Debug.lib")

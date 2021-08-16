@@ -38,6 +38,7 @@
     <ClInclude Include="ScriptCallback.hpp" />
     <ClInclude Include="ScriptGlobal.hpp" />
     <ClInclude Include="ScriptManager.hpp" />
+    <ClInclude Include="QueueScript.hpp" />
     <ClInclude Include="Settings.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Types.hpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="ScriptCallback.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="MainScript.cpp" />
+    <ClCompile Include="QueueScript.cpp" />
     <ClCompile Include="UI\UIManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

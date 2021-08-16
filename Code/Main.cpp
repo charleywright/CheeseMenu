@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "Hooking.hpp"
 #include "ScriptManager.hpp"
+#include "QueueScript.hpp"
 #include "LogScript.hpp"
 #include "MainScript.hpp"
 #include "ScriptCallback.hpp"
@@ -9,6 +10,7 @@
 #include "D3DRenderer.hpp"
 #include "UI/UIManager.hpp"
 #include "Features.hpp"
+#include "Hooking.hpp"
 
 /**
  * \brief The entry point of the library
@@ -48,9 +50,11 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 			g_MainScript = std::make_shared<MainScript>();
 			g_LogScript = std::make_shared<LogScript>();
 			g_CallbackScript = std::make_shared<CallbackScript>();
+			g_QueueScript = std::make_shared<QueueScript>();
 			g_ScriptManager->AddScript(g_MainScript);
 			g_ScriptManager->AddScript(g_LogScript);
 			g_ScriptManager->AddScript(g_CallbackScript);
+			g_ScriptManager->AddScript(g_QueueScript);
 
 			g_Features = std::make_unique<Features>();
 
