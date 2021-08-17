@@ -14,9 +14,8 @@ namespace Big
 
 		void EnterSession(int type);
 		void LeaveGTAOnline();
-
 		void MaxStats();
-
+		void MaxSnacks();
 		void RPCorrection();
 		int m_RPCorrectionLevel = 135;
 

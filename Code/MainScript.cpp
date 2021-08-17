@@ -64,7 +64,7 @@ namespace Big
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Home", SubmenuHome, [](RegularSubmenu* sub)
 			{
-				 sub->AddOption<SubOption>("Player", nullptr, SubmenuPlayer);
+				sub->AddOption<SubOption>("Player", nullptr, SubmenuPlayer);
 				// sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
 				sub->AddOption<SubOption>("Heists", nullptr, SubmenuHeists);
 				// sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
@@ -73,21 +73,14 @@ namespace Big
 					ShellExecuteA(0, 0, "https://discord.gg/J8486xStu6", 0, 0, SW_SHOW);
 					}).SetRightText("discord.gg/J8486xStu6")));
 				sub->AddOption<RegularOption>(std::move(RegularOption("Game Version").SetRightText(g_GameVariables->m_GameBuild)));
-
-				sub->AddOption<RegularOption>("Unload", nullptr, []
-					{
-						g_Running = false;
-					});
+				sub->AddOption<RegularOption>("Unload", nullptr, [] { g_Running = false; });
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Player", SubmenuPlayer, [](RegularSubmenu* sub) {
 			sub->AddOption<NumberOption<int>>("RP Correction Rank", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
-			sub->AddOption<RegularOption>("Set Rank", nullptr, [] {
-				g_Features->RPCorrection();
-			});
-			sub->AddOption<RegularOption>("Max Stats", nullptr, [] {
-				g_Features->MaxStats();
-			});
+			sub->AddOption<RegularOption>("Set Rank", nullptr, [] { g_Features->RPCorrection(); });
+			sub->AddOption<RegularOption>("Max Stats", nullptr, [] { g_Features->MaxStats(); });
+			sub->AddOption<RegularOption>("Max Snacks", nullptr, [] { g_Features->MaxSnacks(); });
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {
@@ -138,9 +131,7 @@ namespace Big
 					});
 			}
 			if (!g_Features->m_CayoPericoMaxPayout) sub->AddOption<NumberOption<int>>("Bag Size Multiplier", nullptr, &g_Features->m_CayoPericoBagsizeMultiplier, 1, 4, 1, 1, true, "", "x");
-			sub->AddOption<RegularOption>("Apply Settings", nullptr, [] {
-				g_Features->ApplyCayoPerico();
-				});
+			sub->AddOption<RegularOption>("Apply Settings", nullptr, [] { g_Features->ApplyCayoPerico(); });
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Approach Vehicle", SubmenuHeistsCayoPericoVehicle, [](RegularSubmenu* sub) {
@@ -214,43 +205,21 @@ namespace Big
 				{
 					g_Features->m_DiamondCasinoHacker = Lists::DiamondCasinoHackerBackend[Lists::DiamondCasinoHackerPosition];
 				});
-			sub->AddOption<RegularOption>("Apply Settings", nullptr, [] {
-				g_Features->ApplyDiamondCasino();
-				});
-;			});
+			sub->AddOption<RegularOption>("Apply Settings", nullptr, [] { g_Features->ApplyDiamondCasino(); });
+			;			});
 
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Session", SubmenuSession, [](RegularSubmenu* sub) {
-			sub->AddOption<RegularOption>("Join Public Session", nullptr, [] {
-				g_Features->EnterSession(0);
-				});
-			sub->AddOption<RegularOption>("New Public Session", nullptr, [] {
-				g_Features->EnterSession(1);
-				});
-			sub->AddOption<RegularOption>("Closed Crew Session", nullptr, [] {
-				g_Features->EnterSession(2);
-				});
-			sub->AddOption<RegularOption>("Crew Session", nullptr, [] {
-				g_Features->EnterSession(3);
-				});
-			sub->AddOption<RegularOption>("Closed Friend Session", nullptr, [] {
-				g_Features->EnterSession(6);
-				});
-			sub->AddOption<RegularOption>("Find Friend Session", nullptr, [] {
-				g_Features->EnterSession(9);
-				});
-			sub->AddOption<RegularOption>("Solo Session", nullptr, [] {
-				g_Features->EnterSession(10);
-				});
-			sub->AddOption<RegularOption>("Invite Only Session", nullptr, [] {
-				g_Features->EnterSession(11);
-				});
-			sub->AddOption<RegularOption>("Join Crew Session", nullptr, [] {
-				g_Features->EnterSession(12);
-				});
-			sub->AddOption<RegularOption>("Leave GTA Online", nullptr, [] {
-				g_Features->LeaveGTAOnline();
-				});
+			sub->AddOption<RegularOption>("Join Public Session", nullptr, [] { g_Features->EnterSession(0); });
+			sub->AddOption<RegularOption>("New Public Session", nullptr, [] { g_Features->EnterSession(1); });
+			sub->AddOption<RegularOption>("Closed Crew Session", nullptr, [] { g_Features->EnterSession(2); });
+			sub->AddOption<RegularOption>("Crew Session", nullptr, [] { g_Features->EnterSession(3); });
+			sub->AddOption<RegularOption>("Closed Friend Session", nullptr, [] { g_Features->EnterSession(6); });
+			sub->AddOption<RegularOption>("Find Friend Session", nullptr, [] { g_Features->EnterSession(9); });
+			sub->AddOption<RegularOption>("Solo Session", nullptr, [] { g_Features->EnterSession(10); });
+			sub->AddOption<RegularOption>("Invite Only Session", nullptr, [] { g_Features->EnterSession(11); });
+			sub->AddOption<RegularOption>("Join Crew Session", nullptr, [] { g_Features->EnterSession(12); });
+			sub->AddOption<RegularOption>("Leave GTA Online", nullptr, [] { g_Features->LeaveGTAOnline(); });
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Settings", SubmenuSettings, [](RegularSubmenu* sub)
@@ -427,8 +396,7 @@ namespace Big
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Description", SubmenuSettingsDescription, [](RegularSubmenu* sub)
 			{
-				sub->AddOption<NumberOption<float>>("Padding", "Padding before the description rect.", &g_UiManager->m_DescriptionHeightPadding, 0.01f, 1.f, 0.001f,
-					3);
+				sub->AddOption<NumberOption<float>>("Padding", "Padding before the description rect.", &g_UiManager->m_DescriptionHeightPadding, 0.01f, 1.f, 0.001f, 3);
 				sub->AddOption<NumberOption<float>>("Height", "Size of the description rect.", &g_UiManager->m_DescriptionHeight, 0.01f, 1.f, 0.001f, 3);
 				sub->AddOption<NumberOption<float>>("Text Size", "Size of the description text.", &g_UiManager->m_DescriptionTextSize, 0.1f, 2.f, 0.01f, 2);
 			});
