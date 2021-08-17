@@ -74,14 +74,23 @@ namespace Big {
 
 	void Features::MaxSnacks() {
 		int c_index = GetCharacterIndex();
-		g_Features->SetIntStat("MPx_NO_BOUGHT_YUM_SNACKS", c_index, 30);
-		g_Features->SetIntStat("MPx_NO_BOUGHT_HEALTH_SNACKS", c_index, 15);
-		g_Features->SetIntStat("MPx_NO_BOUGHT_EPIC_SNACKS", c_index, 5);
-		g_Features->SetIntStat("MPx_NUMBER_OF_ORANGE_BOUGHT", c_index, 10);
-		g_Features->SetIntStat("MPx_NUMBER_OF_BOURGE_BOUGHT", c_index, 10);
-		g_Features->SetIntStat("MPx_CIGARETTES_BOUGHT", c_index, 20);
-		g_Features->SetIntStat("MPx_CHAR_ARMOUR_5_COUNT", c_index, 10);
+		g_Features->SetIntStat("MPx_NO_BOUGHT_YUM_SNACKS", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_NO_BOUGHT_HEALTH_SNACKS", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_NO_BOUGHT_EPIC_SNACKS", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_NUMBER_OF_ORANGE_BOUGHT", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_NUMBER_OF_BOURGE_BOUGHT", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_CIGARETTES_BOUGHT", c_index, INT_MAX);
 		g_QueueScript->Add([] { g_Features->DisplayNotification("Maxed Snacks"); });
+	}
+
+	void Features::MaxArmour() {
+		int c_index = GetCharacterIndex();
+		g_Features->SetIntStat("MPx_MP_CHAR_ARMOUR_1_COUNT", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_MP_CHAR_ARMOUR_2_COUNT", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_MP_CHAR_ARMOUR_3_COUNT", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_MP_CHAR_ARMOUR_4_COUNT", c_index, INT_MAX);
+		g_Features->SetIntStat("MPx_MP_CHAR_ARMOUR_5_COUNT", c_index, INT_MAX);
+		g_QueueScript->Add([] { g_Features->DisplayNotification("Maxed Armour"); });
 	}
 
 	void Features::ApplyCayoPerico() {

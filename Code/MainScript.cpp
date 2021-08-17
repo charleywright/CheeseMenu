@@ -81,6 +81,7 @@ namespace Big
 			sub->AddOption<RegularOption>("Set Rank", nullptr, [] { g_Features->RPCorrection(); });
 			sub->AddOption<RegularOption>("Max Stats", nullptr, [] { g_Features->MaxStats(); });
 			sub->AddOption<RegularOption>("Max Snacks", nullptr, [] { g_Features->MaxSnacks(); });
+			sub->AddOption<RegularOption>("Max Armor", nullptr, [] { g_Features->MaxArmour(); });
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {

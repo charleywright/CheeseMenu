@@ -16,6 +16,7 @@ namespace Big
 		void LeaveGTAOnline();
 		void MaxStats();
 		void MaxSnacks();
+		void MaxArmour();
 		void RPCorrection();
 		int m_RPCorrectionLevel = 135;
 
