@@ -9,8 +9,13 @@ namespace Big
 	public:
 		void DisplayNotification(const char* text);
 
+		void SetIntStat(const char* stat, int character_index, int value);
+		void GetIntStat(const char* stat, int character_index, int* value);
+
 		void EnterSession(int type);
 		void LeaveGTAOnline();
+
+		void MaxStats();
 
 		void RPCorrection();
 		int m_RPCorrectionLevel = 135;
