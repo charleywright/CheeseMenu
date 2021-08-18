@@ -23,7 +23,7 @@ namespace Big::UserInterface
 			}
 		}
 
-		if (g_UiManager->m_Opened && g_Settings.m_LockMouse)
+		if (g_UiManager->m_Opened && g_Config->m_LockMouse)
 		{
 			PAD::DISABLE_ALL_CONTROL_ACTIONS(0);
 		}
@@ -34,8 +34,8 @@ namespace Big::UserInterface
 		if (m_Opened)
 		{
 			PAD::DISABLE_CONTROL_ACTION(0, 27, true); // Disable phone
-			m_AnimatedHeaderTimer.SetDelay(std::chrono::milliseconds(m_AnimatedHeaderTimerDelay));
-			m_DrawBaseY = m_PosY;
+			g_Config->m_AnimatedHeaderTimer.SetDelay(std::chrono::milliseconds(g_Config->m_AnimatedHeaderTimerDelay));
+			m_DrawBaseY = g_Config->m_PosY;
 			DrawHeader();
 			if (!m_SubmenuStack.empty())
 			{
@@ -44,15 +44,15 @@ namespace Big::UserInterface
 				sub->Execute();
 
 				DrawSubmenuBar(sub);
-				if (m_SeperatorEnabled) DrawSeperator();
+				if (g_Config->m_SeperatorEnabled) DrawSeperator();
 				DrawScrollBar(sub);
 				if (sub->GetNumOptions() != 0)
 				{
 					std::size_t startPoint = 0;
-					std::size_t endPoint = sub->GetNumOptions() > m_OptionsPerPage ? m_OptionsPerPage : sub->GetNumOptions();
-					if (sub->GetNumOptions() > m_OptionsPerPage && sub->GetSelectedOption() >= m_OptionsPerPage)
+					std::size_t endPoint = sub->GetNumOptions() > g_Config->m_OptionsPerPage ? g_Config->m_OptionsPerPage : sub->GetNumOptions();
+					if (sub->GetNumOptions() > g_Config->m_OptionsPerPage && sub->GetSelectedOption() >= g_Config->m_OptionsPerPage)
 					{
-						startPoint = sub->GetSelectedOption() - m_OptionsPerPage + 1;
+						startPoint = sub->GetSelectedOption() - g_Config->m_OptionsPerPage + 1;
 						endPoint = sub->GetSelectedOption() + 1;
 					}
 
@@ -61,7 +61,7 @@ namespace Big::UserInterface
 						DrawOption(sub->GetOption(i), i == sub->GetSelectedOption());
 					}
 				}
-				if (m_SeperatorEnabled) DrawSeperator();
+				if (g_Config->m_SeperatorEnabled) DrawSeperator();
 			}
 
 			DrawFooter();
@@ -85,20 +85,20 @@ namespace Big::UserInterface
 	void UIManager::HandleInput()
 	{
 		static auto openTicker = GetTickCount();
-		if (m_OpenKeyPressed && GetTickCount() - openTicker >= static_cast<std::uint32_t>(m_OpenDelay))
+		if (m_OpenKeyPressed && GetTickCount() - openTicker >= static_cast<std::uint32_t>(g_Config->m_OpenDelay))
 		{
 			openTicker = GetTickCount();
 			m_Opened ^= true;
 
-			if (m_Sounds)
+			if (g_Config->m_Sounds)
 				AUDIO::PLAY_SOUND_FRONTEND(-1, m_Opened ? "SELECT" : "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 		}
 
 		static Timer backTimer(0ms);
-		backTimer.SetDelay(std::chrono::milliseconds(m_BackDelay));
+		backTimer.SetDelay(std::chrono::milliseconds(g_Config->m_BackDelay));
 		if (m_Opened && m_BackKeyPressed && backTimer.Update())
 		{
-			if (m_Sounds)
+			if (g_Config->m_Sounds)
 				AUDIO::PLAY_SOUND_FRONTEND(-1, "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 
 			if (m_SubmenuStack.size() > 1)
@@ -112,10 +112,10 @@ namespace Big::UserInterface
 			auto sub = m_SubmenuStack.top();
 
 			static Timer enterTimer(0ms);
-			enterTimer.SetDelay(std::chrono::milliseconds(m_EnterDelay));
+			enterTimer.SetDelay(std::chrono::milliseconds(g_Config->m_EnterDelay));
 			if (m_EnterKeyPressed && sub->GetNumOptions() != 0 && enterTimer.Update())
 			{
-				if (m_Sounds)
+				if (g_Config->m_Sounds)
 					AUDIO::PLAY_SOUND_FRONTEND(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 
 				if (auto opt = sub->GetOption(sub->GetSelectedOption()))
@@ -125,30 +125,30 @@ namespace Big::UserInterface
 			}
 
 			static Timer upTimer(0ms);
-			upTimer.SetDelay(std::chrono::milliseconds(m_VerticalDelay));
+			upTimer.SetDelay(std::chrono::milliseconds(g_Config->m_VerticalDelay));
 			if (m_UpKeyPressed && sub->GetNumOptions() != 0 && upTimer.Update())
 			{
-				if (m_Sounds)
+				if (g_Config->m_Sounds)
 					AUDIO::PLAY_SOUND_FRONTEND(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 
 				sub->ScrollBackward();
 			}
 
 			static Timer downTimer(0ms);
-			downTimer.SetDelay(std::chrono::milliseconds(m_VerticalDelay));
+			downTimer.SetDelay(std::chrono::milliseconds(g_Config->m_VerticalDelay));
 			if (m_DownKeyPressed && sub->GetNumOptions() != 0 && downTimer.Update())
 			{
-				if (m_Sounds)
+				if (g_Config->m_Sounds)
 					AUDIO::PLAY_SOUND_FRONTEND(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 
 				sub->ScrollForward();
 			}
 
 			static Timer leftTimer(0ms);
-			leftTimer.SetDelay(std::chrono::milliseconds(m_HorizontalDelay));
+			leftTimer.SetDelay(std::chrono::milliseconds(g_Config->m_HorizontalDelay));
 			if (m_LeftKeyPressed && sub->GetNumOptions() != 0 && leftTimer.Update())
 			{
-				if (m_Sounds)
+				if (g_Config->m_Sounds)
 					AUDIO::PLAY_SOUND_FRONTEND(-1, "NAV_LEFT_RIGHT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 
 				if (auto opt = sub->GetOption(sub->GetSelectedOption()))
@@ -158,10 +158,10 @@ namespace Big::UserInterface
 			}
 
 			static Timer rightTimer(0ms);
-			rightTimer.SetDelay(std::chrono::milliseconds(m_HorizontalDelay));
+			rightTimer.SetDelay(std::chrono::milliseconds(g_Config->m_HorizontalDelay));
 			if (m_RightKeyPressed && sub->GetNumOptions() != 0 && rightTimer.Update())
 			{
-				if (m_Sounds)
+				if (g_Config->m_Sounds)
 					AUDIO::PLAY_SOUND_FRONTEND(-1, "NAV_LEFT_RIGHT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 
 				if (auto opt = sub->GetOption(sub->GetSelectedOption()))
@@ -185,84 +185,84 @@ namespace Big::UserInterface
 
 	void UIManager::DrawHeader()
 	{
-		switch (m_HeaderType)
+		switch (g_Config->m_HeaderType)
 		{
 		case HeaderType::Static:
 			DrawRect(
-				m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + (m_HeaderHeight / 2.f), m_Width,
-				m_HeaderHeight,
-				m_HeaderBackgroundColor);
+				g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + (g_Config->m_HeaderHeight / 2.f), g_Config->m_Width,
+				g_Config->m_HeaderHeight,
+				g_Config->m_HeaderBackgroundColor);
 			break;
 		case HeaderType::Gradient:
-			for (std::size_t i = 0; i < (m_HeaderGradientTransparent ? 1 : 20); ++i)
+			for (std::size_t i = 0; i < (g_Config->m_HeaderGradientTransparent ? 1 : 20); ++i)
 			{
 				DrawSprite(
 					"aircraft_dials",
 					"aircraft_dials_g0",
-					m_PosX - (m_HeaderGradientStretch / 2.f) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-					m_DrawBaseY + (m_HeaderHeight / 2.f),
-					m_Width + m_HeaderGradientStretch + m_HeaderGradientFiller,
-					m_HeaderHeight,
-					m_HeaderGradientColorRight,
-					m_HeaderGradientFlip ? 0.f : 180.f);
+					g_Config->m_PosX - (g_Config->m_HeaderGradientStretch / 2.f) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+					m_DrawBaseY + (g_Config->m_HeaderHeight / 2.f),
+					g_Config->m_Width + g_Config->m_HeaderGradientStretch + g_Config->m_HeaderGradientFiller,
+					g_Config->m_HeaderHeight,
+					g_Config->m_HeaderGradientColorRight,
+					g_Config->m_HeaderGradientFlip ? 0.f : 180.f);
 				DrawSprite(
 					"aircraft_dials",
 					"aircraft_dials_g0",
-					m_PosX + (m_HeaderGradientStretch / 2.f) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-					m_DrawBaseY + (m_HeaderHeight / 2.f),
-					m_Width + m_HeaderGradientStretch + m_HeaderGradientFiller,
-					m_HeaderHeight,
-					m_HeaderGradientColorLeft,
-					m_HeaderGradientFlip ? 180.f : 0.f);
+					g_Config->m_PosX + (g_Config->m_HeaderGradientStretch / 2.f) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+					m_DrawBaseY + (g_Config->m_HeaderHeight / 2.f),
+					g_Config->m_Width + g_Config->m_HeaderGradientStretch + g_Config->m_HeaderGradientFiller,
+					g_Config->m_HeaderHeight,
+					g_Config->m_HeaderGradientColorLeft,
+					g_Config->m_HeaderGradientFlip ? 180.f : 0.f);
 			}
 			break;
 		case HeaderType::Image:
-			LoadHeader(m_HeaderFilename);
+			LoadHeader(g_Config->m_HeaderFilename);
 			DrawSprite(
-				m_HeaderFilename.substr(0, m_HeaderFilename.find(".")).c_str(),
+				g_Config->m_HeaderFilename.substr(0, g_Config->m_HeaderFilename.find(".")).c_str(),
 				"static",
-				m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + (m_HeaderHeight / 2.f) + 0.005f, // Doesn't line up without offset
-				m_Width,
-				m_HeaderHeight,
+				g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + (g_Config->m_HeaderHeight / 2.f) + 0.005f, // Doesn't line up without offset
+				g_Config->m_Width,
+				g_Config->m_HeaderHeight,
 				Color{ 255, 255, 255, 255 },
 				0.f);
 			break;
 		case HeaderType::Animated:
-			LoadHeader(m_HeaderFilename);
-			if (m_AnimatedHeaderTimer.Update()) {
-				m_AnimatedHeaderCurrentImage++;
-				if (m_AnimatedHeaderCurrentImage > m_AnimatedHeaderFrameCount)
-					m_AnimatedHeaderCurrentImage = 1;
+			LoadHeader(g_Config->m_HeaderFilename);
+			if (g_Config->m_AnimatedHeaderTimer.Update()) {
+				g_Config->m_AnimatedHeaderCurrentImage++;
+				if (g_Config->m_AnimatedHeaderCurrentImage > g_Config->m_AnimatedHeaderFrameCount)
+					g_Config->m_AnimatedHeaderCurrentImage = 1;
 			}
 
-			std::string imgName = std::to_string(m_AnimatedHeaderCurrentImage);
+			std::string imgName = std::to_string(g_Config->m_AnimatedHeaderCurrentImage);
 			DrawSprite(
-				m_HeaderFilename.substr(0, m_HeaderFilename.find(".")).c_str(),
+				g_Config->m_HeaderFilename.substr(0, g_Config->m_HeaderFilename.find(".")).c_str(),
 				imgName.c_str(),
-				m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + (m_HeaderHeight / 2.f) + 0.005f, // Doesn't line up without offset
-				m_Width,
-				m_HeaderHeight,
+				g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + (g_Config->m_HeaderHeight / 2.f) + 0.005f, // Doesn't line up without offset
+				g_Config->m_Width,
+				g_Config->m_HeaderHeight,
 				Color{ 255, 255, 255, 255 },
 				0.f);
 			break;
 		}
 
-		if (m_HeaderText)
+		if (g_Config->m_HeaderText)
 		{
 			DrawCenteredText(
 				BIGBASE_NAME,
-				m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + (m_HeaderHeight / 2.f) - (GetTextHeight(m_HeaderFont, m_HeaderTextSize) / 2.f),
-				m_HeaderTextSize,
-				m_HeaderFont,
-				m_HeaderTextColor,
+				g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + (g_Config->m_HeaderHeight / 2.f) - (GetTextHeight(g_Config->m_HeaderFont, g_Config->m_HeaderTextSize) / 2.f),
+				g_Config->m_HeaderTextSize,
+				g_Config->m_HeaderFont,
+				g_Config->m_HeaderTextColor,
 				false, true);
 		}
 
-		m_DrawBaseY += m_HeaderHeight;
+		m_DrawBaseY += g_Config->m_HeaderHeight;
 	}
 
 	void UIManager::LoadHeader(std::string headerName) {
@@ -297,51 +297,51 @@ namespace Big::UserInterface
 	}
 
 	void UIManager::DrawScrollBar(AbstractSubmenu* sub) {
-		Vector2 sprite_size = GetSpriteScale(m_ScrollBarSpriteSize);
-		size_t num_options = sub->GetNumOptions() > m_OptionsPerPage ? m_OptionsPerPage : sub->GetNumOptions();
+		Vector2 sprite_size = GetSpriteScale(g_Config->m_ScrollBarSpriteSize);
+		size_t num_options = sub->GetNumOptions() > g_Config->m_OptionsPerPage ? g_Config->m_OptionsPerPage : sub->GetNumOptions();
 		DrawRect(
-			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY - m_ScrollBarWidth,
-			m_ScrollBarWidth, m_ScrollBarWidth * 2,
-			m_SubmenuBarBackgroundColor);
+			g_Config->m_PosX + g_Config->m_ScrollBarWidth * 0.5f,
+			m_DrawBaseY - g_Config->m_ScrollBarWidth,
+			g_Config->m_ScrollBarWidth, g_Config->m_ScrollBarWidth * 2,
+			g_Config->m_SubmenuBarBackgroundColor);
 		DrawSprite(
 			"commonmenu",
 			"arrowright",
-			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY - m_ScrollBarWidth,
+			g_Config->m_PosX + g_Config->m_ScrollBarWidth * 0.5f,
+			m_DrawBaseY - g_Config->m_ScrollBarWidth,
 			sprite_size.x,
 			sprite_size.y,
-			m_FooterSpriteColor,
+			g_Config->m_FooterSpriteColor,
 			270.f);
 		DrawRect(
-			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY + (m_OptionHeight * num_options * 0.5f),
-			m_ScrollBarWidth,
-			m_OptionHeight * num_options,
-			m_ScrollBarBackgroundColor
+			g_Config->m_PosX + g_Config->m_ScrollBarWidth * 0.5f,
+			m_DrawBaseY + (g_Config->m_OptionHeight * num_options * 0.5f),
+			g_Config->m_ScrollBarWidth,
+			g_Config->m_OptionHeight * num_options,
+			g_Config->m_ScrollBarBackgroundColor
 		);
 		if (num_options != 0) {
 			DrawRect(
-				m_PosX + m_ScrollBarWidth * 0.5f,
-				m_DrawBaseY + (m_OptionHeight * 0.5f) + (m_OptionHeight * (sub->GetSelectedOption() >= m_OptionsPerPage ? m_OptionsPerPage - 1 : sub->GetSelectedOption())),
-				m_ScrollBarWidth - 0.0025f,
-				m_OptionHeight - 0.005f,
-				m_ScrollBarForegroundColor
+				g_Config->m_PosX + g_Config->m_ScrollBarWidth * 0.5f,
+				m_DrawBaseY + (g_Config->m_OptionHeight * 0.5f) + (g_Config->m_OptionHeight * (sub->GetSelectedOption() >= g_Config->m_OptionsPerPage ? g_Config->m_OptionsPerPage - 1 : sub->GetSelectedOption())),
+				g_Config->m_ScrollBarWidth - 0.0025f,
+				g_Config->m_OptionHeight - 0.005f,
+				g_Config->m_ScrollBarForegroundColor
 			);
 		}
 		DrawRect(
-			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY + m_ScrollBarWidth + (m_OptionHeight * num_options),
-			m_ScrollBarWidth, m_ScrollBarWidth * 2,
-			m_SubmenuBarBackgroundColor);
+			g_Config->m_PosX + g_Config->m_ScrollBarWidth * 0.5f,
+			m_DrawBaseY + g_Config->m_ScrollBarWidth + (g_Config->m_OptionHeight * num_options),
+			g_Config->m_ScrollBarWidth, g_Config->m_ScrollBarWidth * 2,
+			g_Config->m_SubmenuBarBackgroundColor);
 		DrawSprite(
 			"commonmenu",
 			"arrowright",
-			m_PosX + m_ScrollBarWidth * 0.5f,
-			m_DrawBaseY + m_ScrollBarWidth + (m_OptionHeight * num_options),
+			g_Config->m_PosX + g_Config->m_ScrollBarWidth * 0.5f,
+			m_DrawBaseY + g_Config->m_ScrollBarWidth + (g_Config->m_OptionHeight * num_options),
 			sprite_size.x,
 			sprite_size.y,
-			m_FooterSpriteColor,
+			g_Config->m_FooterSpriteColor,
 			90.f);
 	}
 
@@ -355,121 +355,120 @@ namespace Big::UserInterface
 		std::snprintf(rightText, sizeof(rightText) - 1, "%zu / %zu", sub->GetSelectedOption() + 1, sub->GetNumOptions());
 
 		DrawRect(
-			m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_SubmenuBarHeight / 2.f),
-			m_Width, m_SubmenuBarHeight,
-			m_SubmenuBarBackgroundColor);
+			g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_SubmenuBarHeight / 2.f),
+			g_Config->m_Width, g_Config->m_SubmenuBarHeight,
+			g_Config->m_SubmenuBarBackgroundColor);
 		DrawLeftText(
 			&leftText[0],
-			m_PosX - (m_Width / m_SubmenuBarPadding) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_SubmenuBarHeight / 2.f) - (GetTextHeight(m_SubmenuBarFont, m_SubmenuBarTextSize) / 1.5f),
-			m_SubmenuBarTextSize, m_SubmenuBarFont,
-			m_SubmenuBarTextColor,
+			g_Config->m_PosX - (g_Config->m_Width / g_Config->m_SubmenuBarPadding) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_SubmenuBarHeight / 2.f) - (GetTextHeight(g_Config->m_SubmenuBarFont, g_Config->m_SubmenuBarTextSize) / 1.5f),
+			g_Config->m_SubmenuBarTextSize, g_Config->m_SubmenuBarFont,
+			g_Config->m_SubmenuBarTextColor,
 			false, true);
 		DrawRightText(
 			&rightText[0],
-			m_PosX + (m_Width / m_SubmenuBarPadding) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_SubmenuBarHeight / 2.f) - (GetTextHeight(m_SubmenuBarFont, m_SubmenuBarTextSize) / 1.5f),
-			m_SubmenuBarTextSize, m_SubmenuBarFont,
-			m_SubmenuBarTextColor,
+			g_Config->m_PosX + (g_Config->m_Width / g_Config->m_SubmenuBarPadding) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_SubmenuBarHeight / 2.f) - (GetTextHeight(g_Config->m_SubmenuBarFont, g_Config->m_SubmenuBarTextSize) / 1.5f),
+			g_Config->m_SubmenuBarTextSize, g_Config->m_SubmenuBarFont,
+			g_Config->m_SubmenuBarTextColor,
 			false, true);
 
-		m_DrawBaseY += m_SubmenuBarHeight;
+		m_DrawBaseY += g_Config->m_SubmenuBarHeight;
 	}
 
 	void UIManager::DrawSeperator() {
-		float h = m_SeperatorHeight;
 		for (short i = 0; i < 20; i++) {
 			DrawSprite(
 				"aircraft_dials",
 				"aircraft_dials_g0",
-				m_PosX + (m_Width * 0.25f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + h * 0.5f,
-				m_Width * 0.5f,
-				h,
-				m_SeperatorColorLeft,
+				g_Config->m_PosX + (g_Config->m_Width * 0.25f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + g_Config->m_SeperatorHeight * 0.5f,
+				g_Config->m_Width * 0.5f,
+				g_Config->m_SeperatorHeight,
+				g_Config->m_SeperatorColorLeft,
 				0.f);
 			DrawSprite(
 				"aircraft_dials",
 				"aircraft_dials_g0",
-				m_PosX + (m_Width * 0.25f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + h * 0.5f,
-				m_Width * 0.5f,
-				h,
-				m_SeperatorColorMiddle,
+				g_Config->m_PosX + (g_Config->m_Width * 0.25f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + g_Config->m_SeperatorHeight * 0.5f,
+				g_Config->m_Width * 0.5f,
+				g_Config->m_SeperatorHeight,
+				g_Config->m_SeperatorColorMiddle,
 				180.f);
 			DrawSprite(
 				"aircraft_dials",
 				"aircraft_dials_g0",
-				m_PosX + (m_Width * 0.75f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + h * 0.5f,
-				m_Width * 0.5f,
-				h,
-				m_SeperatorColorMiddle,
+				g_Config->m_PosX + (g_Config->m_Width * 0.75f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + g_Config->m_SeperatorHeight * 0.5f,
+				g_Config->m_Width * 0.5f,
+				g_Config->m_SeperatorHeight,
+				g_Config->m_SeperatorColorMiddle,
 				0.f);
 			DrawSprite(
 				"aircraft_dials",
 				"aircraft_dials_g0",
-				m_PosX + (m_Width * 0.75f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + h * 0.5f,
-				m_Width * 0.5f,
-				h,
-				m_SeperatorColorRight,
+				g_Config->m_PosX + (g_Config->m_Width * 0.75f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + g_Config->m_SeperatorHeight * 0.5f,
+				g_Config->m_Width * 0.5f,
+				g_Config->m_SeperatorHeight,
+				g_Config->m_SeperatorColorRight,
 				180.f);
 		}
-		m_DrawBaseY += h;
+		m_DrawBaseY += g_Config->m_SeperatorHeight;
 	}
 
 	void UIManager::DrawOption(AbstractOption* opt, bool selected)
 	{
 		DrawRect(
-			m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_OptionHeight / 2.f),
-			m_Width,
-			m_OptionHeight,
-			selected ? m_OptionSelectedBackgroundColor : m_OptionUnselectedBackgroundColor);
+			g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_OptionHeight / 2.f),
+			g_Config->m_Width,
+			g_Config->m_OptionHeight,
+			selected ? g_Config->m_OptionSelectedBackgroundColor : g_Config->m_OptionUnselectedBackgroundColor);
 		DrawLeftText(
 			opt->GetLeftText(),
-			m_PosX - (m_Width / m_OptionPadding) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_OptionHeight / 2.f) - (GetTextHeight(m_OptionFont, m_OptionTextSize) / 1.5f),
-			m_OptionTextSize,
-			m_OptionFont,
-			selected ? m_OptionSelectedTextColor : m_OptionUnselectedTextColor,
+			g_Config->m_PosX - (g_Config->m_Width / g_Config->m_OptionPadding) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_OptionHeight / 2.f) - (GetTextHeight(g_Config->m_OptionFont, g_Config->m_OptionTextSize) / 1.5f),
+			g_Config->m_OptionTextSize,
+			g_Config->m_OptionFont,
+			selected ? g_Config->m_OptionSelectedTextColor : g_Config->m_OptionUnselectedTextColor,
 			false, false);
 		DrawRightText(
 			opt->GetRightText(),
-			m_PosX + (m_Width / m_OptionPadding) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_OptionHeight / 2.f) - (GetTextHeight(m_OptionFont, m_OptionTextSize) / 1.5f),
-			m_OptionTextSize,
-			m_OptionFont,
-			selected ? m_OptionSelectedTextColor : m_OptionUnselectedTextColor,
+			g_Config->m_PosX + (g_Config->m_Width / g_Config->m_OptionPadding) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_OptionHeight / 2.f) - (GetTextHeight(g_Config->m_OptionFont, g_Config->m_OptionTextSize) / 1.5f),
+			g_Config->m_OptionTextSize,
+			g_Config->m_OptionFont,
+			selected ? g_Config->m_OptionSelectedTextColor : g_Config->m_OptionUnselectedTextColor,
 			false, false);
 
 		if (opt->GetFlag(OptionFlag::Enterable))
 		{
 			DrawRightText(
 				">",
-				m_PosX + (m_Width / m_OptionPadding) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-				m_DrawBaseY + (m_OptionHeight / 2.f) - (GetTextHeight(Font::Monospace, m_OptionTextSize) / 1.725f),
-				m_OptionTextSize,
+				g_Config->m_PosX + (g_Config->m_Width / g_Config->m_OptionPadding) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+				m_DrawBaseY + (g_Config->m_OptionHeight / 2.f) - (GetTextHeight(Font::Monospace, g_Config->m_OptionTextSize) / 1.725f),
+				g_Config->m_OptionTextSize,
 				Font::Monospace,
-				selected ? m_OptionSelectedTextColor : m_OptionUnselectedTextColor,
+				selected ? g_Config->m_OptionSelectedTextColor : g_Config->m_OptionUnselectedTextColor,
 				false, false);
 		}
 
-		m_DrawBaseY += m_OptionHeight;
+		m_DrawBaseY += g_Config->m_OptionHeight;
 	}
 
 	void UIManager::DrawFooter()
 	{
 		DrawRect(
-			m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_FooterHeight / 2.f),
-			m_Width,
-			m_FooterHeight,
-			m_FooterBackgroundColor);
+			g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_FooterHeight / 2.f),
+			g_Config->m_Width,
+			g_Config->m_FooterHeight,
+			g_Config->m_FooterBackgroundColor);
 
-		float size = m_FooterSpriteSize;
+		float size = g_Config->m_FooterSpriteSize;
 		float rotation = 0.f;
 		const char* texture = "shop_arrows_upanddown";
 
@@ -495,14 +494,14 @@ namespace Big::UserInterface
 		DrawSprite(
 			"commonmenu",
 			texture,
-			m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_FooterHeight / 2.f),
+			g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_FooterHeight / 2.f),
 			sizee.x,
 			sizee.y,
-			m_FooterSpriteColor,
+			g_Config->m_FooterSpriteColor,
 			rotation);
 
-		m_DrawBaseY += m_FooterHeight;
+		m_DrawBaseY += g_Config->m_FooterHeight;
 	}
 
 	void UIManager::DrawDescription()
@@ -524,37 +523,37 @@ namespace Big::UserInterface
 		if (!description || !*description)
 			return;
 
-		m_DrawBaseY += m_DescriptionHeightPadding;
+		m_DrawBaseY += g_Config->m_DescriptionHeightPadding;
 
 		DrawRect(
-			m_PosX + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_DescriptionHeight / 2.f),
-			m_Width,
-			m_DescriptionHeight,
-			m_DescriptionBackgroundColor);
+			g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_DescriptionHeight / 2.f),
+			g_Config->m_Width,
+			g_Config->m_DescriptionHeight,
+			g_Config->m_DescriptionBackgroundColor);
 
-		auto spriteSize = GetSpriteScale(m_DescriptionSpriteSize);
+		auto spriteSize = GetSpriteScale(g_Config->m_DescriptionSpriteSize);
 		DrawSprite(
 			"shared", "info_icon_32",
-			m_PosX - (m_Width / m_DescriptionPadding) + (spriteSize.x / 2.f) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_DescriptionHeight / 2.f),
+			g_Config->m_PosX - (g_Config->m_Width / g_Config->m_DescriptionPadding) + (spriteSize.x / 2.f) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_DescriptionHeight / 2.f),
 			spriteSize.x,
 			spriteSize.y,
-			m_DescriptionSpriteColor,
+			g_Config->m_DescriptionSpriteColor,
 			0.f
 		);
 
 		DrawLeftText(
 			description,
-			m_PosX - (m_Width / m_DescriptionPadding) + (spriteSize.x * 1.15f) + (m_Width * 0.5f) + m_ScrollBarWidth + m_ScrollBarOffset,
-			m_DrawBaseY + (m_DescriptionHeight / 2.f) - (GetTextHeight(m_DescriptionFont, m_DescriptionTextSize) / 1.35f),
-			m_DescriptionTextSize,
-			m_DescriptionFont,
-			m_DescriptionTextColor,
+			g_Config->m_PosX - (g_Config->m_Width / g_Config->m_DescriptionPadding) + (spriteSize.x * 1.15f) + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
+			m_DrawBaseY + (g_Config->m_DescriptionHeight / 2.f) - (GetTextHeight(g_Config->m_DescriptionFont, g_Config->m_DescriptionTextSize) / 1.35f),
+			g_Config->m_DescriptionTextSize,
+			g_Config->m_DescriptionFont,
+			g_Config->m_DescriptionTextColor,
 			false, false
 		);
 
-		m_DrawBaseY += m_DescriptionHeight;
+		m_DrawBaseY += g_Config->m_DescriptionHeight;
 	}
 
 	void UIManager::DrawRect(float x, float y, float width, float height, Color color)
@@ -623,20 +622,20 @@ namespace Big::UserInterface
 
 	Rectangle UIManager::GetMenuRect()
 	{
-		float height = m_HeaderHeight;
-		height += m_SubmenuBarHeight;
+		float height = g_Config->m_HeaderHeight;
+		height += g_Config->m_SubmenuBarHeight;
 
 		if (!m_SubmenuStack.empty())
 		{
-			height += m_OptionHeight * std::min(m_SubmenuStack.top()->GetNumOptions(), m_OptionsPerPage);
+			height += g_Config->m_OptionHeight * std::min(m_SubmenuStack.top()->GetNumOptions(), g_Config->m_OptionsPerPage);
 		}
 
-		height += m_FooterHeight;
+		height += g_Config->m_FooterHeight;
 
 		return
 		{
-			{ m_PosX + (m_Width / 2.f) + m_ScrollBarWidth + m_ScrollBarOffset, m_PosY + (height / 2.f) },
-			{ m_Width, height }
+			{ g_Config->m_PosX + (g_Config->m_Width / 2.f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset, g_Config->m_PosY + (height / 2.f) },
+			{ g_Config->m_Width, height }
 		};
 	}
 

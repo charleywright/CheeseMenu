@@ -61,7 +61,7 @@ namespace Big
 	inline bool g_LogScriptEvents = false;
 }
 
-#include "Settings.hpp"
+#include "Config.hpp"
 #include "Logger.hpp"
 #include "Util.hpp"
 #include "Memory.hpp"

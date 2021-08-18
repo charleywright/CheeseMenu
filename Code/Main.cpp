@@ -11,6 +11,7 @@
 #include "UI/UIManager.hpp"
 #include "Features.hpp"
 #include "Hooking.hpp"
+#include "Config.hpp"
 
 /**
  * \brief The entry point of the library
@@ -28,6 +29,8 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 		{
 			g_Logger = std::make_unique<Logger>();
 			g_Logger->Info("CheeseMenu injected.");
+			
+			g_Config = std::make_unique<Config>();
 
 			g_GameFunctions = std::make_unique<GameFunctions>();
 			g_GameVariables = std::make_unique<GameVariables>();

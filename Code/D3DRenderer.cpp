@@ -92,7 +92,7 @@ namespace Big
 
 	void D3DRenderer::BeginFrame()
 	{
-		if (g_UiManager->m_Opened && g_Settings.m_LockMouse)
+		if (g_UiManager->m_Opened && g_Config->m_LockMouse)
 		{
 			ImGui::GetIO().MouseDrawCursor = true;
 			ImGui::GetIO().ConfigFlags &= ~ImGuiConfigFlags_NoMouse;
@@ -127,7 +127,7 @@ namespace Big
 	void D3DRenderer::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		if (g_UiManager->m_Opened && msg == WM_KEYUP && wParam == 'X')
-			g_Settings.m_LockMouse = !g_Settings.m_LockMouse;
+			g_Config->m_LockMouse = !g_Config->m_LockMouse;
 
 		if (ImGui::GetCurrentContext())
 			ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);

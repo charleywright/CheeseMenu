@@ -33,7 +33,7 @@ namespace Big
 
 	void LogScript::Tick()
 	{
-		if (g_UiManager->m_Opened && g_Settings.m_LogWindow)
+		if (g_UiManager->m_Opened && g_Config->m_LogWindow)
 		{
 			ImGui::SetNextWindowSize(ImVec2(500, 250), ImGuiCond_FirstUseEver);
 			ImGui::SetNextWindowPos(ImVec2(50, 50), ImGuiCond_FirstUseEver);

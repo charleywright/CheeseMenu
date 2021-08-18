@@ -30,7 +30,6 @@
     <ClInclude Include="UI\UIManager.hpp" />
     <ClInclude Include="UI\SubOption.hpp" />
     <ClInclude Include="Script.hpp" />
-    <ClInclude Include="Settings.hpp" />
     <ClInclude Include="UI\BoolOption.hpp" />
     <ClInclude Include="UI\NumberOption.hpp" />
     <ClInclude Include="Util.hpp" />
@@ -47,6 +46,7 @@
     <ClInclude Include="Features.hpp" />
     <ClInclude Include="RPLevels.hpp" />
     <ClInclude Include="QueueScript.hpp" />
+    <ClInclude Include="Config.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -69,5 +69,6 @@
     <ClCompile Include="MainScript.cpp" />
     <ClCompile Include="Features.cpp" />
     <ClCompile Include="QueueScript.cpp" />
+    <ClCompile Include="Config.cpp" />
   </ItemGroup>
 </Project>
