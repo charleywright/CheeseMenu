@@ -234,8 +234,8 @@ namespace Big
 				sub->AddOption<SubOption>("Description", nullptr, SubmenuSettingsDescription);
 				sub->AddOption<SubOption>("Input", nullptr, SubmenuSettingsInput);
 				sub->AddOption<SubOption>("Language", nullptr, SubmenuSettingsLanguage);
-				sub->AddOption<NumberOption<float>>("X Position", nullptr, &g_Config->m_PosX, 0.f, 1.f, 0.01f, 2);
-				sub->AddOption<NumberOption<float>>("Y Position", nullptr, &g_Config->m_PosY, 0.f, 1.f, 0.01f, 2);
+				sub->AddOption<NumberOption<float>>("X Position", nullptr, &g_Config->m_PosX, 0.f, 0.79f, 0.01f, 2);
+				sub->AddOption<NumberOption<float>>("Y Position", nullptr, &g_Config->m_PosY, 0.f, 0.51f, 0.01f, 2);
 				sub->AddOption<NumberOption<float>>("Width", nullptr, &g_Config->m_Width, 0.01f, 1.f, 0.01f, 2);
 				sub->AddOption<NumberOption<size_t>>("Options Per Page", nullptr, &g_Config->m_OptionsPerPage, 1, static_cast<size_t>(20));
 				sub->AddOption<BoolOption<bool>>("Sounds", nullptr, &g_Config->m_Sounds, BoolDisplay::OnOff);
