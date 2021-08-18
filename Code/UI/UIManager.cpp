@@ -474,19 +474,9 @@ namespace Big::UserInterface
 
 		if (!m_SubmenuStack.empty())
 		{
-			auto sub = m_SubmenuStack.top();
-			if (sub->GetSelectedOption() == 0)
-			{
-				rotation = 90.f;
-				texture = "arrowright";
-				size *= 0.8f;
-			}
-			else if (sub->GetSelectedOption() + 1 == sub->GetNumOptions())
-			{
-				rotation = 270.f;
-				texture = "arrowright";
-				size *= 0.8f;
-			}
+			texture = "arrowright";
+			size *= 0.8f;
+			rotation = m_SubmenuStack.top()->GetSelectedOption() == 0 ? 90.f : 270.f;
 		}
 
 		auto sizee = GetSpriteScale(size);
