@@ -29,8 +29,6 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 		{
 			g_Logger = std::make_unique<Logger>();
 			g_Logger->Info("CheeseMenu injected.");
-			
-			g_Config = std::make_unique<Config>();
 
 			g_GameFunctions = std::make_unique<GameFunctions>();
 			g_GameVariables = std::make_unique<GameVariables>();
@@ -63,6 +61,8 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 
 			g_Hooking = std::make_unique<Hooking>();
 			g_Hooking->Hook();
+
+			g_Config = std::make_unique<Config>();
 
 			g_Logger->Info("CheeseMenu loaded.");
 			g_UiManager->m_Opened = true;
