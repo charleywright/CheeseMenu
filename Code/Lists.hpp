@@ -4,6 +4,16 @@
 
 namespace Big::Lists
 {
+	inline UserInterface::Font FontTypes[]
+	{
+		UserInterface::Font::ChaletLondon,
+	UserInterface::Font::HouseScript,
+	UserInterface::Font::Monospace,
+	UserInterface::Font::Wingdings,
+	UserInterface::Font::ChaletComprimeCologne,
+	UserInterface::Font::Pricedown
+	};
+
 	inline const char* HeaderTypesFrontend[]
 	{
 		"Static",

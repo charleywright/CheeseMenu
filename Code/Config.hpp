@@ -101,6 +101,10 @@ namespace Big {
 		float m_DescriptionSpriteSize = 0.025f;
 		float m_DescriptionPadding = 2.1f;
 		Color m_DescriptionSpriteColor{ 255, 255, 255, 255 };
+
+	private:
+		std::string path();
+		bool FileExists(std::string path);
 	};
 
 	inline std::unique_ptr<Config> g_Config;

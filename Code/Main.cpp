@@ -75,6 +75,8 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 				std::this_thread::yield();
 			}
 
+			g_Config->Save();
+
 			std::this_thread::sleep_for(500ms);
 			g_Hooking->Unhook();
 
