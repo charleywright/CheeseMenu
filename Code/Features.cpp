@@ -226,6 +226,8 @@ namespace Big {
 		}
 		g_Features->SetIntStat("MPx_H3OPT_TARGET", c_index, (int)g_Features->m_CayoPericoMainTarget);
 		g_Features->SetIntStat("MPx_H3OPT_APPROACH", c_index, (int)g_Features->m_DiamondCasinoApproach);
+		g_Features->SetIntStat("MPx_H3OPT_ACCESSPOINTS", c_index, 2047);
+		g_Features->SetIntStat("MPx_H3OPT_POI", c_index, 1023);
 		g_Features->SetIntStat("MPx_H3OPT_BITSET1", c_index, -1);
 		g_QueueScript->Add([] { g_QueueScript->Delay(5000ms); });
 		g_Features->SetIntStat("MPx_H3OPT_DISRUPTSHIP", c_index, g_Features->m_DiamondCasinoDisrupt ? 3 : 0);
