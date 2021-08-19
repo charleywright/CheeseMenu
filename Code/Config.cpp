@@ -28,7 +28,6 @@ namespace Big
 				return;
 			}
 
-			g_Logger->Info("Valid file");
 			// General
 			this->m_PosX = j.value("m_PosX", this->m_PosX);
 			this->m_PosY = j.value("m_PosY", this->m_PosY);
