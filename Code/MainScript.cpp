@@ -28,6 +28,7 @@ namespace Big
 		SubmenuHeistsCayoPericoSupportTeam,
 		SubmenuHeistsCayoPericoApproach,
 		SubmenuHeistsCasino,
+		SubmenuHeistsDoomsday,
 		SubmenuSession,
 		SubmenuSettings,
 		SubmenuSettingsHeader,
@@ -87,6 +88,7 @@ namespace Big
 		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {
 			sub->AddOption<SubOption>("Cayo Perico", nullptr, SubmenuHeistsCayoPerico);
 			sub->AddOption<SubOption>("Diamond Casino", nullptr, SubmenuHeistsCasino);
+			sub->AddOption<SubOption>("Doomsday Scenario", nullptr, SubmenuHeistsDoomsday);
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Cayo Perico", SubmenuHeistsCayoPerico, [](RegularSubmenu* sub) {
@@ -209,6 +211,15 @@ namespace Big
 			sub->AddOption<RegularOption>("Apply Settings", nullptr, [] { g_Features->ApplyDiamondCasino(); });
 			;			});
 
+		g_UiManager->AddSubmenu<RegularSubmenu>("Doomsday Scenario", SubmenuHeistsDoomsday, [](RegularSubmenu* sub) {
+			/*
+				TODO: Reverse all stats & add globals
+			*/
+			sub->AddOption<RegularOption>("Prerequisite", "Only needs to be done once", [] { g_Features->DoomsdayPrerequisite(); });
+			sub->AddOption<RegularOption>("Skip Act 1 Preps & Setups", nullptr, [] { g_Features->SkipAct1(); });
+			sub->AddOption<RegularOption>("Skip Act 2 Preps & Setups", nullptr, [] { g_Features->SkipAct2(); });
+			sub->AddOption<RegularOption>("Skip Act 3 Preps & Setups", nullptr, [] { g_Features->SkipAct3(); });
+			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Session", SubmenuSession, [](RegularSubmenu* sub) {
 			sub->AddOption<RegularOption>("Join Public Session", nullptr, [] { g_Features->EnterSession(0); });

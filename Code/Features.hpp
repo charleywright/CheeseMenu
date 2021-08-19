@@ -20,6 +20,12 @@ namespace Big
 		void RPCorrection();
 		int m_RPCorrectionLevel = 135;
 
+		// Doomsday
+		void DoomsdayPrerequisite();
+		void SkipAct1();
+		void SkipAct2();
+		void SkipAct3();
+
 		// Cayo Perico Heist
 		void ApplyCayoPerico();
 		void ApplyCayoPericoMaxPayout();

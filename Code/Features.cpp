@@ -93,6 +93,36 @@ namespace Big {
 		g_QueueScript->Add([] { g_Features->DisplayNotification("Maxed Armour"); });
 	}
 
+	void Features::DoomsdayPrerequisite() {
+		int c_index = GetCharacterIndex();
+		g_Features->SetIntStat("MPx_GANGOPS_HEIST_STATUS", c_index, 9999);
+		g_QueueScript->Add([] { g_Features->DisplayNotification("~g~Call lester and cancel all 3 heists"); });
+	}
+
+	void Features::SkipAct1() {
+		int c_index = GetCharacterIndex();
+		g_Features->SetIntStat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index, 503);
+		g_Features->SetIntStat("MPx_GANGOPS_HEIST_STATUS", c_index, 229383);
+		g_Features->SetIntStat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index, 1557);
+		g_QueueScript->Add([] { g_Features->DisplayNotification("~g~Skipped Act 1 preps & setups"); });
+	}
+
+	void Features::SkipAct2() {
+		int c_index = GetCharacterIndex();
+		g_Features->SetIntStat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index, 240);
+		g_Features->SetIntStat("MPx_GANGOPS_HEIST_STATUS", c_index, 229378);
+		g_Features->SetIntStat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index, 1557);
+		g_QueueScript->Add([] { g_Features->DisplayNotification("~g~Skipped Act 2 preps & setups"); });
+	}
+
+	void Features::SkipAct3() {
+		int c_index = GetCharacterIndex();
+		g_Features->SetIntStat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index, 16368);
+		g_Features->SetIntStat("MPx_GANGOPS_HEIST_STATUS", c_index, 229380);
+		g_Features->SetIntStat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index, 1557);
+		g_QueueScript->Add([] { g_Features->DisplayNotification("~g~Skipped Act 3 preps & setups"); });
+	}
+
 	void Features::ApplyCayoPerico() {
 		int c_index = GetCharacterIndex();
 		g_Features->SetIntStat("MPx_H4_PROGRESS", c_index, (int)g_Features->m_CayoPericoDifficulty);
