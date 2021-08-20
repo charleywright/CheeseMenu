@@ -1,0 +1,3 @@
+C:/msys64/home/charl/Code/CheeseMenu/build/CMakeFiles/rebuild_cache.dir
+C:/msys64/home/charl/Code/CheeseMenu/build/CMakeFiles/edit_cache.dir
+C:/msys64/home/charl/Code/CheeseMenu/build/CMakeFiles/CheeseMenu.dir
