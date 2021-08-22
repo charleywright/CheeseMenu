@@ -40,16 +40,17 @@ namespace Big {
 	}
 
 	void Features::EnterSession(int type) {
-		*ScriptGlobal(1312854).As<int*>() = type;
-		g_Logger->Info(std::to_string(type).c_str());
-		MISC::SET_BIT(&*ScriptGlobal(1312443).As<int*>(), 1);
-		MISC::SET_BIT(&*ScriptGlobal(1312443).As<int*>(), 0);
+		g_QueueScript->Add([type] {*ScriptGlobal(1312860).As<int*>() = type; });
+		g_QueueScript->Add([] {*ScriptGlobal(1312443).As<int*>() = 1; });
+		g_QueueScript->Delay(200ms);
+		g_QueueScript->Add([] {*ScriptGlobal(1312443).As<int*>() = 0; });
 	}
 	void Features::LeaveGTAOnline() {
 		if (NETWORK::NETWORK_IS_SESSION_ACTIVE()) {
-			*ScriptGlobal(1312443).Add(2).As<int*>() = -1;
-			MISC::SET_BIT(&*ScriptGlobal(1312443).As<int*>(), 1);
-			MISC::SET_BIT(&*ScriptGlobal(1312443).As<int*>(), 0);
+			g_QueueScript->Add([] {*ScriptGlobal(1312443).Add(2).As<int*>() = -1; });
+			g_QueueScript->Add([] {*ScriptGlobal(1312443).As<int*>() = 1; });
+			g_QueueScript->Delay(200ms);
+			g_QueueScript->Add([] {*ScriptGlobal(1312443).As<int*>() = 0; });
 		}
 	}
 

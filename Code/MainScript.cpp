@@ -68,7 +68,7 @@ namespace Big
 				sub->AddOption<SubOption>("Player", nullptr, SubmenuPlayer);
 				// sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
 				sub->AddOption<SubOption>("Heists", nullptr, SubmenuHeists);
-				// sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
+				sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
 				sub->AddOption<SubOption>("Settings", nullptr, SubmenuSettings);
 				sub->AddOption<RegularOption>(std::move(RegularOption("Server Invite", nullptr, [] {
 					ShellExecuteA(0, 0, "https://discord.gg/J8486xStu6", 0, 0, SW_SHOW);
