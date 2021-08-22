@@ -34,6 +34,7 @@
     <ClInclude Include="MainScript.hpp" />
     <ClInclude Include="Memory.hpp" />
     <ClInclude Include="Natives.hpp" />
+    <ClInclude Include="Offsets.hpp" />
     <ClInclude Include="RPLevels.hpp" />
     <ClInclude Include="Script.hpp" />
     <ClInclude Include="ScriptCallback.hpp" />

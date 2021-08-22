@@ -47,6 +47,7 @@
     <ClInclude Include="RPLevels.hpp" />
     <ClInclude Include="QueueScript.hpp" />
     <ClInclude Include="Config.hpp" />
+    <ClInclude Include="Offsets.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

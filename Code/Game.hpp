@@ -21,6 +21,7 @@ namespace Big
 
 		std::uint32_t* m_GameState;
 		std::uint32_t* m_FrameCount;
+		std::uint32_t* m_WorldPtr;
 		HWND m_GameWindow;
 		IDXGISwapChain* m_Swapchain;
 		rage::scrNativeRegistration** m_NativeRegistrations;

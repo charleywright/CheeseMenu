@@ -89,6 +89,10 @@ namespace Big
 			sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, [] {
 				g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick(); 
 				});
+			sub->AddOption<RegularOption>("Toggle Snow", nullptr, [] {
+				int* snow = ScriptGlobal(262145).Add(4724).As<int*>();
+				*snow == 1 ? *snow = 0 : *snow = 1;
+				});
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {
