@@ -86,6 +86,9 @@ namespace Big
 			sub->AddOption<RegularOption>("Max Stats", nullptr, [] { g_Features->MaxStats(); });
 			sub->AddOption<RegularOption>("Max Snacks", nullptr, [] { g_Features->MaxSnacks(); });
 			sub->AddOption<RegularOption>("Max Armor", nullptr, [] { g_Features->MaxArmour(); });
+			sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, [] {
+				g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick(); 
+				});
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Heists", SubmenuHeists, [](RegularSubmenu* sub) {

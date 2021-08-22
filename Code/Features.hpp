@@ -22,6 +22,10 @@ namespace Big
 		void OffRadar();
 		void GhostOrg();
 
+		bool m_AntiAFKKick = false;
+		void EnableAntiAfkKick();
+		void DisableAntiAfkKick();
+
 		// Doomsday
 		void DoomsdayPrerequisite();
 		void SkipAct1();

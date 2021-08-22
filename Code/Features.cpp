@@ -43,6 +43,30 @@ namespace Big {
 
 	void Features::GhostOrg() { OffMap(4); }
 
+	void Features::EnableAntiAfkKick() {
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(87).As<int*>() = 99999999; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(88).As<int*>() = 99999999; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(89).As<int*>() = 99999999; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(90).As<int*>() = 99999999; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(7958).As<int*>() = 2000000000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(7955).As<int*>() = 2000000000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(7956).As<int*>() = 2000000000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(7957).As<int*>() = 2000000000; });
+		g_QueueScript->Add([] { g_Features->DisplayNotification("~g~Enabled Anti AFK kick"); });
+	}
+
+	void Features::DisableAntiAfkKick() {
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(87).As<int*>() = 120000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(88).As<int*>() = 300000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(89).As<int*>() = 600000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(90).As<int*>() = 900000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(7958).As<int*>() = 30000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(7955).As<int*>() = 60000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(7956).As<int*>() = 90000; });
+		g_QueueScript->Add([] { *ScriptGlobal(262145).Add(7957).As<int*>() = 120000; });
+		g_QueueScript->Add([] { g_Features->DisplayNotification("~r~Disabled Anti AFK kick"); });
+	}
+
 	void Features::DisplayNotification(const char* text) {
 		HUD::_SET_NOTIFICATION_TEXT_ENTRY("STRING");
 		HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
