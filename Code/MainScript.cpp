@@ -78,6 +78,9 @@ namespace Big
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Player", SubmenuPlayer, [](RegularSubmenu* sub) {
+			sub->AddOption<RegularOption>("Toggle instant BST", nullptr, [] {
+				*ScriptGlobal(2441237).Add(4013).As<int*>() = 5;
+				});
 			sub->AddOption<NumberOption<int>>("RP Correction Rank", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
 			sub->AddOption<RegularOption>("Set Rank", nullptr, [] { g_Features->RPCorrection(); });
 			sub->AddOption<RegularOption>("Max Stats", nullptr, [] { g_Features->MaxStats(); });
