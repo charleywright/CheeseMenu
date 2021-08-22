@@ -22,6 +22,12 @@ int GetCharacterIndex() {
 	return i;
 }
 
+void OffMap(int type) {
+	Big::g_QueueScript->Add([] { *Big::ScriptGlobal(2426865).Add(1).Add(*Big::ScriptGlobal(2441237).As<int*>() * 449).Add(209).As<int*>() = 1; });
+	Big::g_QueueScript->Add([] { *Big::ScriptGlobal(2441237).Add(70).As<int*>() = *Big::ScriptGlobal(1312603).Add(11).As<int*>(); });
+	Big::g_QueueScript->Add([type] { *Big::ScriptGlobal(2544210).Add(4628).As<int*>() = type; });
+}
+
 namespace Big {
 	void Features::SetIntStat(const char* s, int c, int value) {
 		std::string stat = GetStatString(std::string(s), c);
@@ -32,6 +38,10 @@ namespace Big {
 		std::string stat = GetStatString(std::string(s), c);
 		STATS::STAT_GET_INT(Joaat(stat.c_str()), value, -1);
 	}
+
+	void Features::OffRadar() { OffMap(3); }
+
+	void Features::GhostOrg() { OffMap(4); }
 
 	void Features::DisplayNotification(const char* text) {
 		HUD::_SET_NOTIFICATION_TEXT_ENTRY("STRING");

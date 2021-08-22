@@ -78,9 +78,9 @@ namespace Big
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Player", SubmenuPlayer, [](RegularSubmenu* sub) {
-			sub->AddOption<RegularOption>("Toggle instant BST", nullptr, [] {
-				*ScriptGlobal(2441237).Add(4013).As<int*>() = 5;
-				});
+			sub->AddOption<RegularOption>("Toggle instant BST", nullptr, [] { *ScriptGlobal(2441237).Add(4013).As<int*>() = 5; });
+			sub->AddOption<RegularOption>("Off radar", nullptr, [] { g_Features->OffRadar(); });
+			sub->AddOption<RegularOption>("Ghost organization", "If not in CEO will default to Off Radar", [] { g_Features->GhostOrg(); });
 			sub->AddOption<NumberOption<int>>("RP Correction Rank", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
 			sub->AddOption<RegularOption>("Set Rank", nullptr, [] { g_Features->RPCorrection(); });
 			sub->AddOption<RegularOption>("Max Stats", nullptr, [] { g_Features->MaxStats(); });

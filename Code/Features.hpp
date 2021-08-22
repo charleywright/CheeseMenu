@@ -19,6 +19,8 @@ namespace Big
 		void MaxArmour();
 		void RPCorrection();
 		int m_RPCorrectionLevel = 135;
+		void OffRadar();
+		void GhostOrg();
 
 		// Doomsday
 		void DoomsdayPrerequisite();
