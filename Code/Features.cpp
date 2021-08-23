@@ -291,8 +291,35 @@ namespace Big {
 		}
 		g_Features->SetIntStat("MPx_H3OPT_TARGET", c_index, (int)g_Features->m_CayoPericoMainTarget);
 		g_Features->SetIntStat("MPx_H3OPT_APPROACH", c_index, (int)g_Features->m_DiamondCasinoApproach);
+		
+		// Update
 		g_Features->SetIntStat("MPx_H3OPT_ACCESSPOINTS", c_index, 2047);
 		g_Features->SetIntStat("MPx_H3OPT_POI", c_index, 1023);
+		int access_points = 0;
+		if (m_DiamondCasinoAccessPointMainDoor) access_points += 1;
+		if (m_DiamondCasinoAccessPointNorthSideDoor) access_points += 2;
+		if (m_DiamondCasinoAccessPointEastSideDoor) access_points += 4;
+		if (m_DiamondCasinoAccessPointSouthwestRoofTerrace) access_points += 8;
+		if (m_DiamondCasinoAccessPointSoutheastRoofTerrace) access_points += 16;
+		if (m_DiamondCasinoAccessPointEastRoofTerrace) access_points += 32;
+		if (m_DiamondCasinoAccessPoint_wag1memeing_com_) access_points += 64;
+		if (m_DiamondCasinoAccessPointRoof) access_points += 128;
+		if (m_DiamondCasinoAccessPointRoofStairs) access_points += 256;
+		if (m_DiamondCasinoAccessPointSecurityTunnel) access_points += 512;
+		if (m_DiamondCasinoAccessPointSewerTunnel) access_points += 1024;
+		g_Features->SetIntStat("MPx_H3OPT_ACCESSPOINTS", c_index, access_points);
+		int poi = 0;
+		if (m_DiamondCasinoPOIGuard) poi += 1;
+		if (m_DiamondCasinoPOISecurityCamera) poi += 2;
+		if (m_DiamondCasinoPOIKeypad) poi += 4;
+		if (m_DiamondCasinoPOIValet) poi += 8;
+		if (m_DiamondCasinoPOIOldCamera) poi += 16;
+		if (m_DiamondCasinoPOISecurityOffice) poi += 32;
+		if (m_DiamondCasinoPOIStaffLobby) poi += 64;
+		if (m_DiamondCasinoPOIStaffDoor) poi += 128;
+		if (m_DiamondCasinoPOIMetalDetectors) poi += 256;
+		if (m_DiamondCasinoPOIStaffElevator) poi += 512;
+		g_Features->SetIntStat("MPx_H3OPT_POI", c_index, poi);
 		g_Features->SetIntStat("MPx_H3OPT_BITSET1", c_index, -1);
 		g_QueueScript->Add([] { g_QueueScript->Delay(5000ms); });
 		g_Features->SetIntStat("MPx_H3OPT_DISRUPTSHIP", c_index, g_Features->m_DiamondCasinoDisrupt ? 3 : 0);

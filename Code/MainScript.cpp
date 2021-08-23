@@ -28,6 +28,8 @@ namespace Big
 		SubmenuHeistsCayoPericoSupportTeam,
 		SubmenuHeistsCayoPericoApproach,
 		SubmenuHeistsCasino,
+		SubmenuHeistsCasinoAccessPoints,
+		SubmenuHeistsCasinoPOI,
 		SubmenuHeistsDoomsday,
 		SubmenuSession,
 		SubmenuSettings,
@@ -177,6 +179,8 @@ namespace Big
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Diamond Casino Heist", SubmenuHeistsCasino, [](RegularSubmenu* sub) {
+			sub->AddOption<SubOption>("Access Points", nullptr, SubmenuHeistsCasinoAccessPoints);
+			sub->AddOption<SubOption>("Points of Interest", nullptr, SubmenuHeistsCasinoPOI);
 			sub->AddOption<ChooseOption<const char*, std::size_t>>("Approach", nullptr, &Lists::DiamondCasinoApproachFrontend, &Lists::DiamondCasinoApproachPosition, true, []
 				{
 					g_Features->m_DiamondCasinoApproach = Lists::DiamondCasinoApproachBackend[Lists::DiamondCasinoApproachPosition];
@@ -220,6 +224,32 @@ namespace Big
 				});
 			sub->AddOption<RegularOption>("Apply Settings", nullptr, [] { g_Features->ApplyDiamondCasino(); });
 			;			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Casino Heist Access Points", SubmenuHeistsCasinoAccessPoints, [](RegularSubmenu* sub) {
+			sub->AddOption<BoolOption<bool>>("Main Door", nullptr, &g_Features->m_DiamondCasinoAccessPointMainDoor, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("North Side Door", nullptr, &g_Features->m_DiamondCasinoAccessPointNorthSideDoor, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("East Side Door", nullptr, &g_Features->m_DiamondCasinoAccessPointEastSideDoor, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Southwest Roof Terrace", nullptr, &g_Features->m_DiamondCasinoAccessPointSouthwestRoofTerrace, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Southeast Roof Terrace", nullptr, &g_Features->m_DiamondCasinoAccessPointSoutheastRoofTerrace, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("East Roof Terrace", nullptr, &g_Features->m_DiamondCasinoAccessPointEastRoofTerrace, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Roof", nullptr, &g_Features->m_DiamondCasinoAccessPointRoof, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Roof Stairs", nullptr, &g_Features->m_DiamondCasinoAccessPointRoofStairs, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Security Tunnel", nullptr, &g_Features->m_DiamondCasinoAccessPointSecurityTunnel, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Sewer Tunnel", nullptr, &g_Features->m_DiamondCasinoAccessPointSewerTunnel, BoolDisplay::YesNo);
+			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Casino Heist Points of Interest", SubmenuHeistsCasinoPOI, [](RegularSubmenu* sub) {
+			sub->AddOption<BoolOption<bool>>("Guard", nullptr, &g_Features->m_DiamondCasinoPOIGuard, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Security Camera", nullptr, &g_Features->m_DiamondCasinoPOISecurityCamera, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Keypad", nullptr, &g_Features->m_DiamondCasinoPOIKeypad, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Valet", nullptr, &g_Features->m_DiamondCasinoPOIValet, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Old Camera", nullptr, &g_Features->m_DiamondCasinoPOIOldCamera, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Security Office", nullptr, &g_Features->m_DiamondCasinoPOISecurityOffice, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Staff Lobby", nullptr, &g_Features->m_DiamondCasinoPOIStaffLobby, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Staff Door", nullptr, &g_Features->m_DiamondCasinoPOIStaffDoor, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Metal Detectors", nullptr, &g_Features->m_DiamondCasinoPOIMetalDetectors, BoolDisplay::YesNo);
+			sub->AddOption<BoolOption<bool>>("Staff Elevator", nullptr, &g_Features->m_DiamondCasinoPOIStaffElevator, BoolDisplay::YesNo);
+			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Doomsday Scenario", SubmenuHeistsDoomsday, [](RegularSubmenu* sub) {
 			/*

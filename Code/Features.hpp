@@ -189,6 +189,29 @@ namespace Big
 			Second = 2
 		};
 
+		bool m_DiamondCasinoAccessPointMainDoor = true;
+		bool m_DiamondCasinoAccessPointNorthSideDoor = true;
+		bool m_DiamondCasinoAccessPointEastSideDoor = true;
+		bool m_DiamondCasinoAccessPointSouthwestRoofTerrace = true;
+		bool m_DiamondCasinoAccessPointSoutheastRoofTerrace = true;
+		bool m_DiamondCasinoAccessPointEastRoofTerrace = true;
+		bool m_DiamondCasinoAccessPoint_wag1memeing_com_ = true;
+		bool m_DiamondCasinoAccessPointRoof = true;
+		bool m_DiamondCasinoAccessPointRoofStairs = true;
+		bool m_DiamondCasinoAccessPointSecurityTunnel = true;
+		bool m_DiamondCasinoAccessPointSewerTunnel = true;
+
+		bool m_DiamondCasinoPOIGuard = true;
+		bool m_DiamondCasinoPOISecurityCamera = true;
+		bool m_DiamondCasinoPOIKeypad = true;
+		bool m_DiamondCasinoPOIValet = true;
+		bool m_DiamondCasinoPOIOldCamera = true;
+		bool m_DiamondCasinoPOISecurityOffice = true;
+		bool m_DiamondCasinoPOIStaffLobby = true;
+		bool m_DiamondCasinoPOIStaffDoor = true;
+		bool m_DiamondCasinoPOIMetalDetectors = true;
+		bool m_DiamondCasinoPOIStaffElevator = true;
+
 		DiamondCasinoApproach m_DiamondCasinoApproach = DiamondCasinoApproach::BigCon;
 		DiamondCasinoMainTarget m_DiamondCasinoMainTarget = DiamondCasinoMainTarget::Art;
 		bool m_DiamondCasinoDisrupt = true;
