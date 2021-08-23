@@ -78,6 +78,7 @@ namespace Big {
 		g_QueueScript->Add([] {*ScriptGlobal(1312443).As<int*>() = 1; });
 		g_QueueScript->Delay(200ms);
 		g_QueueScript->Add([] {*ScriptGlobal(1312443).As<int*>() = 0; });
+		g_QueueScript->Add([] { g_UiManager->m_Opened = false; });
 	}
 	void Features::LeaveGTAOnline() {
 		if (NETWORK::NETWORK_IS_SESSION_ACTIVE()) {
@@ -85,6 +86,7 @@ namespace Big {
 			g_QueueScript->Add([] {*ScriptGlobal(1312443).As<int*>() = 1; });
 			g_QueueScript->Delay(200ms);
 			g_QueueScript->Add([] {*ScriptGlobal(1312443).As<int*>() = 0; });
+			g_QueueScript->Add([] { g_UiManager->m_Opened = false; });
 		}
 	}
 
