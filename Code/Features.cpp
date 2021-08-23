@@ -39,6 +39,16 @@ namespace Big {
 		STATS::STAT_GET_INT(Joaat(stat.c_str()), value, -1);
 	}
 
+	void Features::FixVehicle() {
+		Ped playerPed = PLAYER::PLAYER_PED_ID();
+		bool pedExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
+		if (pedExists && PED::IS_PED_IN_ANY_VEHICLE(playerPed, false)) {
+			Vehicle veh = PED::GET_VEHICLE_PED_IS_IN(playerPed, true);
+			VEHICLE::SET_VEHICLE_FIXED(veh);
+			VEHICLE::SET_VEHICLE_DIRT_LEVEL(veh, 0);
+		}
+	}
+
 	void Features::OffRadar() { OffMap(3); }
 
 	void Features::GhostOrg() { OffMap(4); }

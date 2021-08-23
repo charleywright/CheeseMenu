@@ -4,6 +4,7 @@
 #include "QueueScript.hpp"
 #include "LogScript.hpp"
 #include "MainScript.hpp"
+#include "FeaturesScript.hpp"
 #include "ScriptCallback.hpp"
 #include "Invoker.hpp"
 #include "CustomText.hpp"
@@ -52,10 +53,12 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 			g_LogScript = std::make_shared<LogScript>();
 			g_CallbackScript = std::make_shared<CallbackScript>();
 			g_QueueScript = std::make_shared<QueueScript>();
+			g_FeaturesScript = std::make_shared<FeaturesScript>();
 			g_ScriptManager->AddScript(g_MainScript);
 			g_ScriptManager->AddScript(g_LogScript);
 			g_ScriptManager->AddScript(g_CallbackScript);
 			g_ScriptManager->AddScript(g_QueueScript);
+			g_ScriptManager->AddScript(g_FeaturesScript);
 
 			g_Features = std::make_unique<Features>();
 

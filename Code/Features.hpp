@@ -12,6 +12,9 @@ namespace Big
 		void SetIntStat(const char* stat, int character_index, int value);
 		void GetIntStat(const char* stat, int character_index, int* value);
 
+		bool m_FixVehicle = true;
+		void FixVehicle();
+
 		void EnterSession(int type);
 		void LeaveGTAOnline();
 		void MaxStats();

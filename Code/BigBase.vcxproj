@@ -17,6 +17,7 @@
     <ClInclude Include="CustomText.hpp" />
     <ClInclude Include="D3DRenderer.hpp" />
     <ClInclude Include="Features.hpp" />
+    <ClInclude Include="FeaturesScript.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Hooking.hpp" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="CustomText.cpp" />
     <ClCompile Include="D3DRenderer.cpp" />
     <ClCompile Include="Features.cpp" />
+    <ClCompile Include="FeaturesScript.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hooking.cpp" />
     <ClCompile Include="ImGui\imgui.cpp">

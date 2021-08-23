@@ -83,6 +83,7 @@ namespace Big
 			sub->AddOption<RegularOption>("Toggle instant BST", nullptr, [] { *ScriptGlobal(2441237).Add(4013).As<int*>() = 5; });
 			sub->AddOption<RegularOption>("Off radar", nullptr, [] { g_Features->OffRadar(); });
 			sub->AddOption<RegularOption>("Ghost organization", "If not in CEO will default to Off Radar", [] { g_Features->GhostOrg(); });
+			sub->AddOption<BoolOption<bool>>("Fix Vehicle", nullptr, &g_Features->m_FixVehicle, BoolDisplay::OnOff);
 			sub->AddOption<NumberOption<int>>("RP Correction Rank", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
 			sub->AddOption<RegularOption>("Set Rank", nullptr, [] { g_Features->RPCorrection(); });
 			sub->AddOption<RegularOption>("Max Stats", nullptr, [] { g_Features->MaxStats(); });
@@ -252,6 +253,34 @@ namespace Big
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Doomsday Scenario", SubmenuHeistsDoomsday, [](RegularSubmenu* sub) {
+#if _DEBUG
+			sub->AddOption<RegularOption>("Dump stats", nullptr, [] {
+				int i;
+				g_Logger->Info("```yaml");
+				g_Features->GetIntStat("MPx_GANGOPS_FLOW_MISSION_PROG", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_FLOW_MISSION_PROG: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_FLOW_IMPEXP_NUM", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_FLOW_IMPEXP_NUM: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_FLOW_NOTIFICATIONS", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_FLOW_NOTIFICATIONS: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_FM_MISSION_PROG", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_FM_MISSION_PROG: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_FM_BITSET_MISS0", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_FM_BITSET_MISS0: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_HEIST_STATUS", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_HEIST_STATUS: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_FLOW_PASSED_BITSET", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_FLOW_PASSED_BITSET: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_LAUNCH_TIME", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_LAUNCH_TIME: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_PREP_SKIP", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_PREP_SKIP: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_FM_MISSION_SKIP", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_FM_MISSION_SKIP: %d", i);
+				g_Features->GetIntStat("MPx_GANGOPS_FLOW_BITSET_MISS0", 0, &i);
+				g_Logger->Info("MPx_GANGOPS_FLOW_BITSET_MISS0: %d ```", i);
+				});
+#endif
 			/*
 				TODO: Reverse all stats & add globals
 			*/

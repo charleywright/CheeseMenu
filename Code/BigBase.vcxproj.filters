@@ -48,6 +48,7 @@
     <ClInclude Include="QueueScript.hpp" />
     <ClInclude Include="Config.hpp" />
     <ClInclude Include="Offsets.hpp" />
+    <ClInclude Include="FeaturesScript.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -71,5 +72,6 @@
     <ClCompile Include="Features.cpp" />
     <ClCompile Include="QueueScript.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="FeaturesScript.cpp" />
   </ItemGroup>
 </Project>
