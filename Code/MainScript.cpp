@@ -22,6 +22,7 @@ namespace Big
 	{
 		SubmenuHome,
 		SubmenuPlayer,
+		SubmenuWorld,
 		SubmenuHeists,
 		SubmenuHeistsCayoPerico,
 		SubmenuHeistsCayoPericoVehicle,
@@ -69,6 +70,7 @@ namespace Big
 			{
 				sub->AddOption<SubOption>("Player", nullptr, SubmenuPlayer);
 				// sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
+				sub->AddOption<SubOption>("World", nullptr, SubmenuWorld);
 				sub->AddOption<SubOption>("Heists", nullptr, SubmenuHeists);
 				sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
 				sub->AddOption<SubOption>("Settings", nullptr, SubmenuSettings);
@@ -92,6 +94,19 @@ namespace Big
 			sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, [] {
 				g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick(); 
 				});
+			
+			});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("World", SubmenuWorld, [](RegularSubmenu* sub) {
+			sub->AddOption<ChooseOption<const char*, std::size_t>>("Weather", nullptr, &Lists::WeatherTypesFrontend, &Lists::WeatherTypePosition, false, [] {
+				MISC::SET_WEATHER_TYPE_NOW_PERSIST(Lists::WeatherTypesBackend[Lists::WeatherTypePosition]);
+				});
+			sub->AddOption<BoolOption<bool>>("Freeze Weather", nullptr, &g_Features->m_FreezeWeather, BoolDisplay::OnOff);
+			sub->AddOption<NumberOption<int>>("Hours", nullptr, &g_Features->m_hours, 0, 23);
+			sub->AddOption<NumberOption<int>>("Hours", nullptr, &g_Features->m_minutes, 0, 59);
+			sub->AddOption<NumberOption<int>>("Hours", nullptr, &g_Features->m_seconds, 0, 59);
+			sub->AddOption<RegularOption>("Set Time", nullptr, [] { NETWORK::NETWORK_OVERRIDE_CLOCK_TIME(g_Features->m_hours, g_Features->m_minutes, g_Features->m_seconds); });
+			sub->AddOption<BoolOption<bool>>("Freeze Time", nullptr, &g_Features->m_FreezeTime, BoolDisplay::OnOff);
 			sub->AddOption<RegularOption>("Toggle Snow", nullptr, [] {
 				int* snow = ScriptGlobal(262145).Add(4724).As<int*>();
 				*snow == 1 ? *snow = 0 : *snow = 1;

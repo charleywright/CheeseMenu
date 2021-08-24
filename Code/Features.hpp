@@ -12,6 +12,12 @@ namespace Big
 		void SetIntStat(const char* stat, int character_index, int value);
 		void GetIntStat(const char* stat, int character_index, int* value);
 
+		bool m_FreezeWeather = false;
+		int m_hours = 12;
+		int m_minutes = 30;
+		int m_seconds = 0;
+		bool m_FreezeTime = false;
+
 		bool m_FixVehicle = true;
 		void FixVehicle();
 

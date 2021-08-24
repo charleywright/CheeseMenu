@@ -4,6 +4,46 @@
 
 namespace Big::Lists
 {
+	inline const char* WeatherTypesFrontend[]
+	{
+		"Blizzard",
+		"Clear",
+		"Clearing",
+		"Clouds",
+		"Extra Sunny",
+		"Foggy",
+		"Halloween",
+		"Neutral",
+		"Overcast",
+		"Rain",
+		"Smog",
+		"Snow",
+		"Snowlight",
+		"Thunder",
+		"Christmas"
+	};
+
+	inline const char* WeatherTypesBackend[]
+	{
+		"BLIZZARD",
+		"CLEAR",
+		"CLEARING",
+		"CLOUDS",
+		"EXTRASUNNY",
+		"FOGGY",
+		"HALLOWEEN",
+		"NEUTRAL",
+		"OVERCAST",
+		"RAIN",
+		"SMOG",
+		"SNOW",
+		"SNOWLIGHT",
+		"THUNDER",
+		"XMAS"
+	};
+
+	inline std::size_t WeatherTypePosition = 1;
+
 	inline UserInterface::Font FontTypes[]
 	{
 		UserInterface::Font::ChaletLondon,
