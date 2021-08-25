@@ -21,6 +21,7 @@ namespace Big {
 		float m_Width = 0.2f;
 		std::size_t m_OptionsPerPage = 11;
 		bool m_Sounds = true;
+		std::size_t m_FeatureTickSize = 10;
 
 		// Input
 		std::int32_t m_OpenDelay = 120;

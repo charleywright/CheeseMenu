@@ -34,6 +34,7 @@ namespace Big
 			this->m_Width = j.value("m_Width", this->m_Width);
 			this->m_OptionsPerPage = j.value("m_OptionsPerPage", this->m_OptionsPerPage);
 			this->m_Sounds = j.value("m_Sounds", this->m_Sounds);
+			this->m_FeatureTickSize = j.value("m_FeatureTickSize", this->m_FeatureTickSize);
 
 			// Input
 			this->m_OpenDelay = j.value("m_OpenDelay", this->m_OpenDelay);
@@ -205,6 +206,7 @@ namespace Big
 		j["m_Width"] = this->m_Width;
 		j["m_OptionsPerPage"] = this->m_OptionsPerPage;
 		j["m_Sounds"] = this->m_Sounds;
+		j["m_FeatureTickSize"] = this->m_FeatureTickSize;
 
 		// Input
 		j["m_OpenDelay"] = this->m_OpenDelay;

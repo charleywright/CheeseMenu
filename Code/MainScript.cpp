@@ -334,6 +334,7 @@ namespace Big
 				sub->AddOption<NumberOption<float>>("Width", nullptr, &g_Config->m_Width, 0.01f, 1.f, 0.01f, 2);
 				sub->AddOption<NumberOption<size_t>>("Options Per Page", nullptr, &g_Config->m_OptionsPerPage, 1, static_cast<size_t>(20));
 				sub->AddOption<BoolOption<bool>>("Sounds", nullptr, &g_Config->m_Sounds, BoolDisplay::OnOff);
+				sub->AddOption<NumberOption<size_t>>("Feature Tick Size", "How many ticks to wait between feature ticks", &g_Config->m_FeatureTickSize, 1, 50);
 #if _DEBUG
 				sub->AddOption<BoolOption<std::atomic_bool>>("Log Window", nullptr, &g_Config->m_LogWindow, BoolDisplay::OnOff);
 				sub->AddOption<BoolOption<std::atomic_bool>>("Lock Cursor", nullptr, &g_Config->m_LockMouse, BoolDisplay::OnOff);
