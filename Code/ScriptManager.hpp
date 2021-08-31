@@ -5,7 +5,7 @@
 #include "Logger.hpp"
 #include "Script.hpp"
 
-namespace Big
+namespace Cheese
 {
 	class ScriptManager
 	{

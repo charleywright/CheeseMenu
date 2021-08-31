@@ -18,17 +18,17 @@ std::string GetStatString(std::string stat, int character) {
 
 int GetCharacterIndex() {
 	int i;
-	Big::STATS::STAT_GET_INT(CONSTEXPR_JOAAT("MPPLY_LAST_MP_CHAR"), &i, -1);
+	Cheese::STATS::STAT_GET_INT(CONSTEXPR_JOAAT("MPPLY_LAST_MP_CHAR"), &i, -1);
 	return i;
 }
 
 void OffMap(int type) {
-	Big::g_QueueScript->Add([] { *Big::ScriptGlobal(2426865).Add(1).Add(*Big::ScriptGlobal(2441237).As<int*>() * 449).Add(209).As<int*>() = 1; });
-	Big::g_QueueScript->Add([] { *Big::ScriptGlobal(2441237).Add(70).As<int*>() = *Big::ScriptGlobal(1312603).Add(11).As<int*>(); });
-	Big::g_QueueScript->Add([type] { *Big::ScriptGlobal(2544210).Add(4628).As<int*>() = type; });
+	Cheese::g_QueueScript->Add([] { *Cheese::ScriptGlobal(2426865).Add(1).Add(*Cheese::ScriptGlobal(2441237).As<int*>() * 449).Add(209).As<int*>() = 1; });
+	Cheese::g_QueueScript->Add([] { *Cheese::ScriptGlobal(2441237).Add(70).As<int*>() = *Cheese::ScriptGlobal(1312603).Add(11).As<int*>(); });
+	Cheese::g_QueueScript->Add([type] { *Cheese::ScriptGlobal(2544210).Add(4628).As<int*>() = type; });
 }
 
-namespace Big {
+namespace Cheese {
 	void Features::SetIntStat(const char* s, int c, int value) {
 		std::string stat = GetStatString(std::string(s), c);
 		g_QueueScript->Add([stat, value] { STATS::STAT_SET_INT(Joaat(stat.c_str()), value, 1); });

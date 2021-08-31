@@ -1,7 +1,7 @@
 #pragma once
 #include "Game.hpp"
 
-namespace Big
+namespace Cheese
 {
 	/**
 	 * \brief Checks if a key is pressed
@@ -134,6 +134,6 @@ namespace Big
 		return hash;
 	}
 
-#	define CONSTEXPR_JOAAT_IMPL(x) (::Big::ConstexprJooat<sizeof(x) - 1>((x), std::make_index_sequence<sizeof(x) - 1>()).GetHash())
+#	define CONSTEXPR_JOAAT_IMPL(x) (::Cheese::ConstexprJooat<sizeof(x) - 1>((x), std::make_index_sequence<sizeof(x) - 1>()).GetHash())
 #	define CONSTEXPR_JOAAT(x) (std::integral_constant<std::uint32_t, CONSTEXPR_JOAAT_IMPL(x)>::value)
 }

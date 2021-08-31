@@ -2,7 +2,7 @@
 #include "BaseOption.hpp"
 #include "UIManager.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	template <typename NumberType>
 	class NumberOption : public BaseOption<NumberOption<NumberType>>

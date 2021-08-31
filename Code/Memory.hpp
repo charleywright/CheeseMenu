@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Big
+namespace Cheese
 {
 	class MemoryHandle
 	{
@@ -159,7 +159,7 @@ namespace Big
 	{
 	public:
 		/**
-		 * \brief Constructs the class with the main moduée
+		 * \brief Constructs the class with the main moduï¿½e
 		 */
 		explicit Module(std::nullptr_t):
 			Module(static_cast<char*>(nullptr))

@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseOption.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	template <typename DataType, typename PositionType>
 	class ChooseOption : public BaseOption<ChooseOption<DataType, PositionType>>

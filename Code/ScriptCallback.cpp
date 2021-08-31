@@ -1,6 +1,6 @@
 #include "ScriptCallback.hpp"
 
-namespace Big
+namespace Cheese
 {
 	bool CallbackScript::IsInitialized()
 	{

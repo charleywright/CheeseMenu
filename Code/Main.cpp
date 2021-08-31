@@ -21,7 +21,7 @@
  */
 BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 {
-	using namespace Big;
+	using namespace Cheese;
 
 	if (reason == DLL_PROCESS_ATTACH)
 	{

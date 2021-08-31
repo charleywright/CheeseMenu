@@ -16,7 +16,7 @@
 #include "UI/RegularSubmenu.hpp"
 #include "UI/PlayerSubmenu.hpp"
 
-namespace Big
+namespace Cheese
 {
 	enum Submenu : std::uint32_t
 	{

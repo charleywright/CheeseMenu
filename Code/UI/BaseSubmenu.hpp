@@ -2,7 +2,7 @@
 #include "AbstractSubmenu.hpp"
 #include "AbstractOption.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	template <typename T>
 	class BaseSubmenu : public AbstractSubmenu

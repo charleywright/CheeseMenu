@@ -1,7 +1,7 @@
 #pragma once
 #include "Script.hpp"
 
-namespace Big
+namespace Cheese
 {
 	class MainScript : public Script
 	{

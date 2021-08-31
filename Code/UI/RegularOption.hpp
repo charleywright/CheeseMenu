@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseOption.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	class RegularOption : public BaseOption<RegularOption>
 	{

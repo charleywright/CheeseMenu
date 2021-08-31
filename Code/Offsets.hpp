@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Big::Offsets
+namespace Cheese::Offsets
 {
 	inline short pCPed = 0x8;
 	inline short pCPlayerInfo = 0x10C8;

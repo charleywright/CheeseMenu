@@ -2,7 +2,7 @@
 #include "VMTHook.hpp"
 #include <memory>
 
-namespace Big
+namespace Cheese
 {
 	struct Hooks
 	{

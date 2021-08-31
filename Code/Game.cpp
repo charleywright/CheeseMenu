@@ -3,7 +3,7 @@
 #include "Memory.hpp"
 #include <WinUser.h>
 
-namespace Big
+namespace Cheese
 {
 	GameVariables::GameVariables():
 		m_GameState(Signature("48 85 C9 74 4B 83 3D").Scan().Add(7).Rip().As<decltype(m_GameState)>()),

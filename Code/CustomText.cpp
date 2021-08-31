@@ -2,7 +2,7 @@
 #include <cstring>
 #include <algorithm>
 
-namespace Big
+namespace Cheese
 {
 	void CustomText::AddText(std::uint32_t hash, const char* text)
 	{

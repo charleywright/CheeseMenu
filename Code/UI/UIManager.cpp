@@ -3,7 +3,7 @@
 #include "../Natives.hpp"
 #include <Shlwapi.h>
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	UIManager::UIManager() {}
 
@@ -241,7 +241,7 @@ namespace Big::UserInterface
 		if (g_Config->m_HeaderText)
 		{
 			DrawCenteredText(
-				BIGBASE_NAME,
+				"Cheese",
 				g_Config->m_PosX + (g_Config->m_Width * 0.5f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset,
 				m_DrawBaseY + (g_Config->m_HeaderHeight / 2.f) - (GetTextHeight(g_Config->m_HeaderFont, g_Config->m_HeaderTextSize) / 2.f),
 				g_Config->m_HeaderTextSize,

@@ -1,6 +1,6 @@
 #include "QueueScript.hpp"
 
-namespace Big
+namespace Cheese
 {
 	bool QueueScript::IsInitialized()
 	{

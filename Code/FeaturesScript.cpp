@@ -4,7 +4,7 @@
 #include "Lists.hpp"
 #include "Config.hpp"
 
-namespace Big
+namespace Cheese
 {
 	bool FeaturesScript::IsInitialized()
 	{

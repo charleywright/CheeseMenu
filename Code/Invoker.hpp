@@ -75,7 +75,7 @@ namespace rage
 #pragma pack(pop)
 }
 
-namespace Big
+namespace Cheese
 {
 	struct NativeContext : public rage::scrNativeCallContext
 	{

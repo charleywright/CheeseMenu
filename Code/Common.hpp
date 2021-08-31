@@ -40,15 +40,7 @@
 #include <unordered_map>
 #include <vector>
 
-#define BIGBASE_WIDE_IMPL(str) L ## str
-#define BIGBASE_WIDE(str) BIGBASE_WIDE_IMPL(str)
-
-#define BIGBASE_STRINGIZE_IMPL(x) #x
-#define BIGBASE_STRINGIZE(x) BIGBASE_STRINGIZE_IMPL(x)
-
-#define BIGBASE_NAME "CheeseMenu"
-
-namespace Big
+namespace Cheese
 {
 	using namespace std::chrono_literals;
 	namespace fs = std::filesystem;

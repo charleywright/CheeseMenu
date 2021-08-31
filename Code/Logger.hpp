@@ -5,7 +5,7 @@
 #include <fstream>
 #include <filesystem>
 
-namespace Big
+namespace Cheese
 {
 	class Logger
 	{

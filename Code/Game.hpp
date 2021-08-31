@@ -7,7 +7,7 @@ namespace rage
 	struct scrNativeRegistration;
 }
 
-namespace Big
+namespace Cheese
 {
 	class GameVariables
 	{

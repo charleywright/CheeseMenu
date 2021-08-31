@@ -1,28 +1,21 @@
 #include "Logger.hpp"
 #include "Common.hpp"
 
-namespace Big
+namespace Cheese
 {
 	Logger::Logger()
 	{
 		try
 		{
 			m_FilePath.append(std::getenv("appdata"));
-			m_FilePath.append(BIGBASE_NAME);
+			m_FilePath.append("CheeseMenu");
 			if (!fs::exists(m_FilePath))
 				fs::create_directory(m_FilePath);
-			m_FilePath.append(BIGBASE_NAME ".log");
+			m_FilePath.append("CheeseMenu.log");
 		}
 		catch (fs::filesystem_error const&)
 		{
 		}
-
-		//if (!AttachConsole(GetCurrentProcessId()))
-			//AllocConsole();
-		//SetConsoleTitleW(BIGBASE_WIDE(BIGBASE_NAME));
-		//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
-		//SetConsoleCP(CP_UTF8);
-		//SetConsoleOutputCP(CP_UTF8);
 
 		m_Console.open("CONOUT$");
 		m_Input.open("CONIN$");

@@ -5,7 +5,7 @@
 #include "AbstractSubmenu.hpp"
 #include "../Timer.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	enum class Font : std::int32_t
 	{
@@ -127,7 +127,7 @@ namespace Big::UserInterface
 	};
 }
 
-namespace Big
+namespace Cheese
 {
 	inline std::unique_ptr<UserInterface::UIManager> g_UiManager;
 }

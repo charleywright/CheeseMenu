@@ -2,7 +2,7 @@
 #include "BaseOption.hpp"
 #include "UIManager.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	class SubOption : public BaseOption<SubOption>
 	{

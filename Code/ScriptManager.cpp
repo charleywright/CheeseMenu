@@ -1,6 +1,6 @@
 #include "ScriptManager.hpp"
 
-namespace Big
+namespace Cheese
 {
 	ScriptManager::ScriptManager()
 	{

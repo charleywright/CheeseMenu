@@ -4,7 +4,7 @@
 #include "Script.hpp"
 #include "Natives.hpp"
 
-namespace Big
+namespace Cheese
 {
 	class AbstractCallback
 	{

@@ -9,7 +9,7 @@
 
 #pragma warning(push)
 #pragma warning(disable : 4505)
-namespace Big
+namespace Cheese
 {
 	template <typename R, typename ...TArgs>
 	inline R invoke(std::uint64_t hash, TArgs... args)

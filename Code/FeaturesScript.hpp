@@ -2,7 +2,7 @@
 #include "Script.hpp"
 #include <memory>
 
-namespace Big
+namespace Cheese
 {
 	class FeaturesScript : public Script
 	{

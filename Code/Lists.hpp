@@ -2,7 +2,7 @@
 #include "UI/UIManager.hpp"
 #include "Features.hpp"
 
-namespace Big::Lists
+namespace Cheese::Lists
 {
 	inline const char* WeatherTypesFrontend[]
 	{

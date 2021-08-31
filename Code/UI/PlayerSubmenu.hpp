@@ -2,7 +2,7 @@
 #include "BaseSubmenu.hpp"
 #include "../Natives.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	class PlayerSubmenu : public BaseSubmenu<PlayerSubmenu>
 	{

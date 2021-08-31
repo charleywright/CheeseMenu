@@ -6,7 +6,7 @@
 #include "JSON/json.hpp"
 using json = nlohmann::json;
 
-namespace Big
+namespace Cheese
 {
 	Config::Config()
 	{

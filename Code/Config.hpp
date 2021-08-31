@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace Big {
+namespace Cheese {
 	class Config {
 	public:
 		Config();

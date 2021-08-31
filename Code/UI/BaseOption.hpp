@@ -2,7 +2,7 @@
 #include "../Common.hpp"
 #include "AbstractOption.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	template <typename T>
 	class BaseOption : public AbstractOption

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.hpp" />
+    <ClInclude Include="Config.hpp" />
+    <ClInclude Include="Crossmap.hpp" />
+    <ClInclude Include="CustomText.hpp" />
+    <ClInclude Include="D3DRenderer.hpp" />
+    <ClInclude Include="Features.hpp" />
+    <ClInclude Include="FeaturesScript.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Hooking.hpp" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="Invoker.hpp" />
+    <ClInclude Include="Lists.hpp" />
+    <ClInclude Include="Logger.hpp" />
+    <ClInclude Include="LogScript.hpp" />
+    <ClInclude Include="MainScript.hpp" />
+    <ClInclude Include="Memory.hpp" />
+    <ClInclude Include="Natives.hpp" />
+    <ClInclude Include="Offsets.hpp" />
+    <ClInclude Include="RPLevels.hpp" />
+    <ClInclude Include="Script.hpp" />
+    <ClInclude Include="ScriptCallback.hpp" />
+    <ClInclude Include="ScriptGlobal.hpp" />
+    <ClInclude Include="ScriptManager.hpp" />
+    <ClInclude Include="QueueScript.hpp" />
+    <ClInclude Include="Timer.hpp" />
+    <ClInclude Include="Types.hpp" />
+    <ClInclude Include="UI\AbstractOption.hpp" />
+    <ClInclude Include="UI\BaseOption.hpp" />
+    <ClInclude Include="UI\BaseSubmenu.hpp" />
+    <ClInclude Include="UI\BoolOption.hpp" />
+    <ClInclude Include="UI\ChooseOption.hpp" />
+    <ClInclude Include="UI\NumberOption.hpp" />
+    <ClInclude Include="UI\PlayerSubmenu.hpp" />
+    <ClInclude Include="UI\RegularOption.hpp" />
+    <ClInclude Include="UI\AbstractSubmenu.hpp" />
+    <ClInclude Include="UI\RegularSubmenu.hpp" />
+    <ClInclude Include="UI\SubOption.hpp" />
+    <ClInclude Include="UI\TextBox.hpp" />
+    <ClInclude Include="UI\UIManager.hpp" />
+    <ClInclude Include="Util.hpp" />
+    <ClInclude Include="VMTHook.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Common.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="CustomText.cpp" />
+    <ClCompile Include="D3DRenderer.cpp" />
+    <ClCompile Include="Features.cpp" />
+    <ClCompile Include="FeaturesScript.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Hooking.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp">
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="LogScript.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ScriptCallback.cpp" />
+    <ClCompile Include="ScriptManager.cpp" />
+    <ClCompile Include="MainScript.cpp" />
+    <ClCompile Include="QueueScript.cpp" />
+    <ClCompile Include="UI\UIManager.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{D52E5E73-B8A8-4992-8347-41ABE83D4991}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>CheeseMenu</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>CheeseMenu</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Binaries\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Binaries\$(Configuration)-Intermediates\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <OmitFramePointers>true</OmitFramePointers>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PrecompiledHeaderFile>Common.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ForcedIncludeFiles>Common.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4307</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\Binaries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3dcompiler.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

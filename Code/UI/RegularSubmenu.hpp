@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseSubmenu.hpp"
 
-namespace Big::UserInterface
+namespace Cheese::UserInterface
 {
 	class RegularSubmenu : public BaseSubmenu<RegularSubmenu>
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include "Game.hpp"
 
-namespace Big
+namespace Cheese
 {
 	class ScriptGlobal
 	{
