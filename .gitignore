@@ -1,9 +1,3 @@
 .vs/
 .vscode/
-*.dll
-*.pdb
-Xenos.log
-XenosCurrentProfile.xpr
-Release-Intermediates/
-Debug-Intermediates/
-config.json
+Binaries/*
