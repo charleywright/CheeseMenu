@@ -11,18 +11,6 @@ namespace Big::UserInterface
 	{
 		std::lock_guard lock(m_Mutex);
 
-		if (IsMouseLocked())
-		{
-			PAD::DISABLE_ALL_CONTROL_ACTIONS(0);
-			ShowCursor(true);
-			SetCursor(LoadCursorA(NULL, IDC_ARROW));
-
-			if (GetMenuRect().IsInBounds(GetMousePos()))
-			{
-				g_Logger->Info("Kekkeke");
-			}
-		}
-
 		if (g_UiManager->m_Opened && g_Config->m_LockMouse)
 		{
 			PAD::DISABLE_ALL_CONTROL_ACTIONS(0);
@@ -608,25 +596,6 @@ namespace Big::UserInterface
 	bool UIManager::IsMouseLocked()
 	{
 		return m_Opened && m_MouseLocked;
-	}
-
-	Rectangle UIManager::GetMenuRect()
-	{
-		float height = g_Config->m_HeaderHeight;
-		height += g_Config->m_SubmenuBarHeight;
-
-		if (!m_SubmenuStack.empty())
-		{
-			height += g_Config->m_OptionHeight * std::min(m_SubmenuStack.top()->GetNumOptions(), g_Config->m_OptionsPerPage);
-		}
-
-		height += g_Config->m_FooterHeight;
-
-		return
-		{
-			{ g_Config->m_PosX + (g_Config->m_Width / 2.f) + g_Config->m_ScrollBarWidth + g_Config->m_ScrollBarOffset, g_Config->m_PosY + (height / 2.f) },
-			{ g_Config->m_Width, height }
-		};
 	}
 
 	Vector2 UIManager::GetMousePos()

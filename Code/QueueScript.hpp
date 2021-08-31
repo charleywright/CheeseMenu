@@ -1,6 +1,9 @@
 #pragma once
 #include "Script.hpp"
 #include <queue>
+#include <memory>
+#include <functional>
+#include <chrono>
 
 namespace Big
 {

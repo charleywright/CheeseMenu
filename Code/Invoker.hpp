@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include "Types.hpp"
 #include "Crossmap.hpp"
+#include <memory>
 
 namespace rage
 {

@@ -34,7 +34,6 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 			g_GameFunctions = std::make_unique<GameFunctions>();
 			g_GameVariables = std::make_unique<GameVariables>();
 
-			// Wait for the game to load
 			while (*g_GameVariables->m_GameState != 0)
 			{
 				std::this_thread::sleep_for(3s);
@@ -100,7 +99,7 @@ BOOL DllMain(HINSTANCE hInstance, DWORD reason, LPVOID)
 			g_GameVariables.reset();
 			g_GameFunctions.reset();
 			
-			g_Logger->Info("BigBase unloaded.");
+			g_Logger->Info("CheeseMenu unloaded.");
 			g_Logger.reset();
 
 			FreeLibraryAndExitThread(g_Module, 0);

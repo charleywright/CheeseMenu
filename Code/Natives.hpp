@@ -1,6 +1,7 @@
 #pragma once
 #include "Invoker.hpp"
 #include "Types.hpp"
+#include <minwindef.h>
 
 // Generated 3-9-2018
 

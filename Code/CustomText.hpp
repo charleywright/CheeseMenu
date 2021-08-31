@@ -1,5 +1,7 @@
 #pragma once
 #include "Script.hpp"
+#include <memory>
+#include <unordered_map>
 
 namespace Big
 {

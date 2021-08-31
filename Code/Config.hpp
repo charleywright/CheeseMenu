@@ -9,15 +9,11 @@ namespace Big {
 		void Save();
 
 		std::atomic_bool m_LockMouse = false;
-#if _DEBUG
-		std::atomic_bool m_LogWindow = true;
-#else	
 		std::atomic_bool m_LogWindow = false;
-#endif
 
 		// General
 		float m_PosX = 0.01f;
-		float m_PosY = 0.15f;
+		float m_PosY = 0.2f;
 		float m_Width = 0.2f;
 		std::size_t m_OptionsPerPage = 11;
 		bool m_Sounds = true;

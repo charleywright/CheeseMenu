@@ -1,4 +1,6 @@
 #include "CustomText.hpp"
+#include <cstring>
+#include <algorithm>
 
 namespace Big
 {

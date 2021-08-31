@@ -1,5 +1,7 @@
 #include "Game.hpp"
 #include "Invoker.hpp"
+#include "Memory.hpp"
+#include <WinUser.h>
 
 namespace Big
 {

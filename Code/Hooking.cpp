@@ -8,7 +8,7 @@
 #include <MinHook/MinHook.h>
 #include "Features.hpp"
 
-#ifdef BIGBASE_DEBUG
+#ifdef _DEBUG
 #  pragma comment(lib, "MinHook-Debug.lib")
 #else
 #  pragma comment(lib, "MinHook-Release.lib")

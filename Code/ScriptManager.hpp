@@ -1,4 +1,8 @@
 #pragma once
+#include <memory>
+#include <mutex>
+#include <vector>
+#include "Logger.hpp"
 #include "Script.hpp"
 
 namespace Big

@@ -1,5 +1,6 @@
 #pragma once
 #include "VMTHook.hpp"
+#include <memory>
 
 namespace Big
 {

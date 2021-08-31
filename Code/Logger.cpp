@@ -1,4 +1,5 @@
 #include "Logger.hpp"
+#include "Common.hpp"
 
 namespace Big
 {

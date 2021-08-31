@@ -1,4 +1,6 @@
 #pragma once
+#include <memory>
+#include <functional>
 #include "Script.hpp"
 #include "Natives.hpp"
 

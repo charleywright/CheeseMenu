@@ -268,37 +268,6 @@ namespace Big
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Doomsday Scenario", SubmenuHeistsDoomsday, [](RegularSubmenu* sub) {
-#if _DEBUG
-			sub->AddOption<RegularOption>("Dump stats", nullptr, [] {
-				int i;
-				g_Logger->Info("```yaml");
-				g_Features->GetIntStat("MPx_GANGOPS_FLOW_MISSION_PROG", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_FLOW_MISSION_PROG: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_FLOW_IMPEXP_NUM", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_FLOW_IMPEXP_NUM: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_FLOW_NOTIFICATIONS", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_FLOW_NOTIFICATIONS: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_FM_MISSION_PROG", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_FM_MISSION_PROG: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_FM_BITSET_MISS0", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_FM_BITSET_MISS0: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_HEIST_STATUS", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_HEIST_STATUS: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_FLOW_PASSED_BITSET", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_FLOW_PASSED_BITSET: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_LAUNCH_TIME", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_LAUNCH_TIME: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_PREP_SKIP", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_PREP_SKIP: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_FM_MISSION_SKIP", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_FM_MISSION_SKIP: %d", i);
-				g_Features->GetIntStat("MPx_GANGOPS_FLOW_BITSET_MISS0", 0, &i);
-				g_Logger->Info("MPx_GANGOPS_FLOW_BITSET_MISS0: %d ```", i);
-				});
-#endif
-			/*
-				TODO: Reverse all stats & add globals
-			*/
 			sub->AddOption<RegularOption>("Prerequisite", "Only needs to be done once", [] { g_Features->DoomsdayPrerequisite(); });
 			sub->AddOption<RegularOption>("Skip Act 1 Preps & Setups", nullptr, [] { g_Features->SkipAct1(); });
 			sub->AddOption<RegularOption>("Skip Act 2 Preps & Setups", nullptr, [] { g_Features->SkipAct2(); });
@@ -335,10 +304,8 @@ namespace Big
 				sub->AddOption<NumberOption<size_t>>("Options Per Page", nullptr, &g_Config->m_OptionsPerPage, 1, static_cast<size_t>(20));
 				sub->AddOption<BoolOption<bool>>("Sounds", nullptr, &g_Config->m_Sounds, BoolDisplay::OnOff);
 				sub->AddOption<NumberOption<size_t>>("Feature Tick Size", "How many ticks to wait between feature ticks", &g_Config->m_FeatureTickSize, 1, 50);
-#if _DEBUG
 				sub->AddOption<BoolOption<std::atomic_bool>>("Log Window", nullptr, &g_Config->m_LogWindow, BoolDisplay::OnOff);
 				sub->AddOption<BoolOption<std::atomic_bool>>("Lock Cursor", nullptr, &g_Config->m_LockMouse, BoolDisplay::OnOff);
-#endif
 			});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Seperator", SubmenuSettingsSeperator, [](RegularSubmenu* sub) {
