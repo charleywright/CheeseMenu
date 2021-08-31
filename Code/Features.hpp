@@ -35,10 +35,8 @@ namespace Cheese
 		void DisableAntiAfkKick();
 
 		// Doomsday
-		void DoomsdayPrerequisite();
-		void SkipAct1();
-		void SkipAct2();
-		void SkipAct3();
+		void DoomsdayHardReset();
+		void DoomsdaySkipToReplay();
 
 		// Cayo Perico Heist
 		void ApplyCayoPerico();

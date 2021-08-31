@@ -165,42 +165,38 @@ namespace Cheese
 						   { g_Features->DisplayNotification("Maxed Armour"); });
 	}
 
-	void Features::DoomsdayPrerequisite()
+	void Features::DoomsdayHardReset()
 	{
 		int c_index = GetCharacterIndex();
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_HEIST_STATUS", c_index), 9999, 1);
-		g_QueueScript->Add([]
-						   { g_Features->DisplayNotification("~g~Call lester and cancel all 3 heists"); });
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_BITSET_MISS0", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_PASSED_BITSET", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_PROG", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_BITSET_MISS0", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_HEIST_STATUS", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index), 5, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_LAUNCH_TIME", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_IMPEXP_NUM", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_PREP_SKIP", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_SKIP", c_index), 0, 1);
+		g_Features->DisplayNotification("~g~Reset Doomsday Heist.");
 	}
 
-	void Features::SkipAct1()
+	void Features::DoomsdaySkipToReplay()
 	{
 		int c_index = GetCharacterIndex();
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index), 503, 1);
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_HEIST_STATUS", c_index), 229383, 1);
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index), 1557, 1);
-		g_QueueScript->Add([]
-						   { g_Features->DisplayNotification("~g~Skipped Act 1 preps & setups"); });
-	}
-
-	void Features::SkipAct2()
-	{
-		int c_index = GetCharacterIndex();
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index), 240, 1);
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_HEIST_STATUS", c_index), 229378, 1);
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index), 1557, 1);
-		g_QueueScript->Add([]
-						   { g_Features->DisplayNotification("~g~Skipped Act 2 preps & setups"); });
-	}
-
-	void Features::SkipAct3()
-	{
-		int c_index = GetCharacterIndex();
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index), 16368, 1);
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_HEIST_STATUS", c_index), 229380, 1);
-		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index), 1557, 1);
-		g_QueueScript->Add([]
-						   { g_Features->DisplayNotification("~g~Skipped Act 3 preps & setups"); });
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index), 0xFFFF, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_BITSET_MISS0", c_index), 0xFFFF, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_PASSED_BITSET", c_index), 0xFFFF, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_PROG", c_index), 16383, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_BITSET_MISS0", c_index), 16383, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_HEIST_STATUS", c_index), 877048, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index), 1573, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_LAUNCH_TIME", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_IMPEXP_NUM", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_PREP_SKIP", c_index), 0, 1);
+		STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_SKIP", c_index), 0, 1);
+		g_Features->DisplayNotification("~g~Skipped Doomsday Heist first completion.")
 	}
 
 	void Features::ApplyCayoPerico()
