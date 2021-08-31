@@ -284,6 +284,7 @@ namespace Cheese
 		if (g_Features->m_DoomsdayActOneReplay)
 		{
 			FLOW_MISSION_PROG += 65520;
+			FM_MISSION_PROG += 16376;
 			g_QueueScript->Add([c_index]
 							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_BITSET_MISS0", c_index), 65535, 1); });
 			g_QueueScript->Add([c_index]
@@ -319,15 +320,139 @@ namespace Cheese
 		g_QueueScript->Add([c_index]
 						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_SKIP", c_index), 0, 1); });
 		g_QueueScript->Add([]
-						   { g_Features->DisplayNotification("~g~The Doomsday Heist Act One settings applied. Wait for Lester's call"); });
+						   { g_Features->DisplayNotification("~g~The Doomsday Heist Act One settings applied"); });
 	}
 
 	void Features::ApplyDoomsdayActTwo()
 	{
+		int FLOW_MISSION_PROG = 15, FM_MISSION_PROG = 7, HEIST_STATUS = 458, FLOW_NOTIFICATIONS = 517, c_index = GetCharacterIndex();
+
+		if (g_Features->m_DoomsdayActTwoPrepOne)
+			FM_MISSION_PROG += 8;
+		if (g_Features->m_DoomsdayActTwoPrepTwo)
+			FM_MISSION_PROG += 16;
+		if (g_Features->m_DoomsdayActTwoPrepThree)
+			FM_MISSION_PROG += 32;
+		if (g_Features->m_DoomsdayActTwoPrepFour)
+			FM_MISSION_PROG += 64;
+		if (g_Features->m_DoomsdayActTwoPrepFive)
+			FM_MISSION_PROG += 128;
+		if (g_Features->m_DoomsdayActTwoSetupOne)
+			FLOW_MISSION_PROG += 16;
+		if (g_Features->m_DoomsdayActTwoSetupTwo)
+			FLOW_MISSION_PROG += 32;
+		if (g_Features->m_DoomsdayActTwoSetupThree)
+			FLOW_MISSION_PROG += 64;
+		if (g_Features->m_DoomsdayActTwoSetupFour)
+			FLOW_MISSION_PROG += 128;
+
+		if (g_Features->m_DoomsdayActTwoReplay)
+		{
+			FLOW_MISSION_PROG += 65024;
+			FM_MISSION_PROG += 16128;
+			g_QueueScript->Add([c_index]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_BITSET_MISS0", c_index), 65535, 1); });
+			g_QueueScript->Add([c_index]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_PASSED_BITSET", c_index), 65535, 1); });
+			g_QueueScript->Add([c_index]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_BITSET_MISS0", c_index), 16383, 1); });
+			HEIST_STATUS = 811514;
+			FLOW_NOTIFICATIONS = 1573;
+		}
+		else
+		{
+			g_QueueScript->Add([c_index, FLOW_MISSION_PROG]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_BITSET_MISS0", c_index), FLOW_MISSION_PROG, 1); });
+			g_QueueScript->Add([c_index, FLOW_MISSION_PROG]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_PASSED_BITSET", c_index), FLOW_MISSION_PROG, 1); });
+			g_QueueScript->Add([c_index, FM_MISSION_PROG]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_BITSET_MISS0", c_index), FM_MISSION_PROG, 1); });
+		}
+		g_QueueScript->Add([c_index, FLOW_MISSION_PROG]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index), FLOW_MISSION_PROG, 1); });
+		g_QueueScript->Add([c_index, FM_MISSION_PROG]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_PROG", c_index), FM_MISSION_PROG, 1); });
+		g_QueueScript->Add([c_index, HEIST_STATUS]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_HEIST_STATUS", c_index), HEIST_STATUS, 1); });
+		g_QueueScript->Add([c_index, FLOW_NOTIFICATIONS]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index), FLOW_NOTIFICATIONS, 1); });
+		g_QueueScript->Add([c_index]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_LAUNCH_TIME", c_index), 0x612E8593, 1); });
+		g_QueueScript->Add([c_index]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_IMPEXP_NUM", c_index), 0, 1); });
+		g_QueueScript->Add([c_index]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_PREP_SKIP", c_index), 0, 1); });
+		g_QueueScript->Add([c_index]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_SKIP", c_index), 0, 1); });
+		g_QueueScript->Add([]
+						   { g_Features->DisplayNotification("~g~The Doomsday Heist Act Two settings applied"); });
 	}
 
 	void Features::ApplyDoomsdayActThree()
 	{
+		int FLOW_MISSION_PROG = 511, FM_MISSION_PROG = 255, HEIST_STATUS = 476, FLOW_NOTIFICATIONS = 517, c_index = GetCharacterIndex();
+
+		if (g_Features->m_DoomsdayActThreePrepOne)
+			FM_MISSION_PROG += 256;
+		if (g_Features->m_DoomsdayActThreePrepTwo)
+			FM_MISSION_PROG += 512;
+		if (g_Features->m_DoomsdayActThreePrepThree)
+			FM_MISSION_PROG += 1024;
+		if (g_Features->m_DoomsdayActThreePrepFour)
+			FM_MISSION_PROG += 2048;
+		if (g_Features->m_DoomsdayActThreePrepFive)
+			FM_MISSION_PROG += 4096;
+		if (g_Features->m_DoomsdayActThreePrepSix)
+			FM_MISSION_PROG += 8192;
+		if (g_Features->m_DoomsdayActThreeSetupOne)
+			FLOW_MISSION_PROG += 512;
+		if (g_Features->m_DoomsdayActThreeSetupTwo)
+			FLOW_MISSION_PROG += 1024;
+		if (g_Features->m_DoomsdayActThreeSetupThree)
+			FLOW_MISSION_PROG += 2048;
+		if (g_Features->m_DoomsdayActThreeSetupFour)
+			FLOW_MISSION_PROG += 4096;
+		if (g_Features->m_DoomsdayActThreeSetupFive)
+			FLOW_MISSION_PROG += 8192;
+
+		if (g_Features->m_DoomsdayActThreeReplay)
+		{
+			g_QueueScript->Add([c_index]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_BITSET_MISS0", c_index), 65535, 1); });
+			g_QueueScript->Add([c_index]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_PASSED_BITSET", c_index), 65535, 1); });
+			g_QueueScript->Add([c_index]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_BITSET_MISS0", c_index), 16383, 1); });
+			HEIST_STATUS = 811516;
+			FLOW_NOTIFICATIONS = 1573;
+		}
+		else
+		{
+			g_QueueScript->Add([c_index, FLOW_MISSION_PROG]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_BITSET_MISS0", c_index), FLOW_MISSION_PROG, 1); });
+			g_QueueScript->Add([c_index, FLOW_MISSION_PROG]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_PASSED_BITSET", c_index), FLOW_MISSION_PROG, 1); });
+			g_QueueScript->Add([c_index, FM_MISSION_PROG]
+							   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_BITSET_MISS0", c_index), FM_MISSION_PROG, 1); });
+		}
+		g_QueueScript->Add([c_index, FLOW_MISSION_PROG]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_MISSION_PROG", c_index), FLOW_MISSION_PROG, 1); });
+		g_QueueScript->Add([c_index, FM_MISSION_PROG]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_PROG", c_index), FM_MISSION_PROG, 1); });
+		g_QueueScript->Add([c_index, HEIST_STATUS]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_HEIST_STATUS", c_index), HEIST_STATUS, 1); });
+		g_QueueScript->Add([c_index, FLOW_NOTIFICATIONS]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_NOTIFICATIONS", c_index), FLOW_NOTIFICATIONS, 1); });
+		g_QueueScript->Add([c_index]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_LAUNCH_TIME", c_index), 0x612E8593, 1); });
+		g_QueueScript->Add([c_index]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FLOW_IMPEXP_NUM", c_index), 0, 1); });
+		g_QueueScript->Add([c_index]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_PREP_SKIP", c_index), 0, 1); });
+		g_QueueScript->Add([c_index]
+						   { STATS::STAT_SET_INT(Stat("MPx_GANGOPS_FM_MISSION_SKIP", c_index), 0, 1); });
+		g_QueueScript->Add([]
+						   { g_Features->DisplayNotification("~g~The Doomsday Heist Act Three settings applied"); });
 	}
 
 	void Features::ApplyCayoPerico()
