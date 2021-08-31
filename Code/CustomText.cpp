@@ -4,7 +4,7 @@
 
 namespace Cheese
 {
-	void CustomText::AddText(std::uint32_t hash, const char* text)
+	void CustomText::AddText(std::uint32_t hash, const char *text)
 	{
 		auto size = std::strlen(text) + 1;
 		auto buffer = std::make_unique<char[]>(size);
@@ -18,7 +18,7 @@ namespace Cheese
 		m_TextMap.erase(hash);
 	}
 
-	const char* CustomText::GetText(std::uint32_t hash)
+	const char *CustomText::GetText(std::uint32_t hash)
 	{
 		if (auto it = m_TextMap.find(hash); it != m_TextMap.end())
 		{

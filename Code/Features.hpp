@@ -1,16 +1,15 @@
 #pragma once
 #include "Script.hpp"
-
+#include <memory>
 
 namespace Cheese
 {
 	class Features
 	{
 	public:
-		void DisplayNotification(const char* text);
+		void DisplayNotification(const char *text);
 
-		void SetIntStat(const char* stat, int character_index, int value);
-		void GetIntStat(const char* stat, int character_index, int* value);
+		const uint32_t Stat(std::string stat, int c_index);
 
 		bool m_FreezeWeather = false;
 		int m_hours = 12;
@@ -45,12 +44,14 @@ namespace Cheese
 		void ApplyCayoPerico();
 		void ApplyCayoPericoMaxPayout();
 
-		enum class CayoPericoDifficulty : int {
+		enum class CayoPericoDifficulty : int
+		{
 			Normal = 126823,
 			Hard = 131055
 		};
 
-		enum class CayoPericoMainTarget : int {
+		enum class CayoPericoMainTarget : int
+		{
 			Tequila = 0,
 			RubyNecklace = 1,
 			BearerBonds = 2,
@@ -59,7 +60,8 @@ namespace Cheese
 			SapphirePanther = 5
 		};
 
-		enum class CayoPericoWeapon : int {
+		enum class CayoPericoWeapon : int
+		{
 			None = 0,
 			Aggressor = 1,
 			Conspirator = 2,
@@ -68,7 +70,8 @@ namespace Cheese
 			Marksman = 5
 		};
 
-		enum class CayoPericoSupplyTruck : int {
+		enum class CayoPericoSupplyTruck : int
+		{
 			Airport = 1,
 			NorthDock = 2,
 			MainDockEast = 3,
@@ -76,7 +79,8 @@ namespace Cheese
 			InsideCompound = 5
 		};
 
-		enum class CayoPericoEntry : int {
+		enum class CayoPericoEntry : int
+		{
 			MainGate = 1,
 			NorthWall = 2,
 			NorthGate = 4,
@@ -85,7 +89,8 @@ namespace Cheese
 			DrainageTunnel = 32
 		};
 
-		enum class CayoPericoPlaythroughStatus : int {
+		enum class CayoPericoPlaythroughStatus : int
+		{
 			First = 0,
 			Second = 1,
 			SkipCutscene = 40000
@@ -132,26 +137,30 @@ namespace Cheese
 		// Diamond Casino
 		void ApplyDiamondCasino();
 
-		enum class DiamondCasinoApproach : int {
+		enum class DiamondCasinoApproach : int
+		{
 			Stealth = 1,
 			BigCon = 2,
 			Loud = 3
 		};
 
-		enum class DiamondCasinoMainTarget : int {
+		enum class DiamondCasinoMainTarget : int
+		{
 			Cash = 0,
 			Gold = 1,
 			Art = 2,
 			Diamonds = 3
 		};
 
-		enum class DiamondCasinoKeycard : int {
+		enum class DiamondCasinoKeycard : int
+		{
 			None = 0,
 			Level1 = 1,
 			Level2 = 2
 		};
 
-		enum class DiamondCasinoWeaponsmith : int {
+		enum class DiamondCasinoWeaponsmith : int
+		{
 			None = 0,
 			KarlAbolaji = 1,
 			GustavoMota = 2,
@@ -160,7 +169,8 @@ namespace Cheese
 			PatrickMcReary = 5
 		};
 
-		enum class DiamondCasinoDriver : int {
+		enum class DiamondCasinoDriver : int
+		{
 			None = 0,
 			KarimDenz = 1,
 			TalianaMartinez = 2,
@@ -169,7 +179,8 @@ namespace Cheese
 			ChesterMcCoy = 5
 		};
 
-		enum class DiamondCasinoHacker : int {
+		enum class DiamondCasinoHacker : int
+		{
 			None = 0,
 			RickieLukens = 1,
 			ChristianFeltz = 2,
@@ -178,14 +189,16 @@ namespace Cheese
 			PaigeHarris = 5
 		};
 
-		enum class DiamondCasinoVehicleType4 : int {
+		enum class DiamondCasinoVehicleType4 : int
+		{
 			Type1 = 0,
 			Type2 = 1,
 			Type3 = 2,
 			Type4 = 3
 		};
 
-		enum class DiamondCasinoVehicleType5 : int {
+		enum class DiamondCasinoVehicleType5 : int
+		{
 			Type1 = 0,
 			Type2 = 1,
 			Type3 = 2,
@@ -193,7 +206,8 @@ namespace Cheese
 			Type5 = 4
 		};
 
-		enum class DiamondCasinoWeapon : int {
+		enum class DiamondCasinoWeapon : int
+		{
 			First = 0,
 			Second = 2
 		};
