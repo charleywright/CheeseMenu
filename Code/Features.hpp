@@ -9,8 +9,6 @@ namespace Cheese
 	public:
 		void DisplayNotification(const char *text);
 
-		const uint32_t Stat(std::string stat, int c_index);
-
 		bool m_FreezeWeather = false;
 		int m_hours = 12;
 		int m_minutes = 30;
@@ -36,7 +34,42 @@ namespace Cheese
 
 		// Doomsday
 		void DoomsdayHardReset();
-		void DoomsdaySkipToReplay();
+		void DoomsdaySkipFirstCompletion();
+		void ApplyDoomsdayActOne();
+		void ApplyDoomsdayActTwo();
+		void ApplyDoomsdayActThree();
+
+		bool m_DoomsdayActOneReplay = true;
+		bool m_DoomsdayActOnePrepOne = true;
+		bool m_DoomsdayActOnePrepTwo = true;
+		bool m_DoomsdayActOnePrepThree = true;
+		bool m_DoomsdayActOneSetupOne = true;
+		bool m_DoomsdayActOneSetupTwo = true;
+		bool m_DoomsdayActOneSetupThree = true;
+
+		bool m_DoomsdayActTwoReplay = true;
+		bool m_DoomsdayActTwoPrepOne = true;
+		bool m_DoomsdayActTwoPrepTwo = true;
+		bool m_DoomsdayActTwoPrepThree = true;
+		bool m_DoomsdayActTwoPrepFour = true;
+		bool m_DoomsdayActTwoPrepFive = true;
+		bool m_DoomsdayActTwoSetupOne = true;
+		bool m_DoomsdayActTwoSetupTwo = true;
+		bool m_DoomsdayActTwoSetupThree = true;
+		bool m_DoomsdayActTwoSetupFour = true;
+
+		bool m_DoomsdayActThreeReplay = true;
+		bool m_DoomsdayActThreePrepOne = true;
+		bool m_DoomsdayActThreePrepTwo = true;
+		bool m_DoomsdayActThreePrepThree = true;
+		bool m_DoomsdayActThreePrepFour = true;
+		bool m_DoomsdayActThreePrepFive = true;
+		bool m_DoomsdayActThreePrepSix = true;
+		bool m_DoomsdayActThreeSetupOne = true;
+		bool m_DoomsdayActThreeSetupTwo = true;
+		bool m_DoomsdayActThreeSetupThree = true;
+		bool m_DoomsdayActThreeSetupFour = true;
+		bool m_DoomsdayActThreeSetupFive = true;
 
 		// Cayo Perico Heist
 		void ApplyCayoPerico();

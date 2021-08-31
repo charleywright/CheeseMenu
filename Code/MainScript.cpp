@@ -271,21 +271,56 @@ namespace Cheese
 													sub->AddOption<SubOption>("Doomsday Scenario Act 3", "The Doomsday Scenario", SubmenuHeistsDoomsdayActThree);
 													sub->AddOption<RegularOption>("Hard Reset", "Remove ALL completion, will not be a replay", []
 																				  { g_Features->DoomsdayHardReset(); });
-													sub->AddOption<RegularOption>("Skip To Replays", nullptr, []
-																				  { g_Features->DoomsdaySkipToReplay(); });
+													sub->AddOption<RegularOption>("Skip First Completion", nullptr, []
+																				  { g_Features->DoomsdaySkipFirstCompletion(); });
 												});
 
-		g_UiManager->AddSubmenu<RegularSubmenu>("The Doomsday Heist Act 1", SubmenuHeistsDoomsdayActOne, [](RegularSubmenu *sub) {
+		g_UiManager->AddSubmenu<RegularSubmenu>("The Doomsday Heist Act 1", SubmenuHeistsDoomsdayActOne, [](RegularSubmenu *sub)
+												{
+													sub->AddOption<BoolOption<bool>>("Replay", nullptr, &g_Features->m_DoomsdayActOneReplay, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Pramedic Equipment", nullptr, &g_Features->m_DoomsdayActOnePrepOne, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Deluxos", nullptr, &g_Features->m_DoomsdayActOnePrepTwo, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Akula", nullptr, &g_Features->m_DoomsdayActOnePrepThree, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Dead Courier", nullptr, &g_Features->m_DoomsdayActOneSetupOne, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Signal Intercepts", nullptr, &g_Features->m_DoomsdayActOneSetupTwo, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Server Farm", nullptr, &g_Features->m_DoomsdayActOneSetupThree, BoolDisplay::YesNo);
+													sub->AddOption<RegularOption>("Apply Settings", nullptr, []
+																				  { g_Features->ApplyDoomsdayActOne(); });
+												});
 
-		});
+		g_UiManager->AddSubmenu<RegularSubmenu>("The Doomsday Heist Act 2", SubmenuHeistsDoomsdayActTwo, [](RegularSubmenu *sub)
+												{
+													sub->AddOption<BoolOption<bool>>("Replay", nullptr, &g_Features->m_DoomsdayActTwoReplay, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Keycards", nullptr, &g_Features->m_DoomsdayActTwoPrepOne, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: ULP Intel", nullptr, &g_Features->m_DoomsdayActTwoPrepTwo, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Riot Control Van", nullptr, &g_Features->m_DoomsdayActTwoPrepThree, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Strombergs", nullptr, &g_Features->m_DoomsdayActTwoPrepFour, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Torpedo ECU", nullptr, &g_Features->m_DoomsdayActTwoPrepFive, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Avenger", nullptr, &g_Features->m_DoomsdayActTwoSetupOne, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Rescue ULP", nullptr, &g_Features->m_DoomsdayActTwoSetupTwo, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Salvage Hard Drives", nullptr, &g_Features->m_DoomsdayActTwoSetupThree, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Submarine Recon", nullptr, &g_Features->m_DoomsdayActTwoSetupFour, BoolDisplay::YesNo);
+													sub->AddOption<RegularOption>("Apply Settings", nullptr, []
+																				  { g_Features->ApplyDoomsdayActTwo(); });
+												});
 
-		g_UiManager->AddSubmenu<RegularSubmenu>("The Doomsday Heist Act 2", SubmenuHeistsDoomsdayActTwo, [](RegularSubmenu *sub) {
-
-		});
-
-		g_UiManager->AddSubmenu<RegularSubmenu>("The Doomsday Heist Act 3", SubmenuHeistsDoomsdayActThree, [](RegularSubmenu *sub) {
-
-		});
+		g_UiManager->AddSubmenu<RegularSubmenu>("The Doomsday Heist Act 3", SubmenuHeistsDoomsdayActThree, [](RegularSubmenu *sub)
+												{
+													sub->AddOption<BoolOption<bool>>("Replay", nullptr, &g_Features->m_DoomsdayActThreeReplay, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Marked Cash", nullptr, &g_Features->m_DoomsdayActThreePrepOne, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Recon", nullptr, &g_Features->m_DoomsdayActThreePrepTwo, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Chernobog", nullptr, &g_Features->m_DoomsdayActThreePrepThree, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Flight Path", nullptr, &g_Features->m_DoomsdayActThreePrepFour, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Test Site Intel", nullptr, &g_Features->m_DoomsdayActThreePrepFive, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Prep: Onboard Computer", nullptr, &g_Features->m_DoomsdayActThreePrepSix, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Rescue Agent 14", nullptr, &g_Features->m_DoomsdayActThreeSetupOne, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Escort ULP", nullptr, &g_Features->m_DoomsdayActThreeSetupTwo, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Barrage", nullptr, &g_Features->m_DoomsdayActThreeSetupThree, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Khanjali", nullptr, &g_Features->m_DoomsdayActThreeSetupFour, BoolDisplay::YesNo);
+													sub->AddOption<BoolOption<bool>>("Setup: Air Defenses", nullptr, &g_Features->m_DoomsdayActThreeSetupFive, BoolDisplay::YesNo);
+													sub->AddOption<RegularOption>("Apply Settings", nullptr, []
+																				  { g_Features->ApplyDoomsdayActThree(); });
+												});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Session", SubmenuSession, [](RegularSubmenu *sub)
 												{
