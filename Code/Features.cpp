@@ -486,6 +486,8 @@ namespace Cheese
 
 		g_QueueScript->Add([c_index]
 						   { STATS::STAT_SET_INT(Stat("MPx_H4CNF_WEAPONS", c_index), (int)g_Features->m_CayoPericoWeapon, 1); });
+		if (g_Features->m_CayoPericoWeapon != CayoPericoWeapon::None)
+			h4_missions += 4096;
 
 		if (g_Features->m_CayoPericoDisruptWeapons)
 		{
