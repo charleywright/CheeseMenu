@@ -97,6 +97,9 @@ namespace Cheese
 													sub->AddOption<RegularOption>("Ghost organization", "If not in CEO will default to Off Radar", []
 																				  { g_Features->GhostOrg(); });
 													sub->AddOption<BoolOption<bool>>("Fix Vehicle", nullptr, &g_Features->m_FixVehicle, BoolDisplay::OnOff);
+													sub->AddOption<NumberOption<int>>("Wanted Level", nullptr, &g_Features->m_WantedLevel, 0, 5, 1, 3, true, "", "", []
+																					  { *(int *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCPlayerInfo, Offsets::oWanted}) = g_Features->m_WantedLevel; });
+													sub->AddOption<BoolOption<bool>>("Freeze Wanted Level", nullptr, &g_Features->m_FreezeWanted, BoolDisplay::OnOff);
 													sub->AddOption<NumberOption<int>>("RP Correction Rank", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
 													sub->AddOption<RegularOption>("Set Rank", nullptr, []
 																				  { g_Features->RPCorrection(); });
