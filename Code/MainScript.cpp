@@ -15,7 +15,7 @@
 #include "UI/SubOption.hpp"
 #include "UI/RegularSubmenu.hpp"
 #include "UI/PlayerSubmenu.hpp"
-
+#include "ScriptGlobal.hpp"
 #include "Game.hpp"
 #include "Offsets.hpp"
 
@@ -125,6 +125,7 @@ namespace Cheese
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Recovery", SubmenuRecovery, [](RegularSubmenu *sub)
 												{
+													sub->AddOption<NumberOption<float>>("RP Multiplier", nullptr, ScriptGlobal(262145).Add(1).As<float *>(), 0.1f, 10.0f, 0.01f, 2);
 													sub->AddOption<NumberOption<int>>("RP Correction Rank", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
 													sub->AddOption<RegularOption>("Set Rank", nullptr, []
 																				  { g_Features->RPCorrection(); });
