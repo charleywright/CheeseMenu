@@ -3,6 +3,9 @@
 #include "Natives.hpp"
 #include "Lists.hpp"
 #include "Config.hpp"
+#include "Memory.hpp"
+#include "Game.hpp"
+#include "Offsets.hpp"
 
 namespace Cheese
 {
@@ -28,10 +31,15 @@ namespace Cheese
 	void FeaturesScript::Tick()
 	{
 		tickCount++;
-		if (tickCount >= g_Config->m_FeatureTickSize) {
-			if (g_Features->m_FixVehicle) g_Features->FixVehicle();
-			if(g_Features->m_FreezeTime) NETWORK::NETWORK_OVERRIDE_CLOCK_TIME(g_Features->m_hours, g_Features->m_minutes, g_Features->m_seconds);
-			if(g_Features->m_FreezeWeather) MISC::SET_WEATHER_TYPE_NOW_PERSIST(Lists::WeatherTypesBackend[Lists::WeatherTypePosition]);
+		if (tickCount >= g_Config->m_FeatureTickSize)
+		{
+			if (g_Features->m_FixVehicle)
+				g_Features->FixVehicle();
+			if (g_Features->m_FreezeTime)
+				NETWORK::NETWORK_OVERRIDE_CLOCK_TIME(g_Features->m_hours, g_Features->m_minutes, g_Features->m_seconds);
+			if (g_Features->m_FreezeWeather)
+				MISC::SET_WEATHER_TYPE_NOW_PERSIST(Lists::WeatherTypesBackend[Lists::WeatherTypePosition]);
+			*(byte *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::oGod}) = (g_Features->m_Godmode ? 0x01 : 0x00);
 			g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick();
 			tickCount = 0;
 		}

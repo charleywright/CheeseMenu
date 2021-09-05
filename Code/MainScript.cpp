@@ -16,6 +16,9 @@
 #include "UI/RegularSubmenu.hpp"
 #include "UI/PlayerSubmenu.hpp"
 
+#include "Game.hpp"
+#include "Offsets.hpp"
+
 namespace Cheese
 {
 	enum Submenu : std::uint32_t
@@ -103,6 +106,7 @@ namespace Cheese
 																				  { g_Features->MaxSnacks(); });
 													sub->AddOption<RegularOption>("Max Armor", nullptr, []
 																				  { g_Features->MaxArmour(); });
+													sub->AddOption<BoolOption<bool>>("Godmode", nullptr, &g_Features->m_Godmode, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, []
 																					 { g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick(); });
 												});
@@ -363,8 +367,8 @@ namespace Cheese
 													sub->AddOption<NumberOption<size_t>>("Options Per Page", nullptr, &g_Config->m_OptionsPerPage, 1, static_cast<size_t>(20));
 													sub->AddOption<BoolOption<bool>>("Sounds", nullptr, &g_Config->m_Sounds, BoolDisplay::OnOff);
 													sub->AddOption<NumberOption<size_t>>("Feature Tick Size", "How many ticks to wait between feature ticks", &g_Config->m_FeatureTickSize, 1, 50);
-													sub->AddOption<BoolOption<std::atomic_bool>>("Log Window", nullptr, &g_Config->m_LogWindow, BoolDisplay::OnOff);
-													sub->AddOption<BoolOption<std::atomic_bool>>("Lock Cursor", nullptr, &g_Config->m_LockMouse, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Log Window", nullptr, &g_Config->m_LogWindow, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Lock Cursor", nullptr, &g_Config->m_LockMouse, BoolDisplay::OnOff);
 												});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Seperator", SubmenuSettingsSeperator, [](RegularSubmenu *sub)

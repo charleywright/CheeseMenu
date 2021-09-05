@@ -14,6 +14,7 @@ namespace Cheese
 		int m_minutes = 30;
 		int m_seconds = 0;
 		bool m_FreezeTime = false;
+		bool m_Godmode = false;
 
 		bool m_FixVehicle = true;
 		void FixVehicle();

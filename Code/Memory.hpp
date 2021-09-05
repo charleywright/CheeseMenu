@@ -1,7 +1,19 @@
 #pragma once
+#include <vector>
 
 namespace Cheese
 {
+	inline uintptr_t DereferenceMultiLevel(std::uint32_t *ptr, std::vector<unsigned int> offsets)
+	{
+		uintptr_t addr = (uintptr_t)ptr;
+		for (short i = 0; i < offsets.size(); ++i)
+		{
+			addr = *(uintptr_t *)addr;
+			addr += offsets[i];
+		}
+		return addr;
+	};
+
 	class MemoryHandle
 	{
 	public:
@@ -9,17 +21,17 @@ namespace Cheese
 		 * \brief Constructs the object with a pointer
 		 * \param p The pointer to initialize the object with, optional
 		 */
-		constexpr MemoryHandle(void* p = nullptr) :
-			m_Ptr(p)
-		{}
+		constexpr MemoryHandle(void *p = nullptr) : m_Ptr(p)
+		{
+		}
 
 		/**
 		 * \brief Constructs the object with an integral pointer
 		 * \param p The integral pointer to initialize the object with
 		 */
-		explicit MemoryHandle(std::uintptr_t p) :
-			m_Ptr(reinterpret_cast<void*>(p))
-		{}
+		explicit MemoryHandle(std::uintptr_t p) : m_Ptr(reinterpret_cast<void *>(p))
+		{
+		}
 
 		/**
 		 * \brief Retrieves the pointer as a pointer
@@ -81,7 +93,7 @@ namespace Cheese
 		{
 			if (!m_Ptr)
 				return nullptr;
-			return Add(As<std::int32_t&>()).Add(4U);
+			return Add(As<std::int32_t &>()).Add(4U);
 		}
 
 		/**
@@ -92,8 +104,9 @@ namespace Cheese
 		{
 			return m_Ptr;
 		}
+
 	protected:
-		void* m_Ptr;
+		void *m_Ptr;
 	};
 
 	class MemoryRegion
@@ -104,10 +117,10 @@ namespace Cheese
 		 * \param base The base of the region
 		 * \param size The size of the region
 		 */
-		constexpr explicit MemoryRegion(MemoryHandle base, std::size_t size):
-			m_Base(base),
-			m_Size(size)
-		{}
+		constexpr explicit MemoryRegion(MemoryHandle base, std::size_t size) : m_Base(base),
+																			   m_Size(size)
+		{
+		}
 
 		/**
 		 * \brief Gets the base of the region
@@ -150,6 +163,7 @@ namespace Cheese
 
 			return true;
 		}
+
 	protected:
 		MemoryHandle m_Base;
 		std::size_t m_Size;
@@ -161,45 +175,44 @@ namespace Cheese
 		/**
 		 * \brief Constructs the class with the main modu�e
 		 */
-		explicit Module(std::nullptr_t):
-			Module(static_cast<char*>(nullptr))
-		{}
-		
+		explicit Module(std::nullptr_t) : Module(static_cast<char *>(nullptr))
+		{
+		}
+
 		/**
 		 * \brief Constructs the class with a module name
 		 * \param name The name of the module
 		 */
-		explicit Module(const char* name):
-			Module(GetModuleHandleA(name))
+		explicit Module(const char *name) : Module(GetModuleHandleA(name))
 		{
 		}
 
 		/**
 		 * \brief Constructs the class with a module base
 		 */
-		Module(HMODULE hmod):
-			MemoryRegion(hmod, 0)
+		Module(HMODULE hmod) : MemoryRegion(hmod, 0)
 		{
-			auto dosHeader = m_Base.As<IMAGE_DOS_HEADER*>();
-			auto ntHeader = m_Base.Add(dosHeader->e_lfanew).As<IMAGE_NT_HEADERS64*>();
+			auto dosHeader = m_Base.As<IMAGE_DOS_HEADER *>();
+			auto ntHeader = m_Base.Add(dosHeader->e_lfanew).As<IMAGE_NT_HEADERS64 *>();
 			m_Size = ntHeader->OptionalHeader.SizeOfImage;
 		}
 
 		/**
 		 * \brief Gets the DOS headers for the module
 		 */
-		IMAGE_DOS_HEADER* GetDosHeaders()
+		IMAGE_DOS_HEADER *GetDosHeaders()
 		{
-			return m_Base.As<IMAGE_DOS_HEADER*>();
+			return m_Base.As<IMAGE_DOS_HEADER *>();
 		}
 
 		/**
 		 * \brief Gets the NT headers for the module
 		 */
-		IMAGE_NT_HEADERS64* GetNtHeaders()
+		IMAGE_NT_HEADERS64 *GetNtHeaders()
 		{
-			return m_Base.Add(m_Base.As<IMAGE_DOS_HEADER*>()->e_lfanew).As<IMAGE_NT_HEADERS64*>();
+			return m_Base.Add(m_Base.As<IMAGE_DOS_HEADER *>()->e_lfanew).As<IMAGE_NT_HEADERS64 *>();
 		}
+
 	private:
 		/**
 		 * \brief Transforms a relative virtual address to a virtual address
@@ -224,7 +237,7 @@ namespace Cheese
 		 * \brief Constructs the signature with an IDA pattern
 		 * \param pattern The IDA pattern string
 		 */
-		explicit Signature(const char* pattern)
+		explicit Signature(const char *pattern)
 		{
 			auto toUpper = [](char c) -> char
 			{
@@ -263,16 +276,16 @@ namespace Cheese
 					continue;
 				if (*pattern == '?')
 				{
-					m_Elements.push_back(Element{ {}, true });
+					m_Elements.push_back(Element{{}, true});
 					continue;
 				}
 
 				if (*(pattern + 1) && isHex(*pattern) && isHex(*(pattern + 1)))
 				{
-					char str[3] = { *pattern, *(pattern + 1), '\0' };
+					char str[3] = {*pattern, *(pattern + 1), '\0'};
 					auto data = std::strtol(str, nullptr, 16);
 
-					m_Elements.push_back(Element{ static_cast<std::uint8_t>(data), false });
+					m_Elements.push_back(Element{static_cast<std::uint8_t>(data), false});
 				}
 			} while (*(pattern++));
 		}
@@ -284,7 +297,7 @@ namespace Cheese
 		 */
 		MemoryHandle Scan(MemoryRegion region = Module(nullptr))
 		{
-			auto compareMemory = [](std::uint8_t* data, Element* elem, std::size_t num) -> bool
+			auto compareMemory = [](std::uint8_t *data, Element *elem, std::size_t num) -> bool
 			{
 				for (std::size_t i = 0; i < num; ++i)
 				{
@@ -298,7 +311,7 @@ namespace Cheese
 
 			for (std::uintptr_t i = region.Base().As<std::uintptr_t>(), end = region.End().As<std::uintptr_t>(); i != end; ++i)
 			{
-				if (compareMemory(reinterpret_cast<std::uint8_t*>(i),  m_Elements.data(), m_Elements.size()))
+				if (compareMemory(reinterpret_cast<std::uint8_t *>(i), m_Elements.data(), m_Elements.size()))
 				{
 					return MemoryHandle(i);
 				}
@@ -306,6 +319,7 @@ namespace Cheese
 
 			return {};
 		}
+
 	private:
 		std::vector<Element> m_Elements;
 	};

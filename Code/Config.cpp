@@ -19,16 +19,20 @@ namespace Cheese
 			{
 				j = json::parse(raw_config);
 			}
-			catch (json::exception&)
+			catch (json::exception &)
 			{
 				valid = false;
 			}
-			if (!valid) {
-				g_QueueScript->Add([] { g_Features->DisplayNotification("~r~Failed to load config"); });
+			if (!valid)
+			{
+				g_QueueScript->Add([]
+								   { g_Features->DisplayNotification("~r~Failed to load config"); });
 				return;
 			}
 
 			// General
+			this->m_LockMouse = j.value("m_LockMouse", this->m_LockMouse);
+			this->m_LogWindow = j.value("m_LogWindow", this->m_LogWindow);
 			this->m_PosX = j.value("m_PosX", this->m_PosX);
 			this->m_PosY = j.value("m_PosY", this->m_PosY);
 			this->m_Width = j.value("m_Width", this->m_Width);
@@ -176,7 +180,8 @@ namespace Cheese
 			this->m_DescriptionSpriteColor.b = j["m_DescriptionSpriteColor"].value("b", this->m_DescriptionSpriteColor.b);
 			this->m_DescriptionSpriteColor.a = j["m_DescriptionSpriteColor"].value("a", this->m_DescriptionSpriteColor.a);
 
-			g_QueueScript->Add([] { g_Features->DisplayNotification("~g~Loaded config"); });
+			g_QueueScript->Add([]
+							   { g_Features->DisplayNotification("~g~Loaded config"); });
 		}
 	}
 
@@ -201,6 +206,8 @@ namespace Cheese
 	{
 		json j;
 		// General
+		j["m_LogWindow"] = this->m_LogWindow;
+		j["m_LockMouse"] = this->m_LockMouse;
 		j["m_PosX"] = this->m_PosX;
 		j["m_PosY"] = this->m_PosY;
 		j["m_Width"] = this->m_Width;
