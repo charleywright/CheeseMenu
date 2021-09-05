@@ -17,6 +17,10 @@ namespace Cheese
 		bool m_Godmode = false;
 		int m_WantedLevel = 0;
 		bool m_FreezeWanted = false;
+		bool m_SuperJump = false;
+		bool m_ExplosiveAmmo = false;
+		bool m_ExplosiveFist = false;
+		bool m_FireAmmo = false;
 
 		bool m_FixVehicle = true;
 		void FixVehicle();

@@ -25,6 +25,9 @@ namespace Cheese
 	{
 		SubmenuHome,
 		SubmenuPlayer,
+		SubmenuWeapon,
+		SubmenuVehicle,
+		SubmenuRecovery,
 		SubmenuWorld,
 		SubmenuHeists,
 		SubmenuHeistsCayoPerico,
@@ -76,6 +79,9 @@ namespace Cheese
 												{
 													sub->AddOption<SubOption>("Player", nullptr, SubmenuPlayer);
 													// sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
+													sub->AddOption<SubOption>("Weapon", nullptr, SubmenuWeapon);
+													// sub->AddOption<SubOption>("Vehicle", nullptr, SubmenuVehicle);
+													sub->AddOption<SubOption>("Recovery", nullptr, SubmenuRecovery);
 													sub->AddOption<SubOption>("World", nullptr, SubmenuWorld);
 													sub->AddOption<SubOption>("Heists", nullptr, SubmenuHeists);
 													sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
@@ -92,14 +98,33 @@ namespace Cheese
 												{
 													sub->AddOption<RegularOption>("Toggle instant BST", nullptr, []
 																				  { *ScriptGlobal(2441237).Add(4013).As<int *>() = 5; });
+													sub->AddOption<NumberOption<int>>("Wanted Level", nullptr, &g_Features->m_WantedLevel, 0, 5, 1, 3, true, "", "", []
+																					  { *(int *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCPlayerInfo, Offsets::oWanted}) = g_Features->m_WantedLevel; });
+													sub->AddOption<BoolOption<bool>>("Freeze Wanted Level", nullptr, &g_Features->m_FreezeWanted, BoolDisplay::OnOff);
 													sub->AddOption<RegularOption>("Off radar", nullptr, []
 																				  { g_Features->OffRadar(); });
 													sub->AddOption<RegularOption>("Ghost organization", "If not in CEO will default to Off Radar", []
 																				  { g_Features->GhostOrg(); });
 													sub->AddOption<BoolOption<bool>>("Fix Vehicle", nullptr, &g_Features->m_FixVehicle, BoolDisplay::OnOff);
-													sub->AddOption<NumberOption<int>>("Wanted Level", nullptr, &g_Features->m_WantedLevel, 0, 5, 1, 3, true, "", "", []
-																					  { *(int *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCPlayerInfo, Offsets::oWanted}) = g_Features->m_WantedLevel; });
-													sub->AddOption<BoolOption<bool>>("Freeze Wanted Level", nullptr, &g_Features->m_FreezeWanted, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Super Jump", nullptr, &g_Features->m_SuperJump, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Godmode", nullptr, &g_Features->m_Godmode, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, []
+																					 { g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick(); });
+												});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Weapon", SubmenuWeapon, [](RegularSubmenu *sub)
+												{
+													sub->AddOption<BoolOption<bool>>("Explosive Ammo", nullptr, &g_Features->m_ExplosiveAmmo, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Fire Ammo", nullptr, &g_Features->m_FireAmmo, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Explosive Melee", nullptr, &g_Features->m_ExplosiveFist, BoolDisplay::OnOff);
+												});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Vehicle", SubmenuVehicle, [](RegularSubmenu *sub) {
+
+		});
+
+		g_UiManager->AddSubmenu<RegularSubmenu>("Recovery", SubmenuRecovery, [](RegularSubmenu *sub)
+												{
 													sub->AddOption<NumberOption<int>>("RP Correction Rank", nullptr, &g_Features->m_RPCorrectionLevel, 1, 8000, 1);
 													sub->AddOption<RegularOption>("Set Rank", nullptr, []
 																				  { g_Features->RPCorrection(); });
@@ -109,9 +134,6 @@ namespace Cheese
 																				  { g_Features->MaxSnacks(); });
 													sub->AddOption<RegularOption>("Max Armor", nullptr, []
 																				  { g_Features->MaxArmour(); });
-													sub->AddOption<BoolOption<bool>>("Godmode", nullptr, &g_Features->m_Godmode, BoolDisplay::OnOff);
-													sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, []
-																					 { g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick(); });
 												});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("World", SubmenuWorld, [](RegularSubmenu *sub)

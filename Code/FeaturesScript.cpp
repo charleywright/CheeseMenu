@@ -30,6 +30,18 @@ namespace Cheese
 
 	void FeaturesScript::Tick()
 	{
+		byte *ffPtr = (byte *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCPlayerInfo, Offsets::oFrameFlags});
+		byte frameFlags = *ffPtr;
+		if (g_Features->m_ExplosiveAmmo)
+			frameFlags = frameFlags | 0x8;
+		if (g_Features->m_FireAmmo)
+			frameFlags = frameFlags | 0x10;
+		if (g_Features->m_ExplosiveFist)
+			frameFlags = frameFlags | 0x20;
+		if (g_Features->m_SuperJump)
+			frameFlags = frameFlags | 0x40;
+		*ffPtr = frameFlags;
+
 		tickCount++;
 		if (tickCount >= g_Config->m_FeatureTickSize)
 		{
