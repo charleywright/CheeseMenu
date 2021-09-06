@@ -127,6 +127,7 @@ namespace Cheese
 												{
 													sub->AddOption<BoolOption<bool>>("Fix Vehicle", nullptr, &g_Features->m_FixVehicle, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Unlimited Boost", nullptr, &g_Features->m_UnlimitedBoost, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Unlimited Ammo", "Missiles, Bombs, etc", &g_Features->m_UnlimitedVehicleAmmo, BoolDisplay::OnOff);
 												});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Recovery", SubmenuRecovery, [](RegularSubmenu *sub)

@@ -28,6 +28,7 @@ namespace Cheese
 		void UnlimitedBoost();
 		bool m_FixVehicle = false;
 		void FixVehicle();
+		bool m_UnlimitedVehicleAmmo = false;
 
 		void EnterSession(int type);
 		void LeaveGTAOnline();
