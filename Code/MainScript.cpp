@@ -108,6 +108,9 @@ namespace Cheese
 													sub->AddOption<BoolOption<bool>>("Super Jump", nullptr, &g_Features->m_SuperJump, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Seatbelt", "Never fall off bikes", &g_Features->m_Seatbelt, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("No Ragdoll", nullptr, &g_Features->m_NoRagdoll, BoolDisplay::OnOff);
+													sub->AddOption<NumberOption<float>>("Run Speed", nullptr, (float *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCPlayerInfo, Offsets::oRunSpeed}), 0.5f, 5.0f, 0.1f, 1);
+													sub->AddOption<NumberOption<float>>("Stealth Speed", nullptr, (float *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCPlayerInfo, Offsets::oWalkSpeed}), 0.5f, 5.0f, 0.1f, 1);
+													sub->AddOption<NumberOption<float>>("Swim Speed", nullptr, (float *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCPlayerInfo, Offsets::oSwimSpeed}), 0.5f, 5.0f, 0.1f, 1);
 													sub->AddOption<BoolOption<bool>>("Godmode", nullptr, &g_Features->m_Godmode, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, []
 																					 { g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick(); });
