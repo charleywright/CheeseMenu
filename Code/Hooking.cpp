@@ -9,9 +9,9 @@
 #include "Features.hpp"
 
 #ifdef _DEBUG
-#  pragma comment(lib, "MinHook-Debug.lib")
+#pragma comment(lib, "MinHook-Debug.lib")
 #else
-#  pragma comment(lib, "MinHook-Release.lib")
+#pragma comment(lib, "MinHook-Release.lib")
 #endif
 
 namespace Cheese
@@ -32,7 +32,7 @@ namespace Cheese
 		return static_cast<decltype(&IsDlcPresent)>(g_Hooking->m_OriginalIsDlcPresent)(hash);
 	}
 
-	const char* Hooks::GetLabelText(void* unk, const char* label)
+	const char *Hooks::GetLabelText(void *unk, const char *label)
 	{
 		if (g_Running)
 			if (auto text = g_CustomText->GetText(Joaat(label)))
@@ -41,10 +41,10 @@ namespace Cheese
 		return static_cast<decltype(&GetLabelText)>(g_Hooking->m_OriginalGetLabelText)(unk, label);
 	}
 
-	bool Hooks::GetEventData(std::int32_t eventGroup, std::int32_t eventIndex, std::int64_t* args, std::uint32_t argCount)
+	bool Hooks::GetEventData(std::int32_t eventGroup, std::int32_t eventIndex, std::int64_t *args, std::uint32_t argCount)
 	{
 		auto result = static_cast<decltype(&GetEventData)>(g_Hooking->m_OriginalGetEventData)(eventGroup, eventIndex, args, argCount);
-		
+
 		if (result && g_LogScriptEvents)
 		{
 			g_Logger->Info("Script event group: %i", eventGroup);
@@ -63,7 +63,7 @@ namespace Cheese
 		return static_cast<decltype(&WndProc)>(g_Hooking->m_OriginalWndProc)(hWnd, msg, wParam, lParam);
 	}
 
-	HRESULT Hooks::Present(IDXGISwapChain* dis, UINT syncInterval, UINT flags)
+	HRESULT Hooks::Present(IDXGISwapChain *dis, UINT syncInterval, UINT flags)
 	{
 		if (g_Running)
 		{
@@ -75,7 +75,7 @@ namespace Cheese
 		return g_Hooking->m_D3DHook.GetOriginal<decltype(&Present)>(PresentIndex)(dis, syncInterval, flags);
 	}
 
-	HRESULT Hooks::ResizeBuffers(IDXGISwapChain* dis, UINT bufferCount, UINT width, UINT height, DXGI_FORMAT newFormat, UINT swapChainFlags)
+	HRESULT Hooks::ResizeBuffers(IDXGISwapChain *dis, UINT bufferCount, UINT width, UINT height, DXGI_FORMAT newFormat, UINT swapChainFlags)
 	{
 		if (g_Running)
 		{
@@ -92,12 +92,8 @@ namespace Cheese
 		return g_Hooking->m_D3DHook.GetOriginal<decltype(&ResizeBuffers)>(ResizeBuffersIndex)(dis, bufferCount, width, height, newFormat, swapChainFlags);
 	}
 
-	Hooking::Hooking():
-		m_D3DHook(g_GameVariables->m_Swapchain, 18),
-		m_ObjectBypass(Signature("74 48 E8 ? ? ? ? 48 8B 48 48").Scan().Add(3).Rip().Add(30).As<char*>())
+	Hooking::Hooking() : m_D3DHook(g_GameVariables->m_Swapchain, 18)
 	{
-		std::copy_n(m_ObjectBypass, 2, m_OriginalObjectBypass);
-
 		MH_Initialize();
 		MH_CreateHook(g_GameFunctions->m_IsDlcPresent, &Hooks::IsDlcPresent, &m_OriginalIsDlcPresent);
 		MH_CreateHook(g_GameFunctions->m_GetLabelText, &Hooks::GetLabelText, &m_OriginalGetLabelText);
@@ -119,14 +115,12 @@ namespace Cheese
 
 	void Hooking::Hook()
 	{
-		std::fill_n(m_ObjectBypass, 2, '\x90');
 		m_D3DHook.Enable();
 		MH_EnableHook(MH_ALL_HOOKS);
 	}
 
 	void Hooking::Unhook()
 	{
-		std::copy_n(m_OriginalObjectBypass, 2, m_ObjectBypass);
 		m_D3DHook.Disable();
 		MH_DisableHook(MH_ALL_HOOKS);
 	}
