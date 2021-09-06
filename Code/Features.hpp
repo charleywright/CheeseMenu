@@ -21,10 +21,12 @@ namespace Cheese
 		bool m_ExplosiveAmmo = false;
 		bool m_ExplosiveFist = false;
 		bool m_FireAmmo = false;
+		bool m_NoRagdoll = false;
+		bool m_Seatbelt = false;
 
 		bool m_UnlimitedBoost = false;
 		void UnlimitedBoost();
-		bool m_FixVehicle = true;
+		bool m_FixVehicle = false;
 		void FixVehicle();
 
 		void EnterSession(int type);

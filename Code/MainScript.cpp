@@ -106,6 +106,8 @@ namespace Cheese
 													sub->AddOption<RegularOption>("Ghost organization", "If not in CEO will default to Off Radar", []
 																				  { g_Features->GhostOrg(); });
 													sub->AddOption<BoolOption<bool>>("Super Jump", nullptr, &g_Features->m_SuperJump, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Seatbelt", "Never fall off bikes", &g_Features->m_Seatbelt, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("No Ragdoll", nullptr, &g_Features->m_NoRagdoll, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Godmode", nullptr, &g_Features->m_Godmode, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, []
 																					 { g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick(); });
