@@ -80,7 +80,7 @@ namespace Cheese
 													sub->AddOption<SubOption>("Player", nullptr, SubmenuPlayer);
 													// sub->AddOption<SubOption>("Players", nullptr, SubmenuPlayerList);
 													sub->AddOption<SubOption>("Weapon", nullptr, SubmenuWeapon);
-													// sub->AddOption<SubOption>("Vehicle", nullptr, SubmenuVehicle);
+													sub->AddOption<SubOption>("Vehicle", nullptr, SubmenuVehicle);
 													sub->AddOption<SubOption>("Recovery", nullptr, SubmenuRecovery);
 													sub->AddOption<SubOption>("World", nullptr, SubmenuWorld);
 													sub->AddOption<SubOption>("Heists", nullptr, SubmenuHeists);
@@ -105,7 +105,6 @@ namespace Cheese
 																				  { g_Features->OffRadar(); });
 													sub->AddOption<RegularOption>("Ghost organization", "If not in CEO will default to Off Radar", []
 																				  { g_Features->GhostOrg(); });
-													sub->AddOption<BoolOption<bool>>("Fix Vehicle", nullptr, &g_Features->m_FixVehicle, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Super Jump", nullptr, &g_Features->m_SuperJump, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Godmode", nullptr, &g_Features->m_Godmode, BoolDisplay::OnOff);
 													sub->AddOption<BoolOption<bool>>("Anti AFK Kick", nullptr, &g_Features->m_AntiAFKKick, BoolDisplay::OnOff, false, []
@@ -119,9 +118,11 @@ namespace Cheese
 													sub->AddOption<BoolOption<bool>>("Explosive Melee", nullptr, &g_Features->m_ExplosiveFist, BoolDisplay::OnOff);
 												});
 
-		g_UiManager->AddSubmenu<RegularSubmenu>("Vehicle", SubmenuVehicle, [](RegularSubmenu *sub) {
-
-		});
+		g_UiManager->AddSubmenu<RegularSubmenu>("Vehicle", SubmenuVehicle, [](RegularSubmenu *sub)
+												{
+													sub->AddOption<BoolOption<bool>>("Fix Vehicle", nullptr, &g_Features->m_FixVehicle, BoolDisplay::OnOff);
+													sub->AddOption<BoolOption<bool>>("Unlimited Boost", nullptr, &g_Features->m_UnlimitedBoost, BoolDisplay::OnOff);
+												});
 
 		g_UiManager->AddSubmenu<RegularSubmenu>("Recovery", SubmenuRecovery, [](RegularSubmenu *sub)
 												{

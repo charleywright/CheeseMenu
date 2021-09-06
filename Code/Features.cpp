@@ -3,6 +3,7 @@
 #include "Lists.hpp"
 #include "RPLevels.hpp"
 #include "QueueScript.hpp"
+#include "Offsets.hpp"
 
 std::string GetStatString(std::string stat, int character)
 {
@@ -40,6 +41,38 @@ namespace Cheese
 	const uint32_t Stat(std::string stat, int c_index)
 	{
 		return Cheese::Joaat(stat.substr(0, 2).append(std::to_string(c_index)).append(stat.substr(3)).c_str());
+	}
+
+	void Features::UnlimitedBoost()
+	{
+		Ped playerPed = PLAYER::PLAYER_PED_ID();
+		bool pedExists = ENTITY::DOES_ENTITY_EXIST(playerPed);
+		if (!pedExists || !PED::IS_PED_IN_ANY_VEHICLE(playerPed, false))
+			return;
+		int hash = *(int *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCVehicle, Offsets::pCModelInfo, Offsets::oModelHash});
+		float *boost = (float *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCVehicle, Offsets::oVBoost});
+
+		switch (hash)
+		{
+		case CONSTEXPR_JOAAT("Oppressor2"):
+			if (IsKeyPressed(0x58) && *boost < 0.99f)
+				*boost = 1.f;
+			break;
+		case CONSTEXPR_JOAAT("Toreador"):
+			if (IsKeyPressed(0x45) && *boost < 0.99f)
+				*boost = 1.f;
+			break;
+		case CONSTEXPR_JOAAT("Scramjet"):
+			if (IsKeyPressed(0x58) && *boost < 2.24f)
+				*boost = 2.25f;
+			break;
+		case CONSTEXPR_JOAAT("Voltic2"):
+		case CONSTEXPR_JOAAT("Oppressor"):
+		case CONSTEXPR_JOAAT("Vigilante"):
+			if (IsKeyPressed(0x45) && *boost < 1.24f)
+				*boost = 1.25f;
+			break;
+		}
 	}
 
 	void Features::FixVehicle()

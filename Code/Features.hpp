@@ -22,6 +22,8 @@ namespace Cheese
 		bool m_ExplosiveFist = false;
 		bool m_FireAmmo = false;
 
+		bool m_UnlimitedBoost = false;
+		void UnlimitedBoost();
 		bool m_FixVehicle = true;
 		void FixVehicle();
 

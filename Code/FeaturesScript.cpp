@@ -53,8 +53,11 @@ namespace Cheese
 				MISC::SET_WEATHER_TYPE_NOW_PERSIST(Lists::WeatherTypesBackend[Lists::WeatherTypePosition]);
 			if (g_Features->m_FreezeWanted)
 				*(int *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::pCPlayerInfo, Offsets::oWanted}) = g_Features->m_WantedLevel;
+			if (g_Features->m_UnlimitedBoost)
+				g_Features->UnlimitedBoost();
 			*(byte *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::oGod}) = (g_Features->m_Godmode ? 0x01 : 0x00);
 			g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick();
+
 			tickCount = 0;
 		}
 	}
