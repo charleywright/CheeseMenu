@@ -67,7 +67,8 @@ namespace Cheese
 			}
 			*(byte *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::oGod}) = (g_Features->m_Godmode ? 0x01 : 0x00);
 			*(byte *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::oSeatbelt}) = (g_Features->m_Seatbelt ? 0xC9 : 0xC8);
-			*(byte *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::oRagdoll}) = (g_Features->m_NoRagdoll ? 0x01 : 0x20);
+			if (g_Features->m_NoRagdoll)
+				*(byte *)DereferenceMultiLevel(g_GameVariables->m_WorldPtr, {Offsets::pCPed, Offsets::oRagdoll}) = 1;
 			g_Features->m_AntiAFKKick ? g_Features->EnableAntiAfkKick() : g_Features->DisableAntiAfkKick();
 
 			tickCount = 0;

@@ -615,7 +615,9 @@ namespace Cheese
 		int h4_prog, target, c_index = GetCharacterIndex();
 		STATS::STAT_GET_INT(Stat("MPx_H4_PROGRESS", c_index), &h4_prog, -1);
 		STATS::STAT_GET_INT(Stat("MPx_H4CNF_TARGET", c_index), &target, -1);
-		int amount = (h4_prog == (int)CayoPericoDifficulty::Hard ? 2634297 : 2897727) / g_Features->m_CayoPericoCut * 100;
+		int amount = 2550000 / g_Features->m_CayoPericoCut * 100 / 88 * 100;
+		if (h4_prog == (int)CayoPericoDifficulty::Hard)
+			amount = amount / 110 * 100;
 		switch (target)
 		{
 		case 0:
