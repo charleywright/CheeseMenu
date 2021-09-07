@@ -87,8 +87,8 @@ namespace Cheese
 													sub->AddOption<SubOption>("Session", nullptr, SubmenuSession);
 													sub->AddOption<SubOption>("Settings", nullptr, SubmenuSettings);
 													sub->AddOption<RegularOption>(std::move(RegularOption("Server Invite", nullptr, []
-																										  { ShellExecuteA(0, 0, "https://discord.gg/J8486xStu6", 0, 0, SW_SHOW); })
-																								.SetRightText("discord.gg/J8486xStu6")));
+																										  { ShellExecuteA(0, 0, "https://discord.gg/htXFuy9yj4", 0, 0, SW_SHOW); })
+																								.SetRightText("discord.gg/htXFuy9yj4")));
 													sub->AddOption<RegularOption>(std::move(RegularOption("Game Version").SetRightText(g_GameVariables->m_GameBuild)));
 													sub->AddOption<RegularOption>("Unload", nullptr, []
 																				  { g_Running = false; });
